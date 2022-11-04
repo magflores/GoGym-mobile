@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">My Application</string>
+    <string name="logo">GOGYM!_LOGO</string>
+    <string name="e_mail_label_to_complete">E-MAIL</string>
+    <string name="password_label_to_complete">PASSWORD</string>
+    <string name="log_in">Log In</string>
+    <string name="rutines">Rutines</string>
+    <string name="exercises">Exercises</string>
+    <string name="enter_button">Enter</string>
+    <string name="forgot_password">Forgot your password? Click here</string>
 </resources>

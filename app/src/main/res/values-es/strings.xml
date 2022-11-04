@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Mi Applicación</string>
+    <string name="logo">LOGO_GOGYM!</string>
+    <string name="e_mail_label_to_complete">MAIL</string>
+    <string name="password_label_to_complete">CONTRASEÑA</string>
+    <string name="log_in">Iniciar Sesión</string>
+    <string name="rutines">Rutinas</string>
+    <string name="exercises">Ejercicios</string>
+    <string name="enter_button">Ingresar</string>
+    <string name="forgot_password">¿Olvidaste tu contraseña? Has click aquí</string>
+</resources>

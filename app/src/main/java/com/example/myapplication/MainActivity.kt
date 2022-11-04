@@ -1,5 +1,6 @@
 package com.example.myapplication
 
+import android.content.res.Configuration
 import android.icu.text.AlphabeticIndex
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
@@ -7,12 +8,20 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.myapplication.ui.theme.MyApplicationTheme
@@ -68,7 +77,6 @@ fun StyledTextField(labelText: String) {
         onValueChange = { value = it },
         label = { Text(text = labelText) },
         maxLines = 1,
-        // textStyle = TextStyle(color = Color.Blue, fontWeight = FontWeight.Bold),
         modifier = Modifier.padding(20.dp)
     )
 }
@@ -76,12 +84,17 @@ fun StyledTextField(labelText: String) {
 @Composable
 fun IconTitleSubTitle(title: String, mySubTitle: String) {
     Icon(
-// TODO
-        imageVector = Icons.Filled.Favorite,
-        contentDescription = "TODO",
+        // TODO: change size
+
+//        imageVector = Icons.Filled.Favorite,
+//        painter = painterResource(id = R.drawable.ic_launcher_background),
+        painter = painterResource(id = R.drawable.logo2docuatri),
+        contentDescription = R.string.logo.toString(),
+//        stringResource(id = )
     )
     Text(
         text = title,
+//        TODO: style = TextStyle(color = Color.Blue, fontWeight = FontWeight.Bold),
 //        modifier = Modifier.padding(16.dp)
     )
     Text(
@@ -93,6 +106,12 @@ fun IconTitleSubTitle(title: String, mySubTitle: String) {
 
 @Composable
 fun LogIn() {
+//    TODO
+//    val configuration = LocalConfiguration.current
+//    when (configuration.orientation ){
+//        Configuration.ORIENTATION_LANDSCAPE -> {}
+//        else -> {}
+//    }
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colors.background
@@ -104,13 +123,17 @@ fun LogIn() {
         ) {
             Column(
                 modifier = Modifier.padding(24.dp),
-                verticalArrangement = Arrangement.Center
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 IconTitleSubTitle(title = "GoGym!",
-                    mySubTitle = "Log In")
-                StyledTextField("E-MAIL")
-                StyledTextField("PASSWORD")
-                ButtonPlusTextBelow(buttonText = "Enter", textBelow = "Forgot your password? Click here")
+                    mySubTitle = stringResource(id = R.string.log_in))
+                StyledTextField(stringResource(id = R.string.e_mail_label_to_complete))
+                StyledTextField(stringResource(id = R.string.password_label_to_complete))
+                ButtonPlusTextBelow(
+                    stringResource(id = R.string.enter_button),
+                    stringResource(id  = R.string.forgot_password))
+                RutineCard(stringRutineName = "aaaaaaaaaaaaaaaaaaaaaa", stringAuthorRutine = "bbbbbbbbbb")
             }
         }
     }
@@ -125,7 +148,7 @@ fun ButtonPlusTextBelow(buttonText: String, textBelow: String) {
     ) {
         Text(text = buttonText)
     }
-    // TODO
+    // TODO link
     Text(text = textBelow)
 }
 
@@ -158,11 +181,34 @@ fun JoinUs() {
     }
 }
 
+@Composable
+fun RutineCard(stringRutineName: String, stringAuthorRutine: String) {
+//    TODO: no esta quedando bien el tamaño de la card con respecto a su contenido
+    Card(shape = RoundedCornerShape(24.dp),
+        modifier = Modifier
+            .size(1000.dp, 80.dp) //TODO chequear pero creo que va bien este tamaño
+            .padding(0.dp, 26.dp)
+        ,
+        backgroundColor = MaterialTheme.colors.primary) {
+        Column(
+//            modifier = Modifier.padding(10.dp),
+            horizontalAlignment = Alignment.CenterHorizontally) {
+            Text(color = Color.Black,
+                modifier = Modifier.padding(5.dp),
+                text = stringRutineName)
+            Text(color = Color.Black,
+                modifier = Modifier.padding(10.dp),
+                text = stringAuthorRutine)
+        }
+    }
+}
+
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
     MyApplicationTheme {
 //        JoinUs()
         LogIn()
+//        RutineCard(stringRutineName = "holaholaholaholahola", stringAuthorRutine = "chau")
     }
 }
