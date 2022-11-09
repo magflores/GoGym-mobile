@@ -3,8 +3,10 @@ package com.example.myapplication.ui.theme
 import androidx.compose.ui.graphics.Color
 
 val Green200 = Color(0xFFD1FD7A)
+val LightGreen = Color(0xFFF1FFD2)
 val Green400 = Color(0xFFF1FFD2)
 val Orange200 = Color(0xFFF8C256)
+val Grey = Color(0xFF2E2D29)
 
 val Purple200 = Color(0xFFBB86FC)
 val Purple500 = Color(0xFF6200EE)
