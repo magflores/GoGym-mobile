@@ -2,10 +2,10 @@ package com.example.myapplication
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 
@@ -43,10 +43,10 @@ fun BottomBar(navController: NavController) {
 }
 
 @Composable
-fun BottomNavLayout(navController: NavController, content: @Composable () -> Unit) {
+fun BottomNavLayout(navController: NavController, content: @Composable (PaddingValues) -> Unit) {
     Scaffold(
         bottomBar = { BottomBar(navController = navController) },
-        content = { content() }
+        content = content
     )
 }
 
