@@ -4,8 +4,11 @@
     <string name="e_mail_label_to_complete">E-MAIL</string>
     <string name="password_label_to_complete">PASSWORD</string>
     <string name="log_in">Log In</string>
-    <string name="rutines">Rutines</string>
+    <string name="rutines">Routines</string>
     <string name="exercises">Exercises</string>
     <string name="enter_button">Enter</string>
     <string name="forgot_password">Forgot your password? Click here</string>
+    <string name="fav_routines">Favourite Routines</string>
+    <string name="all_routines">All Routines</string>
+    <string name="my_routines">My Routines</string>
 </resources>
