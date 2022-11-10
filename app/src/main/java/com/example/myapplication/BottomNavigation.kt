@@ -63,6 +63,8 @@ fun FavRoutines(navController: NavController) {
 
 @Composable
 fun MyRoutines(navController: NavController) {
+    /*pasarle un callback para lo de logged in, que redirige a la pantalla que corresponde
+    * asi no hardcodeamos la direccion en cada pantalla*/
     BottomNavLayout(navController = navController) {
         Column(verticalArrangement = Arrangement.Center) {
             Text(text = "MY ROUTINES")
