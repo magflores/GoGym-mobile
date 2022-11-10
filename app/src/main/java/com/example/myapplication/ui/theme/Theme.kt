@@ -5,6 +5,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.myapplication.Greeting
 
@@ -17,16 +18,14 @@ private val DarkColorPalette = darkColors(
 private val LightColorPalette = lightColors(
     primary = Green200,
     primaryVariant = Green400,
-    secondary = Orange200
-
-    /* Other default colors to override
+    secondary = Orange200,
+//     Other default colors to override
     background = Color.White,
     surface = Color.White,
-    onPrimary = Color.White,
+    onPrimary = Color.Black,
     onSecondary = Color.Black,
     onBackground = Color.Black,
     onSurface = Color.Black,
-    */
 )
 
 @Composable
