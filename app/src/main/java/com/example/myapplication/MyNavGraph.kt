@@ -26,7 +26,7 @@ fun MyNavGraph(navController: NavHostController) {
         }
         composable(Screen.RoutineScreen.route) { backStackEntry ->
             val routineId = backStackEntry.arguments?.getInt("routineId") ?: 0
-            DetailedRoutine(routineId, onBack = { navController.popBackStack() })
+            DetailedRoutine(navController, routineId, onBack = { navController.popBackStack() })
         }
     }
 }
