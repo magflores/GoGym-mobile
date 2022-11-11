@@ -81,7 +81,7 @@ fun IconTitleSubTitle(title: String, mySubTitle: String) {
 //        imageVector = Icons.Filled.Favorite,
 //        painter = painterResource(id = R.drawable.ic_launcher_background),
         painter = painterResource(id = R.drawable.logo2docuatri),
-        contentDescription = R.string.logo.toString(),
+        contentDescription = stringResource(id = R.string.logo),
 //        stringResource(id = )
     )
     Text(
