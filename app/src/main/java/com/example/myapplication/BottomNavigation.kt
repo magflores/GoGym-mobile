@@ -90,6 +90,7 @@ fun AllRoutines(navController: NavController, onNotLoggedIn: () -> Unit) {
         Column(verticalArrangement = Arrangement.Center) {
             Text(text = "ALL ROUTINES")
         }
+        RutinesScreen()
 //        TODO make all routines screen
     }
 }

@@ -12,8 +12,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.compose.rememberNavController
 import com.example.myapplication.ui.theme.MyApplicationTheme
 
@@ -76,8 +78,6 @@ fun StyledTextField(labelText: String) {
 @Composable
 fun IconTitleSubTitle(title: String, mySubTitle: String) {
     Icon(
-        // TODO: change size
-
 //        imageVector = Icons.Filled.Favorite,
 //        painter = painterResource(id = R.drawable.ic_launcher_background),
         painter = painterResource(id = R.drawable.logo2docuatri),
@@ -86,11 +86,15 @@ fun IconTitleSubTitle(title: String, mySubTitle: String) {
     )
     Text(
         text = title,
+        fontWeight = FontWeight.Bold,
+        fontSize = 26.sp
 //        TODO: style = TextStyle(color = Color.Blue, fontWeight = FontWeight.Bold),
 //        modifier = Modifier.padding(16.dp)
     )
     Text(
         text = mySubTitle,
+        fontWeight = FontWeight.Bold,
+        fontSize = 26.sp,
         color = MaterialTheme.colors.secondary
 //        modifier = Modifier.padding(16.dp)
     )
@@ -120,12 +124,13 @@ fun LogIn() {
             ) {
                 IconTitleSubTitle(title = "GoGym!",
                     mySubTitle = stringResource(id = R.string.log_in))
+
                 StyledTextField(stringResource(id = R.string.e_mail_label_to_complete))
                 StyledTextField(stringResource(id = R.string.password_label_to_complete))
+
                 ButtonPlusTextBelow(
                     stringResource(id = R.string.enter_button),
                     stringResource(id  = R.string.forgot_password))
-                RutineCard(stringRutineName = "aaaaaaaaaaaaaaaaaaaaaa", stringAuthorRutine = "bbbbbbbbbb")
             }
         }
     }
@@ -138,10 +143,16 @@ fun ButtonPlusTextBelow(buttonText: String, textBelow: String) {
         colors = ButtonDefaults.buttonColors(
             backgroundColor = MaterialTheme.colors.secondary)
     ) {
-        Text(text = buttonText)
+        Text(text = buttonText,
+            fontWeight = FontWeight.Bold,
+            fontSize = 20.sp
+        )
     }
     // TODO link
-    Text(text = textBelow)
+    Text(text = textBelow,
+//        fontWeight = FontWeight.Bold,
+        fontSize = 18.sp
+    )
 }
 
 @Composable
@@ -177,10 +188,10 @@ fun JoinUs() {
 fun RutineCard(stringRutineName: String, stringAuthorRutine: String) {
 //    TODO: no esta quedando bien el tamaño de la card con respecto a su contenido
     Card(shape = RoundedCornerShape(24.dp),
-        modifier = Modifier
-            .size(1000.dp, 80.dp) //TODO chequear pero creo que va bien este tamaño
-            .padding(0.dp, 26.dp)
-        ,
+//        modifier = Modifier
+//            .size(1000.dp, 80.dp) //TODO chequear pero creo que va bien este tamaño
+//            .padding(0.dp, 26.dp)
+//        ,
         backgroundColor = MaterialTheme.colors.primary) {
         Column(
 //            modifier = Modifier.padding(10.dp),
