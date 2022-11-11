@@ -1,8 +1,21 @@
-# Compiled class file
-*.class
+*.iml
+.gradle
+/local.properties
+/.idea/caches
+/.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
+/.idea/navEditor.xml
+/.idea/assetWizardSettings.xml
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+.cxx
+local.properties
 
-# Log file
-*.log
+app/src/main/res/drawable-mdpi/profile_animu.jpg
+Footer
 
 # BlueJ files
 *.ctxt

@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
@@ -52,7 +53,11 @@ fun BottomNavLayout(navController: NavController, content: @Composable (PaddingV
 }
 
 @Composable
-fun FavRoutines(navController: NavController) {
+fun FavRoutines(navController: NavController, onNotLoggedIn: () -> Unit) {
+    LaunchedEffect(false) {
+        if (false)
+            onNotLoggedIn()
+    }
     BottomNavLayout(navController = navController) {
         Column(verticalArrangement = Arrangement.Center) {
             Text(text = "FAV ROUTINES")
@@ -62,9 +67,11 @@ fun FavRoutines(navController: NavController) {
 }
 
 @Composable
-fun MyRoutines(navController: NavController) {
-    /*pasarle un callback para lo de logged in, que redirige a la pantalla que corresponde
-    * asi no hardcodeamos la direccion en cada pantalla*/
+fun MyRoutines(navController: NavController, onNotLoggedIn: () -> Unit) {
+    LaunchedEffect(true) {
+        if (true)
+            onNotLoggedIn()
+    }
     BottomNavLayout(navController = navController) {
         Column(verticalArrangement = Arrangement.Center) {
             Text(text = "MY ROUTINES")
@@ -74,7 +81,11 @@ fun MyRoutines(navController: NavController) {
 }
 
 @Composable
-fun AllRoutines(navController: NavController) {
+fun AllRoutines(navController: NavController, onNotLoggedIn: () -> Unit) {
+    LaunchedEffect(false) {
+        if (false)
+            onNotLoggedIn()
+    }
     BottomNavLayout(navController = navController) {
         Column(verticalArrangement = Arrangement.Center) {
             Text(text = "ALL ROUTINES")

@@ -11,14 +11,15 @@ fun MyNavGraph(navController: NavHostController) {
         navController = navController,
         startDestination = Screen.FavRoutinesScreen.route
     ) {
+        val onNotLoggedIn = { navController.navigate(Screen.LogInScreen.route) }
         composable(Screen.FavRoutinesScreen.route) {
-            FavRoutines(navController)
+            FavRoutines(navController, onNotLoggedIn)
         }
         composable(Screen.MyRoutinesScreen.route) {
-            MyRoutines(navController)
+            MyRoutines(navController, onNotLoggedIn)
         }
         composable(Screen.AllRoutinesScreen.route) {
-            AllRoutines(navController)
+            AllRoutines(navController, onNotLoggedIn)
         }
         composable(Screen.LogInScreen.route) {
             LogIn()
