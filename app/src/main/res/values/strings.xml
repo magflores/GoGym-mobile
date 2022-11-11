@@ -11,4 +11,5 @@
     <string name="fav_routines">Favourite Routines</string>
     <string name="all_routines">All Routines</string>
     <string name="my_routines">My Routines</string>
+    <string name="routine">Routine</string>
 </resources>
