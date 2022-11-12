@@ -33,7 +33,9 @@ fun DetailedRoutine(navController: NavController, routineId: Int, onBack: () -> 
         ) { padding ->
             LazyColumn(
                 modifier = Modifier.padding(padding),
-                horizontalAlignment = Alignment.CenterHorizontally
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(16.dp),
+                contentPadding = PaddingValues(16.dp)
             ) {
                 this.item { RoutineInfoCard(modifier = Modifier.padding(padding)) }
                 this.item {
