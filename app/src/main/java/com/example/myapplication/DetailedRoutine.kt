@@ -46,31 +46,36 @@ fun DetailedRoutine(navController: NavController, routineId: Int, onBack: () -> 
                     )
                 }
                 this.items(items = getRoutineCycles()) {
-                    Card(
-                        backgroundColor = Color.LightGray
-                    ) {
-                        Column(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(16.dp)
-                        ) {
-                            Text(
-                                text = "${it.title} Repeat: ${it.repeats}",
-                                fontSize = 20.sp,
-                                fontWeight = FontWeight.Bold
-                            )
-                            Spacer(modifier = Modifier.height(8.dp))
-                            Text(
-                                text = "${it.repeats}", fontSize = 16.sp
-                            )
-                            for (exercise in it.exercises) {
-                                Text(
-                                    text = exercise, fontSize = 16.sp
-                                )
-                            }
-                        }
-                    }
+                    RoutineCycleCard(it)
                 }
+            }
+        }
+    }
+}
+
+@Composable
+private fun RoutineCycleCard(cycle: RoutineCycle) {
+    Card(
+        backgroundColor = Color.LightGray
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp)
+        ) {
+            Text(
+                text = "${cycle.title} Repeat: ${cycle.repeats}",
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(
+                text = "${cycle.repeats}", fontSize = 16.sp
+            )
+            for (exercise in cycle.exercises) {
+                Text(
+                    text = exercise, fontSize = 16.sp
+                )
             }
         }
     }
