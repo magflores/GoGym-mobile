@@ -31,24 +31,49 @@ fun DetailedRoutine(navController: NavController, routineId: Int, onBack: () -> 
             }
         }, modifier = Modifier.padding(bottomNavPadding)
         ) { padding ->
-            LazyColumn(
-                modifier = Modifier.padding(padding),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.spacedBy(16.dp),
-                contentPadding = PaddingValues(16.dp)
-            ) {
-                this.item { RoutineInfoCard(modifier = Modifier.padding(padding)) }
-                this.item {
-                    Spacer(
-                        modifier = Modifier
-                            .height(16.dp)
-                            .padding(padding)
+            BoxWithConstraints(modifier = Modifier.padding(padding)) {
+                val boxWithConstraintsScope = this
+                if (maxWidth < 600.dp) {
+                    RoutineDetailList(
+                        padding = padding,
+                        constraints = boxWithConstraintsScope
                     )
-                }
-                this.items(items = getRoutineCycles()) {
-                    RoutineCycleCard(it)
+                } else {
+                    Row {
+                        Box(modifier = Modifier.fillMaxWidth(0.3f)) {
+                            RoutineInfoCard()
+                        }
+                        RoutineDetailList(
+                            padding = padding,
+                            constraints = boxWithConstraintsScope,
+                        )
+                    }
                 }
             }
+        }
+    }
+}
+
+@Composable
+private fun RoutineDetailList(padding: PaddingValues, constraints : BoxWithConstraintsScope) {
+    LazyColumn(
+        modifier = Modifier.padding(padding),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(16.dp),
+        contentPadding = PaddingValues(16.dp)
+    ) {
+        if (constraints.maxWidth < 600.dp) {
+            this.item { RoutineInfoCard(modifier = Modifier.padding(padding)) }
+        }
+        this.item {
+            Spacer(
+                modifier = Modifier
+                    .height(16.dp)
+                    .padding(padding)
+            )
+        }
+        this.items(items = getRoutineCycles()) {
+            RoutineCycleCard(it)
         }
     }
 }
