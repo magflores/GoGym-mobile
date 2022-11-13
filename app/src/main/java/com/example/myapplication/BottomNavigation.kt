@@ -49,7 +49,6 @@ fun BottomNavLayout(navController: NavController, content: @Composable (PaddingV
     Scaffold(
         bottomBar = { BottomBar(navController = navController) },
         content = content,
-        topBar = { AppBar(title = "LALA", content) }
     )
 }
 
