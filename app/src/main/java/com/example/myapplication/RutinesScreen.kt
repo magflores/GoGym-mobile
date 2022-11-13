@@ -1,6 +1,5 @@
 package com.example.myapplication
 
-import android.annotation.SuppressLint
 import android.content.res.Configuration
 import android.graphics.ColorSpace
 import android.widget.Space
@@ -99,7 +98,6 @@ fun ListRow(model: RutineList){
 
 private val rutineList = mutableListOf<RutineList>()
 
-@SuppressLint("SwitchIntDef")
 @Composable
 fun RutinesScreen(){
     rutineList.add(RutineList("Rutina 1", stringResource(id = R.string.created_by, "pepe"), 4.2F, "Easy", "Abs"))
@@ -115,38 +113,6 @@ fun RutinesScreen(){
         modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colors.background
     ) {
-//        val myVar = false
-//        if (myVar) {
-//            LazyColumn(
-//                horizontalAlignment = Alignment.CenterHorizontally,
-//                verticalArrangement = Arrangement
-//                    .spacedBy(4.dp),
-//                contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
-//                modifier = Modifier
-//                    .fillMaxSize()
-//                    .background(Color.White)
-//            ) {
-//                items(rutineList) { model ->
-//                    ListRow(model = model)
-//                }
-//            }
-//        } else {
-//            LazyVerticalGrid(
-//                columns = GridCells.Adaptive(150.dp),
-//                verticalArrangement = Arrangement
-//                    .spacedBy(4.dp),
-//                contentPadding =
-//                PaddingValues(horizontal = 16.dp, vertical = 8.dp),
-//                modifier = Modifier
-//                    .fillMaxSize()
-//                    .background(Color.White)
-//            ) {
-//                items(rutineList) { model ->
-//                    ListRow(model = model)
-//                }
-//            }
-//        }
-
         val configuration = LocalConfiguration.current
         val myVar = false // TODO boton para cambiar vista
         if (myVar) {

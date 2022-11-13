@@ -49,7 +49,6 @@ fun BottomNavLayout(navController: NavController, content: @Composable (PaddingV
     Scaffold(
         bottomBar = { BottomBar(navController = navController) },
         content = content,
-        topBar = { AppBar(title = "LALA", content) }
     )
 }
 
@@ -62,6 +61,9 @@ fun FavRoutines(navController: NavController, onNotLoggedIn: () -> Unit) {
     BottomNavLayout(navController = navController) {
         Column(verticalArrangement = Arrangement.Center) {
             Text(text = "FAV ROUTINES")
+            Button(onClick = { navController.navigate("${Screen.RoutineScreen.route}/0") }) {
+                Text(text = "GO TO ROUTINE")
+            }
         }
 //        TODO make fav routines screen
     }
