@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.myapplication.ui.screens.detail.DetailedRoutine
 
 @Composable
 fun MyNavGraph(navController: NavHostController) {
