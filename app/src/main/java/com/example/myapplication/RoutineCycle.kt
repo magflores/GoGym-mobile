@@ -11,5 +11,5 @@ class RoutineCycle(
     val type: CycleType,
     val repetitions: Int,
     val exercises: List<CycleExercise>,
-    val metadata: Metadata,
+    val metadata: String,
 )
