@@ -1,5 +1,6 @@
 package com.example.myapplication
 
+import android.annotation.SuppressLint
 import android.content.res.Configuration
 import android.graphics.ColorSpace
 import android.widget.Space
@@ -98,6 +99,7 @@ fun ListRow(model: RutineList){
 
 private val rutineList = mutableListOf<RutineList>()
 
+@SuppressLint("SwitchIntDef")
 @Composable
 fun RutinesScreen(){
     rutineList.add(RutineList("Rutina 1", stringResource(id = R.string.created_by, "pepe"), 4.2F, "Easy", "Abs"))
@@ -194,6 +196,9 @@ fun RutinesScreen(){
                             ListRow(model = model)
                         }
                     }
+                }
+                Configuration.ORIENTATION_UNDEFINED -> {
+                    TODO()
                 }
             }
         }
