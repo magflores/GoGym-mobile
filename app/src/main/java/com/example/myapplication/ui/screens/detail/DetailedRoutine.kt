@@ -15,12 +15,12 @@ import com.example.myapplication.BottomNavLayout
 import com.example.myapplication.R
 
 @Composable
-fun DetailedRoutine(navController: NavController, routineId: Int, onBack: () -> Unit) {
+fun DetailedRoutine(navController: NavController, routineId: Int, onBack: () -> Unit, onPlay: () -> Unit) {
     BottomNavLayout(navController = navController) { bottomNavPadding ->
         Scaffold(topBar = {
             RoutineTopBar(onBack)
         }, floatingActionButton = {
-            FloatingActionButton(onClick = { /*TODO*/ }) {
+            FloatingActionButton(onClick = onPlay) {
                 Icon(Icons.Filled.PlayArrow, contentDescription = stringResource(id = R.string.play))
             }
         }, modifier = Modifier.padding(bottomNavPadding)

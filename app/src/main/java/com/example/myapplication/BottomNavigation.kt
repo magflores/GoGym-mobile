@@ -61,7 +61,7 @@ fun FavRoutines(navController: NavController, onNotLoggedIn: () -> Unit) {
     BottomNavLayout(navController = navController) {
         Column(verticalArrangement = Arrangement.Center) {
             Text(text = "FAV ROUTINES")
-            Button(onClick = { navController.navigate(Screen.RoutineScreen.route) }) {
+            Button(onClick = { navController.navigate("${Screen.RoutineScreen.route}/0") }) {
                 Text(text = "GO TO ROUTINE")
             }
         }

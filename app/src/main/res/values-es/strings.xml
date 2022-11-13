@@ -15,4 +15,5 @@
     <string name="routine">Rutina</string>
     <string name="play">Jugar</string>
     <string name="created_by">por %1$s</string>
+    <string name="play_routine">Ejecutar Rutina</string>
 </resources>

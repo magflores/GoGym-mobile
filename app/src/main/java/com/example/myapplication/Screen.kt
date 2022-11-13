@@ -11,5 +11,6 @@ sealed class Screen(val titleId: Int, val icon: ImageVector, val route:String) {
     object AllRoutinesScreen: Screen(R.string.all_routines, Icons.Filled.Edit, "all_routines_screen")
     object MyRoutinesScreen: Screen(R.string.my_routines, Icons.Filled.Edit, "my_routines_screen")
     object LogInScreen: Screen(R.string.log_in, Icons.Default.ArrowDropDown, "login_screen")
-    object RoutineScreen: Screen(R.string.routine, Icons.Filled.Edit, "routine_screen/{routineId}")
+    object RoutineScreen: Screen(R.string.routine, Icons.Filled.Edit, "routine_screen")
+    object PlayRoutineScreen: Screen(R.string.play_routine, Icons.Filled.Edit, "play_routine_screen")
 }
