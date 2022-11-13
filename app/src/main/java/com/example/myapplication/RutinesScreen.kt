@@ -7,6 +7,9 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
@@ -16,6 +19,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -66,7 +71,8 @@ fun ListRow(model: RutineList){
                     }
 //                    Spacer(modifier = Modifier.width(26.dp))
                     Column(
-                        modifier = Modifier.padding(5.dp, 0.dp)
+                        modifier = Modifier
+                            .padding(5.dp, 0.dp)
                             .fillMaxWidth(),
                         horizontalAlignment = Alignment.End)
                     {
@@ -93,30 +99,54 @@ private val rutineList = mutableListOf<RutineList>()
 
 @Composable
 fun RutinesScreen(){
-    rutineList.add(RutineList("Rutina 1", "by pepe", 4.2F, "Easy", "Abs"))
-    rutineList.add(RutineList("Rutina 2", "by pepe", 4.2F, "Easy", "Abs"))
-    rutineList.add(RutineList("Rutina 3", "by pepe", 4.2F, "Easy", "Abs"))
-    rutineList.add(RutineList("Rutina 4", "by pepe", 4.2F, "Easy", "Abs"))
-    rutineList.add(RutineList("Rutina 1", "by santi-trainer12", 4.2F, "Easy", "Abs"))
-    rutineList.add(RutineList("Rutina 2", "by santi-trainer12", 4.2F, "Easy", "Abs"))
-    rutineList.add(RutineList("Rutina 3", "by santi-trainer12", 4.2F, "Easy", "Abs"))
-    rutineList.add(RutineList("Rutina 4", "by santi-trainer12", 4.2F, "Easy", "Abs"))
+    rutineList.add(RutineList("Rutina 1", stringResource(id = R.string.created_by, "pepe"), 4.2F, "Easy", "Abs"))
+    rutineList.add(RutineList("Rutina 2", stringResource(id = R.string.created_by, "pepe"), 4.2F, "Easy", "Abs"))
+    rutineList.add(RutineList("Rutina 3", stringResource(id = R.string.created_by, "pepe"), 4.2F, "Easy", "Abs"))
+    rutineList.add(RutineList("Rutina 4", stringResource(id = R.string.created_by, "pepe"), 4.2F, "Easy", "Abs"))
+    rutineList.add(RutineList("Rutina 1", stringResource(id = R.string.created_by, "santi-trainer12") , 3.2F, "Hard", "Cardio"))
+    rutineList.add(RutineList("Rutina 2", stringResource(id = R.string.created_by, "santi-trainer12") , 3.2F, "Hard", "Cardio"))
+    rutineList.add(RutineList("Rutina 3", stringResource(id = R.string.created_by, "santi-trainer12") , 3.2F, "Hard", "Cardio"))
+    rutineList.add(RutineList("Rutina 4", stringResource(id = R.string.created_by, "santi-trainer12") , 3.2F, "Hard", "Cardio"))
 
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colors.background
     ) {
-        LazyColumn(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement
-                .spacedBy(4.dp),
-            contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
-            modifier = Modifier
-                .fillMaxSize()
-                .background(Color.White)
-        ){
-            items(rutineList) {
-                model -> ListRow(model = model)
+//    TODO
+//    val configuration = LocalConfiguration.current
+//    when (configuration.orientation ){
+//        Configuration.ORIENTATION_LANDSCAPE -> {}
+//        else -> {}
+//    }
+        val myVar = false
+        if (myVar) {
+            LazyColumn(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement
+                    .spacedBy(4.dp),
+                contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(Color.White)
+            ) {
+                items(rutineList) { model ->
+                    ListRow(model = model)
+                }
+            }
+        } else {
+            LazyVerticalGrid(
+                columns = GridCells.Adaptive(150.dp),
+                verticalArrangement = Arrangement
+                    .spacedBy(4.dp),
+                contentPadding =
+                PaddingValues(horizontal = 16.dp, vertical = 8.dp),
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(Color.White)
+            ) {
+                items(rutineList) { model ->
+                    ListRow(model = model)
+                }
             }
         }
     }

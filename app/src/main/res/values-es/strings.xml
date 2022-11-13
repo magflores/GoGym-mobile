@@ -12,4 +12,5 @@
     <string name="fav_routines">Rutinas Favoritas</string>
     <string name="all_routines">Rutinas</string>
     <string name="my_routines">Mis Rutinas</string>
+    <string name="created_by">por %1$s</string>
 </resources>
