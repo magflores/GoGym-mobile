@@ -1,5 +1,6 @@
 package com.example.myapplication
 
+import android.content.res.Configuration
 import android.graphics.ColorSpace
 import android.widget.Space
 import androidx.compose.foundation.Image
@@ -112,13 +113,40 @@ fun RutinesScreen(){
         modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colors.background
     ) {
-//    TODO
-//    val configuration = LocalConfiguration.current
-//    when (configuration.orientation ){
-//        Configuration.ORIENTATION_LANDSCAPE -> {}
-//        else -> {}
-//    }
-        val myVar = false
+//        val myVar = false
+//        if (myVar) {
+//            LazyColumn(
+//                horizontalAlignment = Alignment.CenterHorizontally,
+//                verticalArrangement = Arrangement
+//                    .spacedBy(4.dp),
+//                contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
+//                modifier = Modifier
+//                    .fillMaxSize()
+//                    .background(Color.White)
+//            ) {
+//                items(rutineList) { model ->
+//                    ListRow(model = model)
+//                }
+//            }
+//        } else {
+//            LazyVerticalGrid(
+//                columns = GridCells.Adaptive(150.dp),
+//                verticalArrangement = Arrangement
+//                    .spacedBy(4.dp),
+//                contentPadding =
+//                PaddingValues(horizontal = 16.dp, vertical = 8.dp),
+//                modifier = Modifier
+//                    .fillMaxSize()
+//                    .background(Color.White)
+//            ) {
+//                items(rutineList) { model ->
+//                    ListRow(model = model)
+//                }
+//            }
+//        }
+
+        val configuration = LocalConfiguration.current
+        val myVar = false // TODO boton para cambiar vista
         if (myVar) {
             LazyColumn(
                 horizontalAlignment = Alignment.CenterHorizontally,
@@ -134,18 +162,38 @@ fun RutinesScreen(){
                 }
             }
         } else {
-            LazyVerticalGrid(
-                columns = GridCells.Adaptive(150.dp),
-                verticalArrangement = Arrangement
-                    .spacedBy(4.dp),
-                contentPadding =
-                PaddingValues(horizontal = 16.dp, vertical = 8.dp),
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(Color.White)
-            ) {
-                items(rutineList) { model ->
-                    ListRow(model = model)
+            when (configuration.orientation){
+                Configuration.ORIENTATION_LANDSCAPE -> {
+                    LazyVerticalGrid(
+                        columns = GridCells.Adaptive(200.dp),
+                        verticalArrangement = Arrangement
+                            .spacedBy(4.dp),
+                        contentPadding =
+                        PaddingValues(horizontal = 16.dp, vertical = 8.dp),
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .background(Color.White)
+                    ) {
+                        items(rutineList) { model ->
+                            ListRow(model = model)
+                        }
+                    }
+                }
+                Configuration.ORIENTATION_PORTRAIT -> {
+                    LazyVerticalGrid(
+                        columns = GridCells.Adaptive(150.dp),
+                        verticalArrangement = Arrangement
+                            .spacedBy(4.dp),
+                        contentPadding =
+                        PaddingValues(horizontal = 16.dp, vertical = 8.dp),
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .background(Color.White)
+                    ) {
+                        items(rutineList) { model ->
+                            ListRow(model = model)
+                        }
+                    }
                 }
             }
         }
