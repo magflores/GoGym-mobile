@@ -48,7 +48,8 @@ fun BottomBar(navController: NavController) {
 fun BottomNavLayout(navController: NavController, content: @Composable (PaddingValues) -> Unit) {
     Scaffold(
         bottomBar = { BottomBar(navController = navController) },
-        content = content
+        content = content,
+        topBar = { AppBar(title = "LALA", content) }
     )
 }
 
@@ -90,6 +91,7 @@ fun AllRoutines(navController: NavController, onNotLoggedIn: () -> Unit) {
         Column(verticalArrangement = Arrangement.Center) {
             Text(text = "ALL ROUTINES")
         }
+        RutinesScreen()
 //        TODO make all routines screen
     }
 }
