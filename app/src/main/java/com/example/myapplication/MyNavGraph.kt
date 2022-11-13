@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.myapplication.ui.screens.detail.DetailedRoutine
 
 @Composable
 fun MyNavGraph(navController: NavHostController) {
@@ -23,6 +24,10 @@ fun MyNavGraph(navController: NavHostController) {
         }
         composable(Screen.LogInScreen.route) {
             LogIn()
+        }
+        composable(Screen.RoutineScreen.route) { backStackEntry ->
+            val routineId = backStackEntry.arguments?.getInt("routineId") ?: 0
+            DetailedRoutine(navController, routineId, onBack = { navController.popBackStack() })
         }
     }
 }
