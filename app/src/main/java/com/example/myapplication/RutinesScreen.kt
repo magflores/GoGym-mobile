@@ -131,7 +131,6 @@ fun RutinesScreen(){
             }
         } else {
             when (configuration.orientation){
-                Configuration.ORIENTATION_UNDEFINED,
                 Configuration.ORIENTATION_LANDSCAPE -> {
                     LazyVerticalGrid(
                         columns = GridCells.Adaptive(200.dp),
