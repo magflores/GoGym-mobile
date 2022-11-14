@@ -1,5 +1,7 @@
 package com.example.myapplication
 
+import com.example.myapplication.data.model.User
+
 enum class RoutineDifficulty {
     ROOKIE,
 }

@@ -38,4 +38,8 @@ object RetrofitClient {
             .client(okHttpClient)
             .build()
     }
+
+    fun getApiUserService(context: Context) : ApiUserService {
+        return getIntance(context).create(ApiUserService::class.java)
+    }
 }

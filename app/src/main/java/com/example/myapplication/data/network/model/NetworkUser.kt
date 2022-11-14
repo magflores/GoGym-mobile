@@ -1,5 +1,6 @@
 package com.example.myapplication.data.network.model
 
+import com.example.myapplication.data.model.User
 import com.google.gson.annotations.SerializedName
 import java.util.*
 
@@ -31,4 +32,15 @@ data class NetworkUser (
     var lastActivity: Date? = null,
     @SerializedName("verified")
     var verified: Boolean
-)
+) {
+    fun asModel() : User {
+        return User(
+            id = id,
+            username = username,
+            firstName = firstName,
+            lastName = lastName,
+            email = email,
+            lastActivity = lastActivity
+        )
+    }
+}
