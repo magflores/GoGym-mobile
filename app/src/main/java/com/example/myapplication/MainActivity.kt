@@ -5,14 +5,20 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -31,35 +37,32 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-
 @Composable
-fun MyApp(names: List<String> = listOf("Cami", "Magui", "Santi", "Juan")) {
-    // A surface container using the 'background' color from the theme
-    Surface(
-        modifier = Modifier.fillMaxSize(),
-        color = MaterialTheme.colors.background
-    ) {
-        Row {
-            for (name in names) {
-                Greeting(name = name)
+fun StyledTextFieldPassword(labelText: String){
+    var value by remember { mutableStateOf("") }
+    var passwordVisible by rememberSaveable { mutableStateOf(false) }
+
+    TextField(
+        value = value,
+        onValueChange = { value = it },
+        label = { Text(text = labelText) },
+        maxLines = 1,
+        modifier = Modifier.padding(20.dp),
+        visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+        trailingIcon = {
+            val image = if (passwordVisible)
+                painterResource(id = R.drawable.baseline_visibility_black_18)
+            else painterResource(id = R.drawable.baseline_visibility_off_black_24)
+
+            // Please provide localized description for accessibility services
+            val description = if (passwordVisible) stringResource(id = R.string.hide_password) else stringResource(id = R.string.show_password)
+
+            IconButton(onClick = {passwordVisible = !passwordVisible}){
+                Icon(painter = image, description)
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String) {
-    Column(modifier = Modifier.padding(24.dp)) {
-        Text(
-            text = "Hello, ",
-            color = MaterialTheme.colors.secondary
-        )
-        Text(
-            text = name,
-            color = MaterialTheme.colors.primary
-        )
-        Text(text = "Bye")
-    }
+    )
 }
 
 @Composable
@@ -71,7 +74,7 @@ fun StyledTextField(labelText: String) {
         onValueChange = { value = it },
         label = { Text(text = labelText) },
         maxLines = 1,
-        modifier = Modifier.padding(20.dp)
+        modifier = Modifier.padding(20.dp),
     )
 }
 
@@ -126,7 +129,7 @@ fun LogIn() {
                     mySubTitle = stringResource(id = R.string.log_in))
 
                 StyledTextField(stringResource(id = R.string.e_mail_label_to_complete))
-                StyledTextField(stringResource(id = R.string.password_label_to_complete))
+                StyledTextFieldPassword(stringResource(id = R.string.password_label_to_complete))
 
                 ButtonPlusTextBelow(
                     stringResource(id = R.string.enter_button),
@@ -156,35 +159,6 @@ fun ButtonPlusTextBelow(buttonText: String, textBelow: String) {
 }
 
 @Composable
-fun JoinUs() {
-    Surface(
-        modifier = Modifier.fillMaxSize(),
-        color = MaterialTheme.colors.background
-    ) {
-        Row(
-            modifier = Modifier.padding(24.dp),
-            horizontalArrangement = Arrangement.Center,
-            // verticalAlignment = Arrangement.Center
-        ) {
-            Column(
-                modifier = Modifier.padding(24.dp),
-                verticalArrangement = Arrangement.Center
-            ) {
-                IconTitleSubTitle(title = "GoGym!", mySubTitle = "JoinUs")
-                StyledTextField("NAME")
-                StyledTextField("SURNAME")
-                StyledTextField("E-MAIL")
-                StyledTextField("BIRTHDAY")
-                StyledTextField("PASSWORD")
-                StyledTextField("CONFIRM PASSWORD")
-                ButtonPlusTextBelow(buttonText = "REGISTER",
-                    textBelow = "Already have an account? Log in here")
-            }
-        }
-    }
-}
-
-@Composable
 fun RutineCard(stringRutineName: String, stringAuthorRutine: String) {
 //    TODO: no esta quedando bien el tamaño de la card con respecto a su contenido
     Card(shape = RoundedCornerShape(24.dp),
@@ -210,8 +184,6 @@ fun RutineCard(stringRutineName: String, stringAuthorRutine: String) {
 @Composable
 fun DefaultPreview() {
     MyApplicationTheme {
-//        JoinUs()
         LogIn()
-//        RutineCard(stringRutineName = "holaholaholaholahola", stringAuthorRutine = "chau")
     }
 }
