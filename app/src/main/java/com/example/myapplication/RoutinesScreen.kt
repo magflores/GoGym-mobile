@@ -1,21 +1,15 @@
 package com.example.myapplication
 
 import android.content.res.Configuration
-import android.graphics.ColorSpace
-import android.widget.Space
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Favorite
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -23,16 +17,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.myapplication.ui.theme.MyApplicationTheme
 
-data class RutineList(val title: String, val subTitle: String, val score: Float,
-                      val difficulty: String, val category: String)
+data class RoutineList(val title: String, val subTitle: String, val score: Float,
+                       val difficulty: String, val category: String)
 
 @Composable
-fun ListRow(model: RutineList){
+fun ListRow(model: RoutineList){
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
@@ -96,36 +88,101 @@ fun ListRow(model: RutineList){
     }
 }
 
-private val rutineList = mutableListOf<RutineList>()
+private val routineList = mutableListOf<RoutineList>()
 
 @Composable
-fun RutinesScreen(){
-    rutineList.add(RutineList("Rutina 1", stringResource(id = R.string.created_by, "pepe"), 4.2F, "Easy", "Abs"))
-    rutineList.add(RutineList("Rutina 2", stringResource(id = R.string.created_by, "pepe"), 4.2F, "Easy", "Abs"))
-    rutineList.add(RutineList("Rutina 3", stringResource(id = R.string.created_by, "pepe"), 4.2F, "Easy", "Abs"))
-    rutineList.add(RutineList("Rutina 4", stringResource(id = R.string.created_by, "pepe"), 4.2F, "Easy", "Abs"))
-    rutineList.add(RutineList("Rutina 1", stringResource(id = R.string.created_by, "santi-trainer12") , 3.2F, "Hard", "Cardio"))
-    rutineList.add(RutineList("Rutina 2", stringResource(id = R.string.created_by, "santi-trainer12") , 3.2F, "Hard", "Cardio"))
-    rutineList.add(RutineList("Rutina 3", stringResource(id = R.string.created_by, "santi-trainer12") , 3.2F, "Hard", "Cardio"))
-    rutineList.add(RutineList("Rutina 4", stringResource(id = R.string.created_by, "santi-trainer12") , 3.2F, "Hard", "Cardio"))
+fun RutinesScreen(padding: PaddingValues){
+    routineList.add(RoutineList("Rutina 1", stringResource(id = R.string.created_by, "pepe"), 4.2F, "Easy", "Abs"))
+    routineList.add(RoutineList("Rutina 2", stringResource(id = R.string.created_by, "pepe"), 4.2F, "Easy", "Abs"))
+    routineList.add(RoutineList("Rutina 3", stringResource(id = R.string.created_by, "pepe"), 4.2F, "Easy", "Abs"))
+    routineList.add(RoutineList("Rutina 4", stringResource(id = R.string.created_by, "pepe"), 4.2F, "Easy", "Abs"))
+    routineList.add(RoutineList("Rutina 1", stringResource(id = R.string.created_by, "santi-trainer12") , 3.2F, "Hard", "Cardio"))
+    routineList.add(RoutineList("Rutina 2", stringResource(id = R.string.created_by, "santi-trainer12") , 3.2F, "Hard", "Cardio"))
+    routineList.add(RoutineList("Rutina 3", stringResource(id = R.string.created_by, "santi-trainer12") , 3.2F, "Hard", "Cardio"))
+    routineList.add(RoutineList("Rutina 4", stringResource(id = R.string.created_by, "santi-trainer12") , 3.2F, "Hard", "Cardio"))
 
-    Surface(
-        modifier = Modifier.fillMaxSize(),
-        color = MaterialTheme.colors.background
+    /*
+    BottomNavLayout(navController = navController) { bottomNavPadding ->
+        Scaffold(
+            topBar = {RoutineTopBar(onBack)},
+            modifier = Modifier.padding(bottomNavPadding)
+        ) { padding ->
+            val configuration = LocalConfiguration.current
+            val myVar = false // TODO boton para cambiar vista
+            if (myVar) {
+                LazyColumn(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement
+                        .spacedBy(4.dp),
+                    contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
+                    modifier = Modifier
+                        .padding(padding)
+                        .background(Color.White)
+                ) {
+                    items(rutineList) { model ->
+                        ListRow(model = model)
+                    }
+                }
+            } else {
+                when (configuration.orientation){
+                    Configuration.ORIENTATION_LANDSCAPE -> {
+                        LazyVerticalGrid(
+                            columns = GridCells.Adaptive(200.dp),
+                            verticalArrangement = Arrangement
+                                .spacedBy(4.dp),
+                            contentPadding =
+                            PaddingValues(horizontal = 16.dp, vertical = 8.dp),
+                            modifier = Modifier
+                                .padding(padding)
+                                .background(Color.White)
+                        ) {
+                            items(rutineList) { model ->
+                                ListRow(model = model)
+                            }
+                        }
+                    }
+                    Configuration.ORIENTATION_PORTRAIT -> {
+                        LazyVerticalGrid(
+                            columns = GridCells.Adaptive(150.dp),
+                            verticalArrangement = Arrangement
+                                .spacedBy(4.dp),
+                            contentPadding =
+                            PaddingValues(horizontal = 16.dp, vertical = 8.dp),
+                            modifier = Modifier
+                                .padding(padding)
+                                .background(Color.White)
+                        ) {
+                            items(rutineList) { model ->
+                                ListRow(model = model)
+                            }
+                        }
+                    }
+                    Configuration.ORIENTATION_UNDEFINED -> {
+                        TODO()
+                    }
+                }
+            }
+        }
+    }
+    */
+    val typeView = true // TODO boton para cambiar vista
+    Scaffold(
+        topBar = {
+            AllRoutinesAppBar(title = "ALL ROUTINES", typeView)
+        },
+        modifier = Modifier.padding(padding)
     ) {
         val configuration = LocalConfiguration.current
-        val myVar = false // TODO boton para cambiar vista
-        if (myVar) {
+        if (typeView) {
             LazyColumn(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement
                     .spacedBy(4.dp),
                 contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
                 modifier = Modifier
-                    .fillMaxSize()
                     .background(Color.White)
             ) {
-                items(rutineList) { model ->
+                items(routineList) { model ->
                     ListRow(model = model)
                 }
             }
@@ -139,10 +196,9 @@ fun RutinesScreen(){
                         contentPadding =
                         PaddingValues(horizontal = 16.dp, vertical = 8.dp),
                         modifier = Modifier
-                            .fillMaxSize()
                             .background(Color.White)
                     ) {
-                        items(rutineList) { model ->
+                        items(routineList) { model ->
                             ListRow(model = model)
                         }
                     }
@@ -155,10 +211,10 @@ fun RutinesScreen(){
                         contentPadding =
                         PaddingValues(horizontal = 16.dp, vertical = 8.dp),
                         modifier = Modifier
-                            .fillMaxSize()
+                            .padding(it)
                             .background(Color.White)
                     ) {
-                        items(rutineList) { model ->
+                        items(routineList) { model ->
                             ListRow(model = model)
                         }
                     }
@@ -172,10 +228,10 @@ fun RutinesScreen(){
 }
 
 
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreviewRutinesScreen() {
-    MyApplicationTheme {
-        RutinesScreen()
-    }
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun DefaultPreviewRutinesScreen() {
+//    MyApplicationTheme {
+//        RutinesScreen()
+//    }
+//}
