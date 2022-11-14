@@ -52,8 +52,8 @@ fun StyledTextFieldPassword(labelText: String){
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
         trailingIcon = {
             val image = if (passwordVisible)
-                painterResource(id = R.drawable.baseline_visibility_black_18)
-            else painterResource(id = R.drawable.baseline_visibility_off_black_24)
+                painterResource(id = R.drawable.baseline_visibility_black_36)
+            else painterResource(id = R.drawable.baseline_visibility_off_black_36)
 
             // Please provide localized description for accessibility services
             val description = if (passwordVisible) stringResource(id = R.string.hide_password) else stringResource(id = R.string.show_password)
