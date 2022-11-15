@@ -42,4 +42,9 @@ object RetrofitClient {
     fun getApiUserService(context: Context) : ApiUserService {
         return getIntance(context).create(ApiUserService::class.java)
     }
+
+    fun getApiRoutinesService(context: Context) : ApiRoutinesService {
+//        return retrofit.create(ApiRoutinesService::class.java)
+        return getIntance(context).create(ApiRoutinesService::class.java)
+    }
 }
