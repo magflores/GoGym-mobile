@@ -1,5 +1,6 @@
 package com.example.myapplication.data.network.model
 
+import com.example.myapplication.data.model.Routine
 import com.google.gson.annotations.SerializedName
 import java.util.*
 
@@ -17,13 +18,29 @@ data class NetworkRoutines(
 //    tambien lo uso en getExecutionById
 
     @SerializedName("id") var id: Int? = null,
-    @SerializedName("name") var name: String? = null,
-    @SerializedName("detail") var detail: String? = null,
-    @SerializedName("date") var date: Date? = null,
-    @SerializedName("score") var score: Int? = null,
-    @SerializedName("isPublic") var isPublic: Boolean? = null,
-    @SerializedName("difficulty") var difficulty: String? = null,
-    @SerializedName("user") var user: NetworkUserRoutines? = NetworkUserRoutines(),
-    @SerializedName("category") var category: NetworkRoutineCategory? = NetworkRoutineCategory(),
-    @SerializedName("metadata") var metadata: NetworkUserMetadata? = null
-)
+    @SerializedName("name") var name: String,
+    @SerializedName("detail") var detail: String,
+    @SerializedName("date") var date: Date,
+    @SerializedName("score") var score: Int,
+    @SerializedName("isPublic") var isPublic: Boolean,
+    @SerializedName("difficulty") var difficulty: String,
+    @SerializedName("user") var user: NetworkUserRoutines,
+    @SerializedName("category") var category: NetworkRoutineCategory,
+    @SerializedName("metadata") var metadata: NetworkUserMetadata
+) {
+    fun asModel(): Routine {
+        return Routine(
+            id = id,
+            name = name,
+            detail = detail,
+            date = date,
+            score = score,
+            isPublic = isPublic,
+            difficulty = difficulty,
+            user = user.asModel(),
+            category = category.name,
+            cycles = null,
+            metadata = "",
+        )
+    }
+}

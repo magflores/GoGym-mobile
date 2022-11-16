@@ -84,7 +84,7 @@ interface ApiRoutinesService {
 
     @GET("favourites")
     suspend fun getFavourites(
-        @Query("page") page: Int, @Query("size") size: Int
+        @Query("page") page: Int? = null, @Query("size") size: Int? = null
     ): Response<NetworkPagedContent<NetworkRoutines>>
 
     @POST("favourites/{routineId}")
