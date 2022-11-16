@@ -1,13 +1,16 @@
 package com.example.myapplication
 
 import androidx.compose.runtime.Composable
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.example.myapplication.ui.screens.detail.DetailedRoutine
+import com.example.myapplication.ui.screens.favroutines.FavRoutines
 import com.example.myapplication.ui.screens.play.PlayRoutine
+import com.example.myapplication.util.getViewModelFactory
 
 @Composable
 fun MyNavGraph(navController: NavHostController) {
@@ -17,7 +20,7 @@ fun MyNavGraph(navController: NavHostController) {
     ) {
         val onNotLoggedIn = { navController.navigate(Screen.LogInScreen.route) }
         composable(Screen.FavRoutinesScreen.route) {
-            FavRoutines(navController, onNotLoggedIn)
+            FavRoutines(navController, onNotLoggedIn, viewModel(factory = getViewModelFactory()))
         }
         composable(Screen.MyRoutinesScreen.route) {
             MyRoutines(navController, onNotLoggedIn)
@@ -26,7 +29,11 @@ fun MyNavGraph(navController: NavHostController) {
             AllRoutines(navController, onNotLoggedIn)
         }
         composable(Screen.LogInScreen.route) {
-            LogIn()
+            LogIn(viewModel(factory = getViewModelFactory()), onLogIn = {
+                navController.navigate(Screen.FavRoutinesScreen.route) {
+                    popUpTo(Screen.FavRoutinesScreen.route)
+                }
+            })
         }
         composable(
             Screen.RoutineScreen.route + "/{routineId}",

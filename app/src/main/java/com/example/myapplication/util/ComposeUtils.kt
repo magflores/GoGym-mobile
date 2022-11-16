@@ -11,10 +11,12 @@ fun getViewModelFactory(defaultArgs: Bundle? = null) : ViewModelFactory {
     val application = (LocalContext.current.applicationContext as MyApplication)
     val sessionManager = application.sessionManager
     val userRepository = application.userRepository
+    val routineRemoteDataSource = application.routineRemoteDataSource
     return ViewModelFactory(
         sessionManager = sessionManager,
         userRepository = userRepository,
         owner = LocalSavedStateRegistryOwner.current,
-        defaultArgs = defaultArgs
+        defaultArgs = defaultArgs,
+        routineRemote = routineRemoteDataSource
     )
 }

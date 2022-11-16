@@ -23,6 +23,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.compose.rememberNavController
+import com.example.myapplication.ui.ExampleViewModel
 import com.example.myapplication.ui.theme.MyApplicationTheme
 
 class MainActivity : ComponentActivity() {
@@ -38,13 +39,12 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun StyledTextFieldPassword(labelText: String){
-    var value by remember { mutableStateOf("") }
+fun StyledTextFieldPassword(labelText: String, text: String, setText: (String) -> Unit){
     var passwordVisible by rememberSaveable { mutableStateOf(false) }
 
     TextField(
-        value = value,
-        onValueChange = { value = it },
+        value = text,
+        onValueChange = { setText(it) },
         label = { Text(text = labelText) },
         maxLines = 1,
         modifier = Modifier.padding(20.dp),
@@ -66,12 +66,11 @@ fun StyledTextFieldPassword(labelText: String){
 }
 
 @Composable
-fun StyledTextField(labelText: String) {
-    var value by remember { mutableStateOf("") }
+fun StyledTextField(labelText: String, text: String, setText: (String) -> Unit) {
 
     TextField(
-        value = value,
-        onValueChange = { value = it },
+        value = text,
+        onValueChange = { setText(it) },
         label = { Text(text = labelText) },
         maxLines = 1,
         modifier = Modifier.padding(20.dp),
@@ -104,13 +103,16 @@ fun IconTitleSubTitle(title: String, mySubTitle: String) {
 }
 
 @Composable
-fun LogIn() {
+fun LogIn(viewModel: ExampleViewModel, onLogIn: () -> Unit) {
 //    TODO
 //    val configuration = LocalConfiguration.current
 //    when (configuration.orientation ){
 //        Configuration.ORIENTATION_LANDSCAPE -> {}
 //        else -> {}
 //    }
+    var (username, setUsername) = remember { mutableStateOf("") }
+    var (password, setPassword) = remember { mutableStateOf("") }
+
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colors.background
@@ -128,21 +130,21 @@ fun LogIn() {
                 IconTitleSubTitle(title = "GoGym!",
                     mySubTitle = stringResource(id = R.string.log_in))
 
-                StyledTextField(stringResource(id = R.string.e_mail_label_to_complete))
-                StyledTextFieldPassword(stringResource(id = R.string.password_label_to_complete))
+                StyledTextField(stringResource(id = R.string.e_mail_label_to_complete), username, setUsername)
+                StyledTextFieldPassword(stringResource(id = R.string.password_label_to_complete), password, setPassword)
 
                 ButtonPlusTextBelow(
                     stringResource(id = R.string.enter_button),
-                    stringResource(id  = R.string.forgot_password))
+                    stringResource(id  = R.string.forgot_password), viewModel, username, password, onLogIn)
             }
         }
     }
 }
 
 @Composable
-fun ButtonPlusTextBelow(buttonText: String, textBelow: String) {
+fun ButtonPlusTextBelow(buttonText: String, textBelow: String, viewModel: ExampleViewModel, username: String, password: String, onLogIn: () -> Unit) {
     Button(
-        onClick = { /*TODO*/ },
+        onClick = { viewModel.login(username, password, onLogIn) },
         colors = ButtonDefaults.buttonColors(
             backgroundColor = MaterialTheme.colors.secondary)
     ) {
@@ -180,10 +182,10 @@ fun RutineCard(stringRutineName: String, stringAuthorRutine: String) {
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    MyApplicationTheme {
-        LogIn()
-    }
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun DefaultPreview() {
+//    MyApplicationTheme {
+//        LogIn()
+//    }
+//}

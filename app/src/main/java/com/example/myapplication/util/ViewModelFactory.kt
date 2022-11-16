@@ -5,12 +5,15 @@ import androidx.lifecycle.AbstractSavedStateViewModelFactory
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.savedstate.SavedStateRegistryOwner
+import com.example.myapplication.data.network.RoutineRemoteDataSource
 import com.example.myapplication.data.repository.UserRepository
 import com.example.myapplication.ui.ExampleViewModel
+import com.example.myapplication.ui.screens.favroutines.FavRoutinesViewModel
 
 class ViewModelFactory constructor(
     private val sessionManager: SessionManager,
     private val userRepository: UserRepository,
+    private val routineRemote: RoutineRemoteDataSource,
     owner: SavedStateRegistryOwner,
     defaultArgs: Bundle? = null
 ) : AbstractSavedStateViewModelFactory(owner, defaultArgs) {
@@ -22,6 +25,8 @@ class ViewModelFactory constructor(
         when {
             isAssignableFrom(ExampleViewModel::class.java) ->
                 ExampleViewModel(sessionManager, userRepository)
+            isAssignableFrom(FavRoutinesViewModel::class.java) ->
+                FavRoutinesViewModel(routineRemote)
             else ->
                 throw java.lang.IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
         }

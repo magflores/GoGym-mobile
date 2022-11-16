@@ -8,5 +8,5 @@ data class NetworkContentExecutions(
     @SerializedName("date") var date: Date? = null,
     @SerializedName("duration") var duration: Int? = null,
     @SerializedName("wasModified") var wasModified: Boolean? = null,
-    @SerializedName("routine") var routine: NetworkRoutines? = NetworkRoutines()
+    @SerializedName("routine") var routine: NetworkRoutines? = null
 )

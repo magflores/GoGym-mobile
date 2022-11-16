@@ -55,23 +55,6 @@ fun BottomNavLayout(navController: NavController, content: @Composable (PaddingV
 }
 
 @Composable
-fun FavRoutines(navController: NavController, onNotLoggedIn: () -> Unit) {
-    LaunchedEffect(false) {
-        if (false)
-            onNotLoggedIn()
-    }
-    BottomNavLayout(navController = navController) {
-        Column(verticalArrangement = Arrangement.Center) {
-            Text(text = "FAV ROUTINES")
-            Button(onClick = { navController.navigate("${Screen.RoutineScreen.route}/0") }) {
-                Text(text = "GO TO ROUTINE")
-            }
-        }
-//        TODO make fav routines screen
-    }
-}
-
-@Composable
 fun MyRoutines(navController: NavController, onNotLoggedIn: () -> Unit) {
     LaunchedEffect(true) {
         if (true)

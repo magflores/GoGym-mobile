@@ -1,6 +1,8 @@
 package com.example.myapplication
 
 import android.app.Application
+import com.example.myapplication.data.model.Routine
+import com.example.myapplication.data.network.RoutineRemoteDataSource
 import com.example.myapplication.data.network.UserRemoteDataSource
 import com.example.myapplication.data.network.api.RetrofitClient
 import com.example.myapplication.data.repository.UserRepository
@@ -16,4 +18,7 @@ class MyApplication : Application() {
 
     val userRepository : UserRepository
         get() = UserRepository(userRemoteDataSource)
+
+    val routineRemoteDataSource: RoutineRemoteDataSource
+        get() = RoutineRemoteDataSource(RetrofitClient.getApiRoutinesService(this))
 }

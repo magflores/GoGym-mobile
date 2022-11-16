@@ -17,7 +17,7 @@ class ExampleViewModel(
     var uiState by mutableStateOf(ExampleUiState(isAuthenticated = sessionManager.loadAuthToken() != null))
         private set
 
-    fun login(username: String, password: String) = viewModelScope.launch {
+    fun login(username: String, password: String, onLogIn: (() -> Unit)? = null) = viewModelScope.launch {
         uiState = uiState.copy(
             isFetching = true,
             message = null,
@@ -29,6 +29,9 @@ class ExampleViewModel(
                 isFetching = false,
                 isAuthenticated = true,
             )
+            if (onLogIn != null) {
+                onLogIn()
+            }
         }.onFailure {
             uiState = uiState.copy(
                 isFetching = false,
