@@ -15,12 +15,16 @@ import com.example.myapplication.util.getViewModelFactory
 @Composable
 fun MyNavGraph(navController: NavHostController) {
     NavHost(
-        navController = navController,
-        startDestination = Screen.FavRoutinesScreen.route
+        navController = navController, startDestination = Screen.FavRoutinesScreen.route
     ) {
         val onNotLoggedIn = { navController.navigate(Screen.LogInScreen.route) }
         composable(Screen.FavRoutinesScreen.route) {
-            FavRoutines(navController, onNotLoggedIn, viewModel(factory = getViewModelFactory()))
+            FavRoutines(
+                navController = navController,
+                onNotLoggedIn = onNotLoggedIn,
+                viewModel = viewModel(factory = getViewModelFactory()),
+                mainViewModel = viewModel(factory = getViewModelFactory())
+            )
         }
         composable(Screen.MyRoutinesScreen.route) {
             MyRoutines(navController, onNotLoggedIn)
@@ -40,25 +44,21 @@ fun MyNavGraph(navController: NavHostController) {
             arguments = listOf(navArgument("routineId") { type = NavType.IntType })
         ) { backStackEntry ->
             val routineId = backStackEntry.arguments?.getInt("routineId") ?: 0
-            DetailedRoutine(
-                navController,
+            DetailedRoutine(navController,
                 routineId,
                 onBack = { navController.popBackStack() },
                 onPlay = {
                     navController.navigate("${Screen.PlayRoutineScreen.route}/$routineId")
-                }
-            )
+                })
         }
         composable(
             Screen.PlayRoutineScreen.route + "/{routineId}",
             arguments = listOf(navArgument("routineId") { type = NavType.IntType })
         ) { backStackEntry ->
             val routineId = backStackEntry.arguments?.getInt("routineId") ?: 0
-            PlayRoutine(
-                navController = navController,
+            PlayRoutine(navController = navController,
                 routineId = routineId,
-                onBack = { navController.popBackStack() }
-            )
+                onBack = { navController.popBackStack() })
         }
     }
 }

@@ -9,4 +9,8 @@ data class NetworkRoutineCategory(
     @SerializedName("id") var id: Int,
     @SerializedName("name") var name: String,
     @SerializedName("detail") var detail: String
-)
+) {
+    fun asModel() : String {
+        return name
+    }
+}

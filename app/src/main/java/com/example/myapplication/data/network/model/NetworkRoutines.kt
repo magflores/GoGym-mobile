@@ -25,7 +25,7 @@ data class NetworkRoutines(
     @SerializedName("isPublic") var isPublic: Boolean,
     @SerializedName("difficulty") var difficulty: String,
     @SerializedName("user") var user: NetworkUserRoutines,
-    @SerializedName("category") var category: NetworkRoutineCategory,
+    @SerializedName("category") var category: NetworkRoutineCategory?,
     @SerializedName("metadata") var metadata: NetworkUserMetadata
 ) {
     fun asModel(): Routine {
@@ -38,7 +38,7 @@ data class NetworkRoutines(
             isPublic = isPublic,
             difficulty = difficulty,
             user = user.asModel(),
-            category = category.name,
+            category = category?.asModel() ?: "",
             cycles = null,
             metadata = "",
         )

@@ -5,5 +5,6 @@ import com.example.myapplication.data.model.Routine
 data class FavRoutinesUiState(
     val isFetching: Boolean = false,
     val favourites: List<Routine>? = null,
-    val message: String? = null
+    val message: String? = null,
+    val success: Boolean = false
 )

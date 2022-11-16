@@ -11,7 +11,7 @@ data class NetworkUserRoutines(
     @SerializedName("gender") var gender: String,
     @SerializedName("avatarUrl") var avatarUrl: String,
     @SerializedName("date") var date: Date,
-    @SerializedName("lastActivity") var lastActivity: Int
+    @SerializedName("lastActivity") var lastActivity: Date
 ) {
     fun asModel() : RoutineUser {
         return RoutineUser(

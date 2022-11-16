@@ -8,5 +8,5 @@ data class RoutineUser(
     var gender: String,
     var avatarUrl: String,
     var date: Date,
-    var lastActivity: Int
+    var lastActivity: Date
 )

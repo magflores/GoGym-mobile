@@ -4,6 +4,8 @@ import com.example.myapplication.data.model.CycleExercise
 import com.example.myapplication.data.model.Routine
 import com.example.myapplication.data.model.RoutineCycle
 import com.example.myapplication.data.network.api.ApiRoutinesService
+import com.example.myapplication.data.network.model.NetworkPagedContent
+import com.example.myapplication.data.network.model.NetworkRoutines
 
 class RoutineRemoteDataSource(
     private val apiRoutinesService: ApiRoutinesService
@@ -64,10 +66,10 @@ class RoutineRemoteDataSource(
         }
     }
 
-    suspend fun getFavourites(): List<Routine> {
+    suspend fun getFavourites(): NetworkPagedContent<NetworkRoutines> {
         return handleApiResponse {
             apiRoutinesService.getFavourites()
-        }.content.map { it.asModel() }
+        }
     }
 
     suspend fun markFavourite(routineId: Int) {
