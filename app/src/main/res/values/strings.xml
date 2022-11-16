@@ -15,4 +15,6 @@
     <string name="play">Play</string>
     <string name="created_by">by %1$s</string>
     <string name="play_routine">Play Routine</string>
+    <string name="hide_password">Hide password</string>
+    <string name="show_password">Show password</string>
 </resources>

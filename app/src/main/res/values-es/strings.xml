@@ -13,7 +13,9 @@
     <string name="all_routines">Rutinas</string>
     <string name="my_routines">Mis Rutinas</string>
     <string name="routine">Rutina</string>
-    <string name="play">Jugar</string>
+    <string name="play">Ejecutar</string>
     <string name="created_by">por %1$s</string>
     <string name="play_routine">Ejecutar Rutina</string>
+    <string name="hide_password">Ocultar contraseña</string>
+    <string name="show_password">Mostrar contraseña</string>
 </resources>

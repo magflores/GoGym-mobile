@@ -3,10 +3,12 @@ package com.example.myapplication
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -53,23 +55,6 @@ fun BottomNavLayout(navController: NavController, content: @Composable (PaddingV
 }
 
 @Composable
-fun FavRoutines(navController: NavController, onNotLoggedIn: () -> Unit) {
-    LaunchedEffect(false) {
-        if (false)
-            onNotLoggedIn()
-    }
-    BottomNavLayout(navController = navController) {
-        Column(verticalArrangement = Arrangement.Center) {
-            Text(text = "FAV ROUTINES")
-            Button(onClick = { navController.navigate("${Screen.RoutineScreen.route}/0") }) {
-                Text(text = "GO TO ROUTINE")
-            }
-        }
-//        TODO make fav routines screen
-    }
-}
-
-@Composable
 fun MyRoutines(navController: NavController, onNotLoggedIn: () -> Unit) {
     LaunchedEffect(true) {
         if (true)
@@ -90,10 +75,7 @@ fun AllRoutines(navController: NavController, onNotLoggedIn: () -> Unit) {
             onNotLoggedIn()
     }
     BottomNavLayout(navController = navController) {
-        Column(verticalArrangement = Arrangement.Center) {
-            Text(text = "ALL ROUTINES")
-        }
-        RutinesScreen()
+        RutinesScreen(it)
 //        TODO make all routines screen
     }
 }

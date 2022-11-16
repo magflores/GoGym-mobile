@@ -17,9 +17,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.filled.Menu
+import androidx.compose.ui.tooling.preview.Preview
+import com.example.myapplication.ui.theme.MyApplicationTheme
 
 @Composable
-fun AppBar(title: String, content: @Composable (PaddingValues) -> Unit){
+//fun AllRoutinesAppBar(title: String, content: @Composable (PaddingValues) -> Unit){
+fun AllRoutinesAppBar(title: String, typeView: Boolean){
+    /*
     Surface(color = Color.White) {
         Scaffold(
             content = content,
@@ -42,4 +46,28 @@ fun AppBar(title: String, content: @Composable (PaddingValues) -> Unit){
             }
         )
     }
+    */
+
+    TopAppBar(
+        title = { Text(text = title) },
+        navigationIcon = {
+            IconButton(onClick = { /*TODO*/ }) {
+                Icon(imageVector = Icons.Default.Menu,
+                    contentDescription = null)
+            }
+        },
+        actions = {
+            IconButton(onClick = { /*TODO*/ }) {
+                if (typeView){ // true = lista
+                    Icon(painterResource(id =
+                    R.drawable.baseline_list_black_48),
+                        contentDescription = null)
+                }else {
+                    Icon(painterResource(id =
+                    R.drawable.baseline_grid_view_black_48),
+                        contentDescription = null)
+                }
+            }
+        }
+    )
 }

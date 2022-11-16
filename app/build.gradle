@@ -23,6 +23,18 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            // No usar localhost o la IP 127.0.0.1 porque es la interfaz de loopback
+            // del emulador. La forma de salir del emulador para acceder al localhost
+            // de host del mismo es usando la IP 10.0.2.2.
+            buildConfigField "String", "API_BASE_URL",
+                    "\"http://10.0.2.2:8080/api/\""
+        }
+        debug {
+            // No usar localhost o la IP 127.0.0.1 porque es la interfaz de loopback
+            // del emulador. La forma de salir del emulador para acceder al localhost
+            // de host del mismo es usando la IP 10.0.2.2.
+            buildConfigField "String", "API_BASE_URL",
+                    "\"http://10.0.2.2:8080/api/\""
         }
     }
     compileOptions {
@@ -53,9 +65,16 @@ dependencies {
     implementation "androidx.compose.ui:ui:$compose_version"
     implementation "androidx.compose.material:material:$compose_version"
     implementation "androidx.compose.ui:ui-tooling-preview:$compose_version"
-    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.5.1'
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycle_version"
     implementation 'androidx.activity:activity-compose:1.6.1'
     implementation "androidx.compose.material:material-icons-extended:$compose_version"
+    implementation "com.google.code.gson:gson:2.10"
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+    implementation "com.squareup.okhttp3:logging-interceptor:4.10.0"
+
+
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.4'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
