@@ -3,63 +3,93 @@ package com.example.myapplication.data.network.api
 import com.example.myapplication.data.network.model.*
 import retrofit2.Response
 import retrofit2.http.*
-import java.security.cert.CertStoreSpi
 
 interface ApiRoutinesService {
     //    TODO: chequear si necesitamos todas las implementaciones!!!!
 
-    @GET("routines") // TODO: chequear lo de routinesCredentials
+    @GET("routines")
     suspend fun getRoutines(
-        @Query("routinesCredentials") routinesCredentials: NetworkRoutinesCredentials) :
-            Response<NetworkPagedContent<NetworkRoutines>>
+        @Query("categoryId") categoryId: Int? = null,
+        @Query("userId") userId: Int? = null,
+//        TODO pasar a un enum con los valores rookie, beginner, intermediate, advanced, expert
+        @Query("difficulty") difficulty: String? = null,
+        @Query("score") score: Int? = null,
+        @Query("search") search: String? = null,
+        @Query("page") page: Int? = null,
+        @Query("size") size: Int? = null,
+        // TODO pasar a un enum id, name, detail, date, score, difficulty, category, user
+        @Query("orderBy") orderBy: String? = null,
+        // TODO pasar a un enum de asc o desc
+        @Query("direction") sort: String? = null,
+    ): Response<NetworkPagedContent<NetworkRoutines>>
 
-//    no hace falta implementarlo
-//    @POST
-//    suspend fun addRoutine(@Body routinesCredentials: NetworkRoutinesCredentials) : Response<NetworkRoutines>
+    @GET("routines/{routineId}")
+    suspend fun getRoutine(
+        @Path("routineId") routineId: Int
+    ): Response<NetworkRoutines>
 
     @GET("routines/{routineId}/cycles")
-    suspend fun getRoutineCycles(@Path("routineId") routineId: Int, @Query("page") page: Int,
-                                  @Query("size") size: Int, @Query("orderBy") orderBy: String,
-                                  @Query("direction") direction: String) :
-            Response<NetworkPagedContent<NetworkRoutineCycle>>
+    suspend fun getRoutineCycles(
+        @Path("routineId") routineId: Int,
+        @Query("page") page: Int? = null,
+        @Query("size") size: Int? = null,
+        @Query("orderBy") orderBy: String? = null,
+        @Query("direction") direction: String? = null,
+    ): Response<NetworkPagedContent<NetworkRoutineCycle>>
 
     @GET("routines/{routineId}/cycles/{cycleId}")
-    suspend fun getRoutineCyclesById(@Path("routineId") routineId: Int,
-                                     @Path("cycleId") cycleId: Int) : Response<NetworkRoutineCycle>
+    suspend fun getRoutineCyclesById(
+        @Path("routineId") routineId: Int, @Path("cycleId") cycleId: Int
+    ): Response<NetworkRoutineCycle>
 
     @GET("cycles/{cycleId}/exercises")
-    suspend fun getCycleExercises(@Path("cycleId") cycleId: Int, @Query("page") page: Int,
-                                  @Query("size") size: Int, @Query("orderBy") orderBy: String,
-                                  @Query("direction") direction: String) :
-            Response<NetworkPagedContent<NetworkContentExercise>>
+    suspend fun getCycleExercises(
+        @Path("cycleId") cycleId: Int,
+        @Query("page") page: Int? = null,
+        @Query("size") size: Int? = null,
+        // TODO cambiar por un enum
+        @Query("orderBy") orderBy: String? = null,
+        // TODO cambiar por un enum
+        @Query("direction") direction: String? = null,
+    ): Response<NetworkPagedContent<NetworkContentExercise>>
 
     @GET("cycles/{cycleId}/exercises/{exerciseId}")
-    suspend fun getCycleExercisesById(@Path("cycleId") cycleId: Int, @Path("exerciseId") exerciseId: Int) :
-            Response<NetworkContentExercise>
+    suspend fun getCycleExercisesById(
+        @Path("cycleId") cycleId: Int, @Path("exerciseId") exerciseId: Int
+    ): Response<NetworkContentExercise>
 
     @GET("exercises")
-    suspend fun getExercises(@Query("search") search: String, @Query("page") page: Int,
-                             @Query("size") size: Int, @Query("orderBy") orderBy: String,
-                             @Query("direction") direction: String) :
-            Response<NetworkPagedContent<NetworkContentInExercises>>
+    suspend fun getExercises(
+        @Query("search") search: String? = null,
+        @Query("page") page: Int? = null,
+        @Query("size") size: Int? = null,
+        @Query("orderBy") orderBy: String? = null,
+        @Query("direction") direction: String? = null,
+    ): Response<NetworkPagedContent<NetworkContentInExercises>>
 
     @GET("exercises/{exerciseId}")
-    suspend fun getExerciseById(@Path("exerciseId") exerciseId: Int) : Response<NetworkContentInExercises>
+    suspend fun getExerciseById(
+        @Path("exerciseId") exerciseId: Int
+    ): Response<NetworkContentInExercises>
 
-//    TODO: hace falta?
+    //    TODO: hace falta?
     @GET("executions/{routineId}")
-    suspend fun getExecutionById(@Path("routineId") routineId: Int, @Query("page") page: Int,
-                                 @Query("size") size: Int, @Query("orderBy") orderBy: String,
-                                 @Query("direction") direction: String) :
-            Response<NetworkPagedContent<NetworkContentExecutions>>
+    suspend fun getExecutionById(
+        @Path("routineId") routineId: Int,
+        @Query("page") page: Int? = null,
+        @Query("size") size: Int? = null,
+        @Query("orderBy") orderBy: String? = null,
+        @Query("direction") direction: String? = null,
+    ): Response<NetworkPagedContent<NetworkContentExecutions>>
 
     @GET("favourites")
-    suspend fun getFavourites(@Query("page") page: Int, @Query("size") size: Int) :
-            Response<NetworkPagedContent<NetworkRoutines>>
+    suspend fun getFavourites(
+        @Query("page") page: Int, @Query("size") size: Int
+    ): Response<NetworkPagedContent<NetworkRoutines>>
 
     @POST("favourites/{routineId}")
-    suspend fun addFavouriteRoutine(@Path("routineId") routineId: Int) : Response<Unit>
+    suspend fun addFavouriteRoutine(@Path("routineId") routineId: Int): Response<Unit>
 
     @DELETE("favourites/{routineId}")
-    suspend fun deleteFavouriteRoutine(@Path("routineId") routineId: Int) : Response<Unit>
+    suspend fun deleteFavouriteRoutine(@Path("routineId") routineId: Int): Response<Unit>
 }
