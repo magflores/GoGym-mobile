@@ -2,9 +2,9 @@ package com.example.myapplication.data.network
 
 import com.example.myapplication.data.model.CycleExercise
 import com.example.myapplication.data.model.Routine
-import com.example.myapplication.data.model.RoutineCycle
 import com.example.myapplication.data.network.api.ApiRoutinesService
 import com.example.myapplication.data.network.model.NetworkPagedContent
+import com.example.myapplication.data.network.model.NetworkRoutineCycle
 import com.example.myapplication.data.network.model.NetworkRoutines
 
 class RoutineRemoteDataSource(
@@ -38,19 +38,17 @@ class RoutineRemoteDataSource(
         return response.content.map { it.asModel() }
     }
 
-    suspend fun getRoutine(routineId: Int): Routine {
-        return handleApiResponse { apiRoutinesService.getRoutine(routineId) }.asModel()
+    suspend fun getRoutine(routineId: Int): NetworkRoutines {
+        return handleApiResponse { apiRoutinesService.getRoutine(routineId) }
     }
 
-    suspend fun getRoutineCycles(routineId: Int): List<RoutineCycle> {
+    suspend fun getRoutineCycles(routineId: Int): NetworkPagedContent<NetworkRoutineCycle> {
         return handleApiResponse {
             apiRoutinesService.getRoutineCycles(
                 routineId = routineId,
                 orderBy = "order",
                 direction = "asc"
             )
-        }.content.map {
-            it.asModel()
         }
     }
 

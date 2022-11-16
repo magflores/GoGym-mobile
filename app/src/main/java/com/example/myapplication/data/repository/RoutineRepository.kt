@@ -22,4 +22,23 @@ class RoutineRepository(
 
         return favsMutex.withLock { this.favs }
     }
+
+    suspend fun getRoutine(routineId: Int) : Routine {
+        val routine = remoteDataSource.getRoutine(routineId).asModel()
+        val cycles = remoteDataSource.getRoutineCycles(routineId).content.map { it.asModel() }
+
+        return Routine(
+            id = routine.id,
+            name = routine.name,
+            detail = routine.detail,
+            difficulty = routine.difficulty,
+            score = routine.score,
+            cycles = cycles,
+            date = routine.date,
+            isPublic = routine.isPublic,
+            user = routine.user,
+            category = routine.category,
+            metadata = routine.metadata
+        )
+    }
 }
