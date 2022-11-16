@@ -11,7 +11,7 @@ data class NetworkPagedContent<T> (
     @SerializedName("direction")
     var direction: String? = null,
     @SerializedName("content")
-    var content : List<T> = arrayListOf(),
+    var content : List<T> = arrayListOf(), // creo que usa un listOf() aca, en vez de un arrayListOf()
     @SerializedName("size")
     var size : Int,
     @SerializedName("page")
