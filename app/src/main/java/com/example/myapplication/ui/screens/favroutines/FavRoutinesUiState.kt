@@ -7,3 +7,5 @@ data class FavRoutinesUiState(
     val favourites: List<Routine>? = null,
     val message: String? = null
 )
+
+val FavRoutinesUiState.hasError: Boolean get() = message != null

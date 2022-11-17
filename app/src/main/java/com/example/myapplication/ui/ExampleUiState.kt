@@ -11,5 +11,4 @@ data class ExampleUiState(
 )
 
 val ExampleUiState.canGetCurrentUser: Boolean get() = isAuthenticated
-
-val ExampleUiState.stateTypeOfView_List_Grid: Boolean get() = typeOfView_List_Grid
+val ExampleUiState.hasError: Boolean get() = message != null

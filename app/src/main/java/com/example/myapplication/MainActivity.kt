@@ -33,7 +33,9 @@ class MainActivity : ComponentActivity() {
             MyApplicationTheme {
                 val navController = rememberNavController()
                 val exampleViewModel: ExampleViewModel = viewModel(factory = getViewModelFactory())
-                exampleViewModel.getCurrentUser()
+                LaunchedEffect(Unit) {
+                    exampleViewModel.getCurrentUser()
+                }
                 MyNavGraph(navController = navController, exampleViewModel = exampleViewModel)
             }
         }
