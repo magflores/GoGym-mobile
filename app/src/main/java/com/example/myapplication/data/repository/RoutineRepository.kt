@@ -15,6 +15,8 @@ class RoutineRepository(
     private var currentRoutine: Routine? = null
     private val routinesMutex = Mutex()
     private var routines: List<Routine> = emptyList()
+    private var prevOrder: String? = null
+    private var prevSort: String? = null
 
     suspend fun getFavs(refresh: Boolean = false): List<Routine> {
         if (refresh || favs.isEmpty()) {
@@ -60,7 +62,7 @@ class RoutineRepository(
     }
 
     suspend fun getAllRoutines(refresh: Boolean = false, orderBy: String, sort: String): List<Routine> {
-        if (refresh || routines.isEmpty()) {
+        if (refresh || routines.isEmpty() || orderBy != prevOrder || sort != prevSort) {
             val result = remoteDataSource.getRoutines(
                 orderBy = orderBy,
                 sort = sort,

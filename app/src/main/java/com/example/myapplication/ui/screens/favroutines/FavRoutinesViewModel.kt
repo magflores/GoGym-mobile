@@ -20,7 +20,7 @@ class FavRoutinesViewModel(
             routineRepository.getFavs()
         }.onSuccess { response ->
             uiState = uiState.copy(
-                isFetching = false, favourites = response, success = true
+                isFetching = false, favourites = response
             )
         }.onFailure { e ->
             uiState = uiState.copy(

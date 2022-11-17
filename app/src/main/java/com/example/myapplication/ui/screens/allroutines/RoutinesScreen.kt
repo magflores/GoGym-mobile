@@ -9,18 +9,19 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.*
+import androidx.compose.material.Card
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Scaffold
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.myapplication.AllRoutinesAppBar
-import com.example.myapplication.R
 
 data class RoutineList(val title: String, val subTitle: String, val score: Float,
                        val difficulty: String, val category: String)
@@ -94,14 +95,6 @@ private val routineList = mutableListOf<RoutineList>()
 
 @Composable
 fun RutinesScreen(padding: PaddingValues){
-    routineList.add(RoutineList("Rutina 1", stringResource(id = R.string.created_by, "pepe"), 4.2F, "Easy", "Abs"))
-    routineList.add(RoutineList("Rutina 2", stringResource(id = R.string.created_by, "pepe"), 4.2F, "Easy", "Abs"))
-    routineList.add(RoutineList("Rutina 3", stringResource(id = R.string.created_by, "pepe"), 4.2F, "Easy", "Abs"))
-    routineList.add(RoutineList("Rutina 4", stringResource(id = R.string.created_by, "pepe"), 4.2F, "Easy", "Abs"))
-    routineList.add(RoutineList("Rutina 1", stringResource(id = R.string.created_by, "santi-trainer12") , 3.2F, "Hard", "Cardio"))
-    routineList.add(RoutineList("Rutina 2", stringResource(id = R.string.created_by, "santi-trainer12") , 3.2F, "Hard", "Cardio"))
-    routineList.add(RoutineList("Rutina 3", stringResource(id = R.string.created_by, "santi-trainer12") , 3.2F, "Hard", "Cardio"))
-    routineList.add(RoutineList("Rutina 4", stringResource(id = R.string.created_by, "santi-trainer12") , 3.2F, "Hard", "Cardio"))
 
     /*
     BottomNavLayout(navController = navController) { bottomNavPadding ->
