@@ -10,3 +10,4 @@ data class ExampleUiState(
 )
 
 val ExampleUiState.canGetCurrentUser: Boolean get() = isAuthenticated
+val ExampleUiState.hasError: Boolean get() = message != null

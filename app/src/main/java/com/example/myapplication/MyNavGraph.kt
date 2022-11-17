@@ -56,8 +56,10 @@ fun MyNavGraph(navController: NavHostController, exampleViewModel: ExampleViewMo
             arguments = listOf(navArgument("routineId") { type = NavType.IntType })
         ) { backStackEntry ->
             val routineId = backStackEntry.arguments?.getInt("routineId") ?: 0
-            DetailedRoutine(navController,
-                routineId,
+            DetailedRoutine(
+                navController = navController,
+                mainViewModel = exampleViewModel,
+                routineId = routineId,
                 onBack = { navController.popBackStack() },
                 onPlay = {
                     navController.navigate("${Screen.PlayRoutineScreen.route}/$routineId")

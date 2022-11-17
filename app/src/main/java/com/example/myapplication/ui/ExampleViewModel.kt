@@ -60,4 +60,8 @@ class ExampleViewModel(
         }
     }
 
+    fun dismissMessage() {
+        uiState = uiState.copy(message = null)
+    }
+
 }

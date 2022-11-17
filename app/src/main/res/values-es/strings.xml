@@ -18,4 +18,5 @@
     <string name="play_routine">Ejecutar Rutina</string>
     <string name="hide_password">Ocultar contraseña</string>
     <string name="show_password">Mostrar contraseña</string>
+    <string name="dismiss">Descartar</string>
 </resources>

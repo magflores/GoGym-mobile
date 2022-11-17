@@ -13,10 +13,11 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.myapplication.BottomNavLayout
 import com.example.myapplication.R
+import com.example.myapplication.ui.ExampleViewModel
 
 @Composable
-fun DetailedRoutine(navController: NavController, routineId: Int, onBack: () -> Unit, onPlay: () -> Unit) {
-    BottomNavLayout(navController = navController) { bottomNavPadding ->
+fun DetailedRoutine(navController: NavController, mainViewModel: ExampleViewModel, routineId: Int, onBack: () -> Unit, onPlay: () -> Unit) {
+    BottomNavLayout(navController = navController, mainViewModel = mainViewModel) { bottomNavPadding ->
         Scaffold(topBar = {
             RoutineTopBar(onBack)
         }, floatingActionButton = {

@@ -240,12 +240,18 @@ fun RoutinesLayout(
 
 @Composable
 fun UserRoutinesScreen(padding: PaddingValues, routinesViewModel: RoutinesViewModel, exampleViewModel: ExampleViewModel) {
-    LaunchedEffect(exampleViewModel.uiState.currentUser) {
-        exampleViewModel.uiState.currentUser?.let {
-            it.id?.let { id ->
-                routinesViewModel.getUserRoutines(id)
+    LaunchedEffect(Unit) {
+        exampleViewModel.getCurrentUser().invokeOnCompletion {
+            exampleViewModel.uiState.currentUser?.let {
+                it.id?.let { id ->
+                    routinesViewModel.getUserRoutines(id)
+                }
             }
         }
+    }
+    if (exampleViewModel.uiState.currentUser == null || routinesViewModel.uiState.routines.isEmpty()){
+        Text(text = "Loading")
+        return
     }
     val uiState = routinesViewModel.uiState
     val typeView = true

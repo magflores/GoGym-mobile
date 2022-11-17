@@ -1,14 +1,17 @@
 package com.example.myapplication
 
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.myapplication.ui.ExampleViewModel
+import com.example.myapplication.ui.hasError
 import com.example.myapplication.ui.screens.allroutines.RoutinesViewModel
 import com.example.myapplication.ui.screens.allroutines.RutinesScreen
 import com.example.myapplication.ui.screens.allroutines.UserRoutinesScreen
@@ -52,11 +55,30 @@ fun BottomBar(navController: NavController) {
 }
 
 @Composable
-fun BottomNavLayout(navController: NavController, content: @Composable (PaddingValues) -> Unit) {
+fun BottomNavLayout(navController: NavController, mainViewModel: ExampleViewModel, content: @Composable (PaddingValues) -> Unit) {
+    val scaffoldState: ScaffoldState = rememberScaffoldState()
     Scaffold(
+        modifier = Modifier.fillMaxSize(),
         bottomBar = { BottomBar(navController = navController) },
         content = content,
+        scaffoldState = scaffoldState
     )
+    val uiState = mainViewModel.uiState
+
+    if (uiState.hasError) {
+        val actionLabel = stringResource(R.string.dismiss)
+
+        LaunchedEffect(scaffoldState.snackbarHostState) {
+            val result = scaffoldState.snackbarHostState.showSnackbar(
+                message = uiState.message!!,
+                actionLabel = actionLabel
+            )
+            when (result) {
+                SnackbarResult.Dismissed -> mainViewModel.dismissMessage()
+                SnackbarResult.ActionPerformed -> mainViewModel.dismissMessage()
+            }
+        }
+    }
 }
 
 @Composable
@@ -70,7 +92,7 @@ fun MyRoutines(
         if (!exampleViewModel.uiState.isAuthenticated)
             onNotLoggedIn()
     }
-    BottomNavLayout(navController = navController) {
+    BottomNavLayout(navController = navController, mainViewModel = exampleViewModel) {
         UserRoutinesScreen(
             padding = it,
             routinesViewModel = routinesViewModel,
@@ -90,7 +112,7 @@ fun AllRoutines(
         if (!exampleViewModel.uiState.isAuthenticated)
             onNotLoggedIn()
     }
-    BottomNavLayout(navController = navController) {
+    BottomNavLayout(navController = navController, mainViewModel = exampleViewModel) {
         RutinesScreen(padding = it, routinesViewModel = routinesViewModel)
 //        TODO make all routines screen
     }

@@ -17,4 +17,5 @@
     <string name="play_routine">Play Routine</string>
     <string name="hide_password">Hide password</string>
     <string name="show_password">Show password</string>
+    <string name="dismiss">Dismiss</string>
 </resources>

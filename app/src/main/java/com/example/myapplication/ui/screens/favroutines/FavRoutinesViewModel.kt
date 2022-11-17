@@ -14,10 +14,10 @@ class FavRoutinesViewModel(
     var uiState by mutableStateOf(FavRoutinesUiState())
         private set
 
-    fun getFavourites() = viewModelScope.launch {
+    fun getFavourites(refresh: Boolean = false) = viewModelScope.launch {
         uiState = uiState.copy(isFetching = true, message = null)
         kotlin.runCatching {
-            routineRepository.getFavs()
+            routineRepository.getFavs(refresh)
         }.onSuccess { response ->
             uiState = uiState.copy(
                 isFetching = false, favourites = response
@@ -27,5 +27,9 @@ class FavRoutinesViewModel(
                 message = e.message, isFetching = false
             )
         }
+    }
+
+    fun dismissMessage() {
+        uiState = uiState.copy(message = null)
     }
 }
