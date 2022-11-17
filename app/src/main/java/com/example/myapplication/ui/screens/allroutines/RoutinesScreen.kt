@@ -22,10 +22,13 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.myapplication.ui.stateTypeOfView_List_Grid
 import com.example.myapplication.AllRoutinesAppBar
 import com.example.myapplication.data.model.Routine
 import com.example.myapplication.ui.ExampleViewModel
 
+data class RoutineList(val title: String, val subTitle: String, val score: Float,
+                       val difficulty: String, val category: String)
 @Composable
 fun ListRow(model: Routine){
     Row(
@@ -94,70 +97,6 @@ fun ListRow(model: Routine){
 @Composable
 fun RutinesScreen(padding: PaddingValues, routinesViewModel: RoutinesViewModel){
 
-    /*
-    BottomNavLayout(navController = navController) { bottomNavPadding ->
-        Scaffold(
-            topBar = {RoutineTopBar(onBack)},
-            modifier = Modifier.padding(bottomNavPadding)
-        ) { padding ->
-            val configuration = LocalConfiguration.current
-            val myVar = false // TODO boton para cambiar vista
-            if (myVar) {
-                LazyColumn(
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement
-                        .spacedBy(4.dp),
-                    contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
-                    modifier = Modifier
-                        .padding(padding)
-                        .background(Color.White)
-                ) {
-                    items(rutineList) { model ->
-                        ListRow(model = model)
-                    }
-                }
-            } else {
-                when (configuration.orientation){
-                    Configuration.ORIENTATION_LANDSCAPE -> {
-                        LazyVerticalGrid(
-                            columns = GridCells.Adaptive(200.dp),
-                            verticalArrangement = Arrangement
-                                .spacedBy(4.dp),
-                            contentPadding =
-                            PaddingValues(horizontal = 16.dp, vertical = 8.dp),
-                            modifier = Modifier
-                                .padding(padding)
-                                .background(Color.White)
-                        ) {
-                            items(rutineList) { model ->
-                                ListRow(model = model)
-                            }
-                        }
-                    }
-                    Configuration.ORIENTATION_PORTRAIT -> {
-                        LazyVerticalGrid(
-                            columns = GridCells.Adaptive(150.dp),
-                            verticalArrangement = Arrangement
-                                .spacedBy(4.dp),
-                            contentPadding =
-                            PaddingValues(horizontal = 16.dp, vertical = 8.dp),
-                            modifier = Modifier
-                                .padding(padding)
-                                .background(Color.White)
-                        ) {
-                            items(rutineList) { model ->
-                                ListRow(model = model)
-                            }
-                        }
-                    }
-                    Configuration.ORIENTATION_UNDEFINED -> {
-                        TODO()
-                    }
-                }
-            }
-        }
-    }
-    */
 
     LaunchedEffect(Unit) {
         routinesViewModel.getAllRoutines()
@@ -176,12 +115,12 @@ fun RoutinesLayout(
 ) {
     Scaffold(
         topBar = {
-            AllRoutinesAppBar(title = title, typeView)
+            AllRoutinesAppBar(title = stringResource(id = R.string.all_routines), viewModel = viewModel)
         },
         modifier = Modifier.padding(padding)
     ) {
         val configuration = LocalConfiguration.current
-        if (typeView) {
+        if (viewModel.uiState.stateTypeOfView_List_Grid) {
             LazyColumn(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement

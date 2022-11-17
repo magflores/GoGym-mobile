@@ -17,48 +17,31 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.filled.Menu
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.myapplication.ui.ExampleViewModel
+import com.example.myapplication.ui.stateTypeOfView_List_Grid
 import com.example.myapplication.ui.theme.MyApplicationTheme
+import java.lang.reflect.TypeVariable
 
 @Composable
-//fun AllRoutinesAppBar(title: String, content: @Composable (PaddingValues) -> Unit){
-fun AllRoutinesAppBar(title: String, typeView: Boolean){
-    /*
-    Surface(color = Color.White) {
-        Scaffold(
-            content = content,
-            topBar = {
-                TopAppBar(
-                    backgroundColor = Color.White,
-                    title = {
-                        Row {
-                           Text(text = title)
-                           Spacer(modifier = Modifier.width(26.dp))
-                           Icon(Icons.Default.Add, contentDescription = null)
-                        }
-                    },
-                    navigationIcon = {
-                        IconButton(onClick = { /*TODO*/ }) {
-                            Icon(imageVector = Icons.Default.Menu, contentDescription = null)
-                        }
-                    }
-                )
-            }
-        )
-    }
-    */
-
+fun AllRoutinesAppBar(title: String, viewModel: ExampleViewModel){
     TopAppBar(
         title = { Text(text = title) },
         navigationIcon = {
-            IconButton(onClick = { /*TODO*/ }) {
+            IconButton(onClick = {  }) {
                 Icon(imageVector = Icons.Default.Menu,
                     contentDescription = null)
             }
         },
         actions = {
-            IconButton(onClick = { /*TODO*/ }) {
-                if (typeView){ // true = lista
+            IconButton(onClick = {
+                viewModel.toggleView()
+            }) {
+                if (!viewModel.uiState.stateTypeOfView_List_Grid){
                     Icon(painterResource(id =
                     R.drawable.baseline_list_black_48),
                         contentDescription = null)

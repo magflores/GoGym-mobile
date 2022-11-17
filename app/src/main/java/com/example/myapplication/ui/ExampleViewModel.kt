@@ -17,6 +17,12 @@ class ExampleViewModel(
     var uiState by mutableStateOf(ExampleUiState(isAuthenticated = sessionManager.loadAuthToken() != null))
         private set
 
+    fun toggleView() {
+        uiState = uiState.copy(
+            typeOfView_List_Grid = !uiState.typeOfView_List_Grid
+        )
+    }
+
     fun login(username: String, password: String, onLogIn: (() -> Unit)? = null) = viewModelScope.launch {
         uiState = uiState.copy(
             isFetching = true,
@@ -57,6 +63,27 @@ class ExampleViewModel(
                 isFetching = false,
                 message = e.message
             )
+        }
+    }
+
+    fun logout() = viewModelScope.launch {
+        uiState = uiState.copy(
+            isFetching = true,
+            message = null
+        )
+        runCatching {
+            userRepository.logout()
+        }.onSuccess { response ->
+            uiState = uiState.copy(
+                isFetching = false,
+                isAuthenticated = false,
+                currentUser = null
+            )
+        }.onFailure { e ->
+            // Handle the error and notify the UI when appropriate.
+            uiState = uiState.copy(
+                message = e.message,
+                isFetching = false)
         }
     }
 
