@@ -14,6 +14,12 @@ class RoutinesViewModel(
     var uiState by mutableStateOf(RoutinesUiState())
         private set
 
+    fun toggleView() {
+        uiState = uiState.copy(
+            typeOfView_List_Grid = !uiState.typeOfView_List_Grid
+        )
+    }
+
     fun getAllRoutines() = viewModelScope.launch {
         uiState = uiState.copy(isFetching = true, message = null)
         kotlin.runCatching {

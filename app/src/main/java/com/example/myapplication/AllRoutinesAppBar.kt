@@ -4,7 +4,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Logout
+import androidx.compose.runtime.Composable
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.runtime.*
@@ -15,18 +15,18 @@ import com.example.myapplication.ui.ExampleViewModel
 import androidx.compose.ui.unit.dp
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.filled.Menu
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
-import androidx.compose.ui.tooling.preview.Preview
-import com.example.myapplication.ui.ExampleViewModel
-import com.example.myapplication.ui.stateTypeOfView_List_Grid
-import com.example.myapplication.ui.theme.MyApplicationTheme
-import java.lang.reflect.TypeVariable
+import com.example.myapplication.ui.screens.allroutines.RoutinesViewModel
+import com.example.myapplication.ui.screens.allroutines.stateTypeOfView_List_Grid
 
 @Composable
-fun AllRoutinesAppBar(title: String, viewModel: ExampleViewModel){
+fun AllRoutinesAppBar(
+    title: String,
+    viewModel: RoutinesViewModel,
+    mainViewModel: ExampleViewModel
+){
+    var showMenu by remember {
+        mutableStateOf(false)
+    }
     TopAppBar(
         title = { Text(text = title) },
         navigationIcon = {

@@ -1,8 +1,15 @@
 package com.example.myapplication.ui.screens.allroutines
 
+import androidx.compose.foundation.layout.*
+import androidx.compose.material.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+
+
 import android.content.res.Configuration
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -17,10 +24,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import com.example.myapplication.ui.stateTypeOfView_List_Grid
 import com.example.myapplication.AllRoutinesAppBar
+import com.example.myapplication.R
 import com.example.myapplication.data.model.Routine
 import com.example.myapplication.ui.ExampleViewModel
 
@@ -105,12 +110,11 @@ fun RutinesScreen(
         routinesViewModel.getAllRoutines()
     }
     val uiState = routinesViewModel.uiState
-    val typeView = true // TODO boton para cambiar vista
     RoutinesLayout(
-        typeView = typeView,
         padding = padding,
         uiState = uiState,
-        title = "ALL ROUTINES",
+        viewModel = routinesViewModel,
+        title = stringResource(id = R.string.all_routines),
         mainViewModel = mainViewModel,
         onGoToRoutine = onGoToRoutine
     )
@@ -118,27 +122,28 @@ fun RutinesScreen(
 
 @Composable
 fun RoutinesLayout(
-    typeView: Boolean,
     padding: PaddingValues,
     uiState: RoutinesUiState,
+    viewModel: RoutinesViewModel,
     title: String,
     mainViewModel: ExampleViewModel,
     onGoToRoutine: (Int) -> Unit
 ) {
     Scaffold(
         topBar = {
-//            AllRoutinesAppBar(title = stringResource(id = R.string.all_routines), viewModel = viewModel)
-            AllRoutinesAppBar(title = title, mainViewModel)
+            AllRoutinesAppBar(title = title, mainViewModel = mainViewModel,viewModel = viewModel)
         },
         modifier = Modifier.padding(padding)
     ) {
         val configuration = LocalConfiguration.current
-        if (viewModel.uiState.stateTypeOfView_List_Grid) {
+        if (uiState.stateTypeOfView_List_Grid) {
             LazyColumn(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement
                     .spacedBy(4.dp),
-                contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
+                contentPadding = PaddingValues(
+                    horizontal = 16.dp,
+                    vertical = 8.dp),
                 modifier = Modifier
                     .background(Color.White)
             ) {
@@ -154,7 +159,9 @@ fun RoutinesLayout(
                         verticalArrangement = Arrangement
                             .spacedBy(4.dp),
                         contentPadding =
-                        PaddingValues(horizontal = 16.dp, vertical = 8.dp),
+                        PaddingValues(
+                            horizontal = 16.dp,
+                            vertical = 8.dp),
                         modifier = Modifier
                             .background(Color.White)
                     ) {
@@ -169,7 +176,9 @@ fun RoutinesLayout(
                         verticalArrangement = Arrangement
                             .spacedBy(4.dp),
                         contentPadding =
-                        PaddingValues(horizontal = 16.dp, vertical = 8.dp),
+                        PaddingValues(
+                            horizontal = 16.dp,
+                            vertical = 8.dp),
                         modifier = Modifier
                             .padding(it)
                             .background(Color.White)
@@ -197,12 +206,16 @@ fun UserRoutinesScreen(
     exampleViewModel: ExampleViewModel,
     onGoToRoutine: (Int) -> Unit
 ) {
-    LaunchedEffect(Unit) {
-        exampleViewModel.getCurrentUser().invokeOnCompletion {
-            exampleViewModel.uiState.currentUser?.let {
-                it.id?.let { id ->
-                    routinesViewModel.getUserRoutines(id)
-                }
+//    LaunchedEffect(Unit) {
+//        exampleViewModel.getCurrentUser().invokeOnCompletion {
+//            exampleViewModel.uiState.currentUser?.let {
+//                it.id?.let { id ->
+//                    routinesViewModel.getUserRoutines(id)
+//                }
+    LaunchedEffect(exampleViewModel.uiState.currentUser) {
+        exampleViewModel.uiState.currentUser?.let {
+            it.id?.let { id ->
+                routinesViewModel.getUserRoutines(id)
             }
         }
     }
@@ -211,22 +224,20 @@ fun UserRoutinesScreen(
         return
     }
     val uiState = routinesViewModel.uiState
-    val typeView = true
+//    RoutinesLayout(
+//        padding = padding,
+//        uiState = uiState,
+//        title = "MY ROUTINES",
+//        mainViewModel = exampleViewModel,
+//        onGoToRoutine = onGoToRoutine
+//    )
+
     RoutinesLayout(
-        typeView = typeView,
         padding = padding,
         uiState = uiState,
-        title = "MY ROUTINES",
+        viewModel = routinesViewModel,
+        title = stringResource(id = R.string.all_routines),
         mainViewModel = exampleViewModel,
         onGoToRoutine = onGoToRoutine
     )
 }
-
-
-//@Preview(showBackground = true)
-//@Composable
-//fun DefaultPreviewRutinesScreen() {
-//    MyApplicationTheme {
-//        RutinesScreen()
-//    }
-//}

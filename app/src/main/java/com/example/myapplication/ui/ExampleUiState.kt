@@ -6,8 +6,7 @@ data class ExampleUiState(
     val isAuthenticated: Boolean = false,
     val isFetching: Boolean = false,
     val currentUser: User? = null,
-    val message: String? = null,
-    val typeOfView_List_Grid: Boolean = true
+    val message: String? = null
 )
 
 val ExampleUiState.canGetCurrentUser: Boolean get() = isAuthenticated
