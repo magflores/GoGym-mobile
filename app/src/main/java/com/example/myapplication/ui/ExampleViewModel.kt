@@ -64,4 +64,24 @@ class ExampleViewModel(
         uiState = uiState.copy(message = null)
     }
 
+    fun logout() = viewModelScope.launch {
+        uiState = uiState.copy(
+            isFetching = true,
+            message = null
+        )
+        kotlin.runCatching {
+            userRepository.logout()
+        }.onSuccess { response ->
+            uiState = uiState.copy(
+                isFetching = false,
+                currentUser = null
+            )
+        }.onFailure { e ->
+            uiState = uiState.copy(
+                isFetching = false,
+                message = e.message
+            )
+        }
+    }
+
 }

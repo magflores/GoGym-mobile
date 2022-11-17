@@ -27,72 +27,77 @@ import com.example.myapplication.data.model.Routine
 import com.example.myapplication.ui.ExampleViewModel
 
 @Composable
-fun ListRow(model: Routine){
+fun ListRow(model: Routine) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
             .wrapContentHeight()
     ) {
-            Card(
-                shape = RoundedCornerShape(8.dp),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp, 5.dp),
-                backgroundColor = MaterialTheme.colors.primary
-            ) {
-                Row {
-                    Column(
-                        modifier = Modifier.fillMaxWidth(0.5F),
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                    ) {
-                        Text(
-                            modifier = Modifier.padding(5.dp,0.dp),
-                            text = model.name,
-                            fontSize = 24.sp,
-                            fontWeight = FontWeight.SemiBold,
-                            color = Color.Black
-                        )
-                        Text(
-                            modifier = Modifier.padding(10.dp,10.dp),
-                            text = model.detail,
-                            fontSize = 20.sp,
-                            color = Color.Black
-                        )
-                        Text(
-                            modifier = Modifier.padding(10.dp,10.dp),
-                            text = model.difficulty,
-                            fontSize = 16.sp,
-                            color = Color.Black
-                        )
-                    }
+        Card(
+            shape = RoundedCornerShape(8.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp, 5.dp),
+            backgroundColor = MaterialTheme.colors.primary
+        ) {
+            Row {
+                Column(
+                    modifier = Modifier.fillMaxWidth(0.5F),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                ) {
+                    Text(
+                        modifier = Modifier.padding(5.dp, 0.dp),
+                        text = model.name,
+                        fontSize = 24.sp,
+                        fontWeight = FontWeight.SemiBold,
+                        color = Color.Black
+                    )
+                    Text(
+                        modifier = Modifier.padding(10.dp, 10.dp),
+                        text = model.detail,
+                        fontSize = 20.sp,
+                        color = Color.Black
+                    )
+                    Text(
+                        modifier = Modifier.padding(10.dp, 10.dp),
+                        text = model.difficulty,
+                        fontSize = 16.sp,
+                        color = Color.Black
+                    )
+                }
 //                    Spacer(modifier = Modifier.width(26.dp))
-                    Column(
-                        modifier = Modifier
-                            .padding(5.dp, 0.dp)
-                            .fillMaxWidth(),
-                        horizontalAlignment = Alignment.End)
-                    {
-                        Text(
-                            modifier = Modifier.padding(5.dp,0.dp),
-                            text = model.score.toString(), // TODO como mostrar esto bien
-                            fontSize = 24.sp,
-                            fontWeight = FontWeight.SemiBold,
-                            color = Color.Black
-                        )
-                        Text(
-                            modifier = Modifier.padding(10.dp,10.dp),
-                            text = model.category,
-                            fontSize = 20.sp,
-                            color = Color.Black
-                        )
-                    }
+                Column(
+                    modifier = Modifier
+                        .padding(5.dp, 0.dp)
+                        .fillMaxWidth(),
+                    horizontalAlignment = Alignment.End
+                )
+                {
+                    Text(
+                        modifier = Modifier.padding(5.dp, 0.dp),
+                        text = model.score.toString(), // TODO como mostrar esto bien
+                        fontSize = 24.sp,
+                        fontWeight = FontWeight.SemiBold,
+                        color = Color.Black
+                    )
+                    Text(
+                        modifier = Modifier.padding(10.dp, 10.dp),
+                        text = model.category,
+                        fontSize = 20.sp,
+                        color = Color.Black
+                    )
                 }
             }
+        }
     }
 }
 
 @Composable
-fun RutinesScreen(padding: PaddingValues, routinesViewModel: RoutinesViewModel){
+fun RutinesScreen(
+    padding: PaddingValues,
+    routinesViewModel: RoutinesViewModel,
+    mainViewModel: ExampleViewModel
+) {
 
     /*
     BottomNavLayout(navController = navController) { bottomNavPadding ->
@@ -164,7 +169,7 @@ fun RutinesScreen(padding: PaddingValues, routinesViewModel: RoutinesViewModel){
     }
     val uiState = routinesViewModel.uiState
     val typeView = true // TODO boton para cambiar vista
-    RoutinesLayout(typeView, padding, uiState, "ALL ROUTINES")
+    RoutinesLayout(typeView, padding, uiState, "ALL ROUTINES", mainViewModel)
 }
 
 @Composable
@@ -172,11 +177,12 @@ fun RoutinesLayout(
     typeView: Boolean,
     padding: PaddingValues,
     uiState: RoutinesUiState,
-    title: String
+    title: String,
+    mainViewModel: ExampleViewModel
 ) {
     Scaffold(
         topBar = {
-            AllRoutinesAppBar(title = title, typeView)
+            AllRoutinesAppBar(title = title, typeView, mainViewModel)
         },
         modifier = Modifier.padding(padding)
     ) {
@@ -239,7 +245,11 @@ fun RoutinesLayout(
 }
 
 @Composable
-fun UserRoutinesScreen(padding: PaddingValues, routinesViewModel: RoutinesViewModel, exampleViewModel: ExampleViewModel) {
+fun UserRoutinesScreen(
+    padding: PaddingValues,
+    routinesViewModel: RoutinesViewModel,
+    exampleViewModel: ExampleViewModel
+) {
     LaunchedEffect(Unit) {
         exampleViewModel.getCurrentUser().invokeOnCompletion {
             exampleViewModel.uiState.currentUser?.let {
@@ -249,13 +259,19 @@ fun UserRoutinesScreen(padding: PaddingValues, routinesViewModel: RoutinesViewMo
             }
         }
     }
-    if (exampleViewModel.uiState.currentUser == null || routinesViewModel.uiState.routines.isEmpty()){
+    if (exampleViewModel.uiState.currentUser == null || routinesViewModel.uiState.routines.isEmpty()) {
         Text(text = "Loading")
         return
     }
     val uiState = routinesViewModel.uiState
     val typeView = true
-    RoutinesLayout(typeView = typeView, padding = padding, uiState = uiState, title = "MY ROUTINES")
+    RoutinesLayout(
+        typeView = typeView,
+        padding = padding,
+        uiState = uiState,
+        title = "MY ROUTINES",
+        mainViewModel = exampleViewModel
+    )
 }
 
 

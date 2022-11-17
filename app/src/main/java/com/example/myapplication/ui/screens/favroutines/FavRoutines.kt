@@ -41,6 +41,7 @@ fun FavRoutines(
                 AllRoutinesAppBar(
                     title = "Favourites",
                     typeView = true,
+                    mainViewModel = mainViewModel
                 )
             },
             scaffoldState = scaffoldState

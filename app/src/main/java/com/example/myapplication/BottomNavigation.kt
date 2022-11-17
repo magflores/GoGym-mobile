@@ -113,7 +113,7 @@ fun AllRoutines(
             onNotLoggedIn()
     }
     BottomNavLayout(navController = navController, mainViewModel = exampleViewModel) {
-        RutinesScreen(padding = it, routinesViewModel = routinesViewModel)
+        RutinesScreen(padding = it, routinesViewModel = routinesViewModel, mainViewModel = exampleViewModel)
 //        TODO make all routines screen
     }
 }
