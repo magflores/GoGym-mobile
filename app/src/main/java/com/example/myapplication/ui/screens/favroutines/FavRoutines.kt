@@ -28,6 +28,7 @@ import com.example.myapplication.BottomNavLayout
 import com.example.myapplication.R
 import com.example.myapplication.Screen
 import com.example.myapplication.ui.ExampleViewModel
+import com.example.myapplication.ui.screens.allroutines.RoutinesViewModel
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 
@@ -38,6 +39,7 @@ fun FavRoutines(
     onNotLoggedIn: () -> Unit,
     viewModel: FavRoutinesViewModel,
     mainViewModel: ExampleViewModel,
+    routinesViewModel: RoutinesViewModel,
     onGoToRoutine: (Int) -> Unit
 ) {
     LaunchedEffect(mainViewModel.uiState.isAuthenticated) {
@@ -54,7 +56,8 @@ fun FavRoutines(
             topBar = {
                 AllRoutinesAppBar(
                     title = "Favourites",
-                    mainViewModel = mainViewModel
+                    mainViewModel = mainViewModel,
+                    viewModel = routinesViewModel,
                 )
             },
             scaffoldState = scaffoldState
