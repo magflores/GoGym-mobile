@@ -55,13 +55,21 @@ fun FavRoutines(
             modifier = Modifier.padding(padding),
             topBar = {
                 AllRoutinesAppBar(
-                    title = "Favourites",
+                    title = stringResource(id = R.string.fav_routines),
+//                    favViewModel = viewModel,
+//                    viewModel = RoutinesViewModel,
                     mainViewModel = mainViewModel,
-                    viewModel = routinesViewModel,
+//                    viewModel = routinesViewModel,
                 )
+                /*
+                title: String,
+                viewModel: RoutinesViewModel,
+                mainViewModel: ExampleViewModel
+                * */
             },
             scaffoldState = scaffoldState
         ) { scaffoldPadding ->
+//            SwipeRefresh
             SwipeRefresh(
                 state = rememberSwipeRefreshState(isRefreshing = uiState.isFetching),
                 onRefresh = { viewModel.getFavourites(true) },

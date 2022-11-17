@@ -14,6 +14,12 @@ class FavRoutinesViewModel(
     var uiState by mutableStateOf(FavRoutinesUiState())
         private set
 
+    fun toggleView() {
+        uiState = uiState.copy(
+            typeOfView_List_Grid = !uiState.typeOfView_List_Grid
+        )
+    }
+
     fun getFavourites(refresh: Boolean = false) = viewModelScope.launch {
         uiState = uiState.copy(isFetching = true, message = null)
         kotlin.runCatching {
