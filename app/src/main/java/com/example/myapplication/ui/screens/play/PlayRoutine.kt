@@ -12,9 +12,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.myapplication.ui.screens.detail.RoutineTopBar
-import com.example.myapplication.ui.state.PlayViewModel
-import com.example.myapplication.ui.state.canNextExercise
-import com.example.myapplication.ui.state.canPrevExercise
 
 @Composable
 fun PlayRoutine(navController: NavController, routineId: Int, onBack: () -> Unit, viewModel: PlayViewModel) {

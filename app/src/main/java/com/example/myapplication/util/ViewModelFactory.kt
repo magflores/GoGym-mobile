@@ -9,7 +9,7 @@ import com.example.myapplication.data.repository.RoutineRepository
 import com.example.myapplication.data.repository.UserRepository
 import com.example.myapplication.ui.ExampleViewModel
 import com.example.myapplication.ui.screens.favroutines.FavRoutinesViewModel
-import com.example.myapplication.ui.state.PlayViewModel
+import com.example.myapplication.ui.screens.play.PlayViewModel
 
 class ViewModelFactory constructor(
     private val sessionManager: SessionManager,

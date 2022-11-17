@@ -1,4 +1,4 @@
-package com.example.myapplication.ui.state
+package com.example.myapplication.ui.screens.play
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf

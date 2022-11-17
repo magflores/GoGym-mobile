@@ -2,6 +2,7 @@ package com.example.myapplication.data.repository
 
 import com.example.myapplication.data.model.Routine
 import com.example.myapplication.data.network.RoutineRemoteDataSource
+import com.example.myapplication.data.network.model.NetworkRoutines
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 
@@ -12,10 +13,12 @@ class RoutineRepository(
     private var favs: List<Routine> = emptyList()
     private val currentMutex = Mutex()
     private var currentRoutine: Routine? = null
+    private val routinesMutex = Mutex()
+    private var routines: List<Routine> = emptyList()
 
     suspend fun getFavs(refresh: Boolean = false): List<Routine> {
         if (refresh || favs.isEmpty()) {
-            val result = remoteDataSource.getFavourites()
+            val result = remoteDataSource.getFavourites(size = PAGE_SIZE)
 
             favsMutex.withLock {
                 this.favs = result.content.map { it.asModel() }
@@ -54,5 +57,40 @@ class RoutineRepository(
         }
 
         return currentMutex.withLock { this.currentRoutine!! }
+    }
+
+    suspend fun getAllRoutines(refresh: Boolean = false, orderBy: String, sort: String): List<Routine> {
+        if (refresh || routines.isEmpty()) {
+            val result = remoteDataSource.getRoutines(
+                orderBy = orderBy,
+                sort = sort,
+                size = PAGE_SIZE
+            )
+
+            routinesMutex.withLock {
+                this.routines = result.content.map(NetworkRoutines::asModel)
+            }
+        }
+
+        return routinesMutex.withLock { this.routines }
+    }
+
+    suspend fun searchRoutines(search: String, orderBy: String, sort: String): List<Routine> {
+        val result = remoteDataSource.getRoutines(
+            search = search,
+            orderBy = orderBy,
+            sort = sort,
+            size = PAGE_SIZE
+        )
+
+        routinesMutex.withLock {
+            this.routines = result.content.map(NetworkRoutines::asModel)
+        }
+
+        return routinesMutex.withLock { this.routines }
+    }
+
+    companion object {
+        const val PAGE_SIZE = 100000
     }
 }

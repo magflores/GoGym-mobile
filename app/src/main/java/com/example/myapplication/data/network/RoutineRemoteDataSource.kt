@@ -1,6 +1,5 @@
 package com.example.myapplication.data.network
 
-import com.example.myapplication.data.model.Routine
 import com.example.myapplication.data.network.api.ApiRoutinesService
 import com.example.myapplication.data.network.model.NetworkContentExercise
 import com.example.myapplication.data.network.model.NetworkPagedContent
@@ -21,7 +20,7 @@ class RoutineRemoteDataSource(
         size: Int? = null,
         orderBy: String? = null,
         sort: String? = null,
-    ): List<Routine> {
+    ): NetworkPagedContent<NetworkRoutines> {
         val response = handleApiResponse {
             apiRoutinesService.getRoutines(
                 categoryId,
@@ -35,7 +34,7 @@ class RoutineRemoteDataSource(
                 sort
             )
         }
-        return response.content.map { it.asModel() }
+        return response
     }
 
     suspend fun getRoutine(routineId: Int): NetworkRoutines {
@@ -62,9 +61,9 @@ class RoutineRemoteDataSource(
         }
     }
 
-    suspend fun getFavourites(): NetworkPagedContent<NetworkRoutines> {
+    suspend fun getFavourites(page: Int? = null, size: Int? = null): NetworkPagedContent<NetworkRoutines> {
         return handleApiResponse {
-            apiRoutinesService.getFavourites()
+            apiRoutinesService.getFavourites(page = page, size = size)
         }
     }
 

@@ -1,4 +1,4 @@
-package com.example.myapplication
+package com.example.myapplication.ui.screens.allroutines
 
 import android.content.res.Configuration
 import androidx.compose.foundation.background
@@ -19,6 +19,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.myapplication.AllRoutinesAppBar
+import com.example.myapplication.R
 
 data class RoutineList(val title: String, val subTitle: String, val score: Float,
                        val difficulty: String, val category: String)

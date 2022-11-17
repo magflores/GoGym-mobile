@@ -10,7 +10,7 @@ import androidx.navigation.navArgument
 import com.example.myapplication.ui.screens.detail.DetailedRoutine
 import com.example.myapplication.ui.screens.favroutines.FavRoutines
 import com.example.myapplication.ui.screens.play.PlayRoutine
-import com.example.myapplication.ui.state.PlayViewModel
+import com.example.myapplication.ui.screens.play.PlayViewModel
 import com.example.myapplication.util.getViewModelFactory
 
 @Composable
