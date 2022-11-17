@@ -3,14 +3,7 @@ package com.example.myapplication.ui.screens.favroutines
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Button
-import androidx.compose.material.Card
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -19,18 +12,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.myapplication.AllRoutinesAppBar
 import com.example.myapplication.BottomNavLayout
 import com.example.myapplication.R
-import com.example.myapplication.Screen
 import com.example.myapplication.ui.ExampleViewModel
 import com.example.myapplication.ui.screens.allroutines.RoutinesViewModel
-import com.google.accompanist.swiperefresh.SwipeRefresh
-import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
+//import com.google.accompanist.swiperefresh.SwipeRefresh
+//import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
@@ -57,7 +48,7 @@ fun FavRoutines(
                 AllRoutinesAppBar(
                     title = stringResource(id = R.string.fav_routines),
 //                    favViewModel = viewModel,
-//                    viewModel = RoutinesViewModel,
+                    viewModel = routinesViewModel,
                     mainViewModel = mainViewModel,
 //                    viewModel = routinesViewModel,
                 )
@@ -70,10 +61,11 @@ fun FavRoutines(
             scaffoldState = scaffoldState
         ) { scaffoldPadding ->
 //            SwipeRefresh
-            SwipeRefresh(
-                state = rememberSwipeRefreshState(isRefreshing = uiState.isFetching),
-                onRefresh = { viewModel.getFavourites(true) },
-            ) {
+
+//            SwipeRefresh(
+//                state = rememberSwipeRefreshState(isRefreshing = uiState.isFetching),
+//                onRefresh = { viewModel.getFavourites(true) },
+//            ) {
                 Column(
                     modifier = Modifier.padding(scaffoldPadding)
                 ) {
@@ -161,7 +153,7 @@ fun FavRoutines(
                         }
                     }
                 }
-            }
+//            }
         }
     }
 

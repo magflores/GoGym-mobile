@@ -4,28 +4,21 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Logout
+import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.MoreVert
-import androidx.compose.runtime.Composable
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import com.example.myapplication.ui.ExampleViewModel
-import androidx.compose.ui.unit.dp
-import androidx.compose.material.TopAppBar
-import androidx.compose.material.icons.filled.*
 import com.example.myapplication.ui.screens.allroutines.RoutinesViewModel
 import com.example.myapplication.ui.screens.allroutines.stateTypeOfView_List_Grid
-import com.example.myapplication.ui.screens.favroutines.FavRoutinesViewModel
-import com.example.myapplication.ui.screens.favroutines.stateTypeOfView_List_Grid
-import com.example.myapplication.ui.stateTypeOfView_List_Grid
 
 @Composable
 fun AllRoutinesAppBar(
     title: String,
-//    viewModel: RoutinesViewModel,
+    viewModel: RoutinesViewModel,
 //    favViewModel: FavRoutinesViewModel,
     mainViewModel: ExampleViewModel
 ){
@@ -42,9 +35,9 @@ fun AllRoutinesAppBar(
         },
         actions = {
             IconButton(onClick = {
-                mainViewModel.toggleView()
+                viewModel.toggleView()
             }) {
-                if (!mainViewModel.uiState.stateTypeOfView_List_Grid){
+                if (!viewModel.uiState.stateTypeOfView_List_Grid){
                     Icon(painterResource(id =
                     R.drawable.baseline_list_black_48),
                         contentDescription = null)
