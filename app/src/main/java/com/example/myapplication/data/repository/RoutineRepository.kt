@@ -92,6 +92,21 @@ class RoutineRepository(
         return routinesMutex.withLock { this.routines }
     }
 
+    suspend fun getUserRoutines(userId: Int, orderBy: String, sort: String): List<Routine> {
+        val result = remoteDataSource.getRoutines(
+            userId = userId,
+            orderBy = orderBy,
+            sort = sort,
+            size = PAGE_SIZE
+        )
+
+        routinesMutex.withLock {
+            this.routines = result.content.map(NetworkRoutines::asModel)
+        }
+
+        return routinesMutex.withLock { this.routines }
+    }
+
     companion object {
         const val PAGE_SIZE = 100000
     }

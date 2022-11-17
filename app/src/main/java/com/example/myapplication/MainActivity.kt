@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
@@ -19,12 +18,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.rememberNavController
 import com.example.myapplication.ui.ExampleViewModel
 import com.example.myapplication.ui.theme.MyApplicationTheme
+import com.example.myapplication.util.getViewModelFactory
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,7 +32,9 @@ class MainActivity : ComponentActivity() {
         setContent {
             MyApplicationTheme {
                 val navController = rememberNavController()
-                MyNavGraph(navController = navController)
+                val exampleViewModel: ExampleViewModel = viewModel(factory = getViewModelFactory())
+                exampleViewModel.getCurrentUser()
+                MyNavGraph(navController = navController, exampleViewModel = exampleViewModel)
             }
         }
     }
@@ -110,8 +112,8 @@ fun LogIn(viewModel: ExampleViewModel, onLogIn: () -> Unit) {
 //        Configuration.ORIENTATION_LANDSCAPE -> {}
 //        else -> {}
 //    }
-    var (username, setUsername) = remember { mutableStateOf("") }
-    var (password, setPassword) = remember { mutableStateOf("") }
+    val (username, setUsername) = remember { mutableStateOf("") }
+    val (password, setPassword) = remember { mutableStateOf("") }
 
     Surface(
         modifier = Modifier.fillMaxSize(),

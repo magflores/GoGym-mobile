@@ -40,4 +40,24 @@ class ExampleViewModel(
         }
     }
 
+    fun getCurrentUser() = viewModelScope.launch {
+        uiState = uiState.copy(
+            isFetching = true,
+            message = null
+        )
+        kotlin.runCatching {
+            userRepository.getCurrentUser(false)
+        }.onSuccess { response ->
+            uiState = uiState.copy(
+                isFetching = false,
+                currentUser = response
+            )
+        }.onFailure { e ->
+            uiState = uiState.copy(
+                isFetching = false,
+                message = e.message
+            )
+        }
+    }
+
 }

@@ -14,6 +14,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -22,12 +23,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.myapplication.AllRoutinesAppBar
-
-data class RoutineList(val title: String, val subTitle: String, val score: Float,
-                       val difficulty: String, val category: String)
+import com.example.myapplication.data.model.Routine
+import com.example.myapplication.ui.ExampleViewModel
 
 @Composable
-fun ListRow(model: RoutineList){
+fun ListRow(model: Routine){
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
@@ -47,14 +47,14 @@ fun ListRow(model: RoutineList){
                     ) {
                         Text(
                             modifier = Modifier.padding(5.dp,0.dp),
-                            text = model.title,
+                            text = model.name,
                             fontSize = 24.sp,
                             fontWeight = FontWeight.SemiBold,
                             color = Color.Black
                         )
                         Text(
                             modifier = Modifier.padding(10.dp,10.dp),
-                            text = model.subTitle,
+                            text = model.detail,
                             fontSize = 20.sp,
                             color = Color.Black
                         )
@@ -91,10 +91,8 @@ fun ListRow(model: RoutineList){
     }
 }
 
-private val routineList = mutableListOf<RoutineList>()
-
 @Composable
-fun RutinesScreen(padding: PaddingValues){
+fun RutinesScreen(padding: PaddingValues, routinesViewModel: RoutinesViewModel){
 
     /*
     BottomNavLayout(navController = navController) { bottomNavPadding ->
@@ -160,10 +158,25 @@ fun RutinesScreen(padding: PaddingValues){
         }
     }
     */
+
+    LaunchedEffect(Unit) {
+        routinesViewModel.getAllRoutines()
+    }
+    val uiState = routinesViewModel.uiState
     val typeView = true // TODO boton para cambiar vista
+    RoutinesLayout(typeView, padding, uiState, "ALL ROUTINES")
+}
+
+@Composable
+fun RoutinesLayout(
+    typeView: Boolean,
+    padding: PaddingValues,
+    uiState: RoutinesUiState,
+    title: String
+) {
     Scaffold(
         topBar = {
-            AllRoutinesAppBar(title = "ALL ROUTINES", typeView)
+            AllRoutinesAppBar(title = title, typeView)
         },
         modifier = Modifier.padding(padding)
     ) {
@@ -177,12 +190,12 @@ fun RutinesScreen(padding: PaddingValues){
                 modifier = Modifier
                     .background(Color.White)
             ) {
-                items(routineList) { model ->
+                items(uiState.routines) { model ->
                     ListRow(model = model)
                 }
             }
         } else {
-            when (configuration.orientation){
+            when (configuration.orientation) {
                 Configuration.ORIENTATION_LANDSCAPE -> {
                     LazyVerticalGrid(
                         columns = GridCells.Adaptive(200.dp),
@@ -193,7 +206,7 @@ fun RutinesScreen(padding: PaddingValues){
                         modifier = Modifier
                             .background(Color.White)
                     ) {
-                        items(routineList) { model ->
+                        items(uiState.routines) { model ->
                             ListRow(model = model)
                         }
                     }
@@ -209,7 +222,7 @@ fun RutinesScreen(padding: PaddingValues){
                             .padding(it)
                             .background(Color.White)
                     ) {
-                        items(routineList) { model ->
+                        items(uiState.routines) { model ->
                             ListRow(model = model)
                         }
                     }
@@ -217,9 +230,26 @@ fun RutinesScreen(padding: PaddingValues){
                 Configuration.ORIENTATION_UNDEFINED -> {
                     TODO()
                 }
+                Configuration.ORIENTATION_SQUARE -> {
+                    TODO()
+                }
             }
         }
     }
+}
+
+@Composable
+fun UserRoutinesScreen(padding: PaddingValues, routinesViewModel: RoutinesViewModel, exampleViewModel: ExampleViewModel) {
+    LaunchedEffect(exampleViewModel.uiState.currentUser) {
+        exampleViewModel.uiState.currentUser?.let {
+            it.id?.let { id ->
+                routinesViewModel.getUserRoutines(id)
+            }
+        }
+    }
+    val uiState = routinesViewModel.uiState
+    val typeView = true
+    RoutinesLayout(typeView = typeView, padding = padding, uiState = uiState, title = "MY ROUTINES")
 }
 
 

@@ -7,6 +7,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.example.myapplication.ui.ExampleViewModel
 import com.example.myapplication.ui.screens.detail.DetailedRoutine
 import com.example.myapplication.ui.screens.favroutines.FavRoutines
 import com.example.myapplication.ui.screens.play.PlayRoutine
@@ -14,7 +15,7 @@ import com.example.myapplication.ui.screens.play.PlayViewModel
 import com.example.myapplication.util.getViewModelFactory
 
 @Composable
-fun MyNavGraph(navController: NavHostController) {
+fun MyNavGraph(navController: NavHostController, exampleViewModel: ExampleViewModel) {
     NavHost(
         navController = navController, startDestination = Screen.FavRoutinesScreen.route
     ) {
@@ -28,13 +29,22 @@ fun MyNavGraph(navController: NavHostController) {
             )
         }
         composable(Screen.MyRoutinesScreen.route) {
-            MyRoutines(navController, onNotLoggedIn)
+            MyRoutines(
+                navController,
+                onNotLoggedIn,
+                routinesViewModel = viewModel(factory = getViewModelFactory()),
+                exampleViewModel = exampleViewModel
+            )
         }
         composable(Screen.AllRoutinesScreen.route) {
-            AllRoutines(navController, onNotLoggedIn)
+            AllRoutines(
+                navController,
+                onNotLoggedIn,
+                routinesViewModel = viewModel(factory = getViewModelFactory())
+            )
         }
         composable(Screen.LogInScreen.route) {
-            LogIn(viewModel(factory = getViewModelFactory()), onLogIn = {
+            LogIn(viewModel = exampleViewModel, onLogIn = {
                 navController.navigate(Screen.FavRoutinesScreen.route) {
                     popUpTo(Screen.FavRoutinesScreen.route)
                 }

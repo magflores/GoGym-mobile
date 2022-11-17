@@ -20,13 +20,13 @@ class UserRepository(
         remoteDataSource.logout()
     }
 
-    suspend fun getCurrentUser(refresh: Boolean) : User? {
+    suspend fun getCurrentUser(refresh: Boolean) : User {
         if (refresh || currentUser == null) {
             val result = remoteDataSource.getCurrentUser()
             currentUserMutex.withLock {
                 this.currentUser = result.asModel()
             }
         }
-        return currentUserMutex.withLock { this.currentUser }
+        return currentUserMutex.withLock { this.currentUser!! }
     }
 }

@@ -8,6 +8,7 @@ import androidx.savedstate.SavedStateRegistryOwner
 import com.example.myapplication.data.repository.RoutineRepository
 import com.example.myapplication.data.repository.UserRepository
 import com.example.myapplication.ui.ExampleViewModel
+import com.example.myapplication.ui.screens.allroutines.RoutinesViewModel
 import com.example.myapplication.ui.screens.favroutines.FavRoutinesViewModel
 import com.example.myapplication.ui.screens.play.PlayViewModel
 
@@ -30,6 +31,8 @@ class ViewModelFactory constructor(
                 FavRoutinesViewModel(routineRepository)
             isAssignableFrom(PlayViewModel::class.java) ->
                 PlayViewModel(routineRepository)
+            isAssignableFrom(RoutinesViewModel::class.java) ->
+                RoutinesViewModel(routineRepository)
             else ->
                 throw java.lang.IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
         }

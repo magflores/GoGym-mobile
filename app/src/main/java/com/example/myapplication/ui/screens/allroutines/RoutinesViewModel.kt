@@ -51,5 +51,24 @@ class RoutinesViewModel(
             }
         }
     }
+
+    fun getUserRoutines(userId: Int) = viewModelScope.launch {
+        uiState = uiState.copy(isFetching = true, message = null)
+        kotlin.runCatching {
+            routineRepository.getUserRoutines(
+                userId = userId,
+                orderBy = uiState.orderBy.order,
+                sort = uiState.sort.sort
+            )
+        }.onSuccess { response ->
+            uiState = uiState.copy(
+                isFetching = false, routines = response
+            )
+        }.onFailure { e ->
+            uiState = uiState.copy(
+                message = e.message, isFetching = false
+            )
+        }
+    }
 }
 

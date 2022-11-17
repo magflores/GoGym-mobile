@@ -1,7 +1,5 @@
 package com.example.myapplication
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
@@ -10,7 +8,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
+import com.example.myapplication.ui.ExampleViewModel
+import com.example.myapplication.ui.screens.allroutines.RoutinesViewModel
 import com.example.myapplication.ui.screens.allroutines.RutinesScreen
+import com.example.myapplication.ui.screens.allroutines.UserRoutinesScreen
 
 @Composable
 fun BottomBar(navController: NavController) {
@@ -25,7 +26,12 @@ fun BottomBar(navController: NavController) {
         val currentRoute = navBackStackEntry?.destination?.route
         items.forEach { item ->
             BottomNavigationItem(
-                icon = { Icon(imageVector = item.icon, contentDescription = stringResource(item.titleId)) },
+                icon = {
+                    Icon(
+                        imageVector = item.icon,
+                        contentDescription = stringResource(item.titleId)
+                    )
+                },
                 label = { Text(text = stringResource(item.titleId)) },
                 alwaysShowLabel = true,
                 selected = currentRoute == item.route,
@@ -54,27 +60,37 @@ fun BottomNavLayout(navController: NavController, content: @Composable (PaddingV
 }
 
 @Composable
-fun MyRoutines(navController: NavController, onNotLoggedIn: () -> Unit) {
+fun MyRoutines(
+    navController: NavController,
+    onNotLoggedIn: () -> Unit,
+    routinesViewModel: RoutinesViewModel,
+    exampleViewModel: ExampleViewModel
+) {
     LaunchedEffect(true) {
-        if (true)
+        if (false)
             onNotLoggedIn()
     }
     BottomNavLayout(navController = navController) {
-        Column(verticalArrangement = Arrangement.Center) {
-            Text(text = "MY ROUTINES")
-        }
-//        TODO make my routines screen
+        UserRoutinesScreen(
+            padding = it,
+            routinesViewModel = routinesViewModel,
+            exampleViewModel = exampleViewModel
+        )
     }
 }
 
 @Composable
-fun AllRoutines(navController: NavController, onNotLoggedIn: () -> Unit) {
+fun AllRoutines(
+    navController: NavController,
+    onNotLoggedIn: () -> Unit,
+    routinesViewModel: RoutinesViewModel
+) {
     LaunchedEffect(false) {
         if (false)
             onNotLoggedIn()
     }
     BottomNavLayout(navController = navController) {
-        RutinesScreen(it)
+        RutinesScreen(padding = it, routinesViewModel = routinesViewModel)
 //        TODO make all routines screen
     }
 }

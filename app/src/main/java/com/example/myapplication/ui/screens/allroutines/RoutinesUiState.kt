@@ -21,7 +21,7 @@ enum class Order(val order: String) {
 data class RoutinesUiState(
     val isFetching: Boolean = false,
     val message: String? = null,
-    val routines: List<Routine>? = null,
+    val routines: List<Routine> = emptyList(),
     val orderBy: Order = Order.DATE,
     val sort: Sort = Sort.ASC,
 )
