@@ -3,6 +3,7 @@ package com.example.myapplication.data.model
 import java.util.Date
 
 data class CycleExercise(
+    val name: String,
     val order: Int,
     val duration: Int,
     val repetitions: Int,

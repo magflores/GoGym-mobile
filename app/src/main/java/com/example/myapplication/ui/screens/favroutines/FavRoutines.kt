@@ -1,12 +1,10 @@
 package com.example.myapplication.ui.screens.favroutines
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material.Button
 import androidx.compose.material.Card
 import androidx.compose.material.Text
@@ -41,6 +39,9 @@ fun FavRoutines(navController: NavController, onNotLoggedIn: () -> Unit, viewMod
         ) {
             Button(onClick = {     viewModel.getFavourites() }) {
                 Text(text = "GET")
+            }
+            Button(onClick = { navController.navigate("${Screen.RoutineScreen.route}/1") }) {
+                Text(text = "GO TO ROUTINE")
             }
             LazyVerticalGrid(
                 columns = GridCells.Adaptive(120.dp),

@@ -21,6 +21,7 @@ data class NetworkContentExercise(
             detail = exercise.detail,
             type = exercise.type,
             date = exercise.date,
+            name = exercise.name
         )
     }
 }
