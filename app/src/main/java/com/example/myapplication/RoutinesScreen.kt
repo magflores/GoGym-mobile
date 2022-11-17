@@ -19,6 +19,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.myapplication.ui.ExampleViewModel
+import com.example.myapplication.ui.stateTypeOfView_List_Grid
 
 data class RoutineList(val title: String, val subTitle: String, val score: Float,
                        val difficulty: String, val category: String)
@@ -91,7 +93,7 @@ fun ListRow(model: RoutineList){
 private val routineList = mutableListOf<RoutineList>()
 
 @Composable
-fun RutinesScreen(padding: PaddingValues){
+fun RutinesScreen(padding: PaddingValues, viewModel: ExampleViewModel){
     routineList.add(RoutineList("Rutina 1", stringResource(id = R.string.created_by, "pepe"), 4.2F, "Easy", "Abs"))
     routineList.add(RoutineList("Rutina 2", stringResource(id = R.string.created_by, "pepe"), 4.2F, "Easy", "Abs"))
     routineList.add(RoutineList("Rutina 3", stringResource(id = R.string.created_by, "pepe"), 4.2F, "Easy", "Abs"))
@@ -101,79 +103,15 @@ fun RutinesScreen(padding: PaddingValues){
     routineList.add(RoutineList("Rutina 3", stringResource(id = R.string.created_by, "santi-trainer12") , 3.2F, "Hard", "Cardio"))
     routineList.add(RoutineList("Rutina 4", stringResource(id = R.string.created_by, "santi-trainer12") , 3.2F, "Hard", "Cardio"))
 
-    /*
-    BottomNavLayout(navController = navController) { bottomNavPadding ->
-        Scaffold(
-            topBar = {RoutineTopBar(onBack)},
-            modifier = Modifier.padding(bottomNavPadding)
-        ) { padding ->
-            val configuration = LocalConfiguration.current
-            val myVar = false // TODO boton para cambiar vista
-            if (myVar) {
-                LazyColumn(
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement
-                        .spacedBy(4.dp),
-                    contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
-                    modifier = Modifier
-                        .padding(padding)
-                        .background(Color.White)
-                ) {
-                    items(rutineList) { model ->
-                        ListRow(model = model)
-                    }
-                }
-            } else {
-                when (configuration.orientation){
-                    Configuration.ORIENTATION_LANDSCAPE -> {
-                        LazyVerticalGrid(
-                            columns = GridCells.Adaptive(200.dp),
-                            verticalArrangement = Arrangement
-                                .spacedBy(4.dp),
-                            contentPadding =
-                            PaddingValues(horizontal = 16.dp, vertical = 8.dp),
-                            modifier = Modifier
-                                .padding(padding)
-                                .background(Color.White)
-                        ) {
-                            items(rutineList) { model ->
-                                ListRow(model = model)
-                            }
-                        }
-                    }
-                    Configuration.ORIENTATION_PORTRAIT -> {
-                        LazyVerticalGrid(
-                            columns = GridCells.Adaptive(150.dp),
-                            verticalArrangement = Arrangement
-                                .spacedBy(4.dp),
-                            contentPadding =
-                            PaddingValues(horizontal = 16.dp, vertical = 8.dp),
-                            modifier = Modifier
-                                .padding(padding)
-                                .background(Color.White)
-                        ) {
-                            items(rutineList) { model ->
-                                ListRow(model = model)
-                            }
-                        }
-                    }
-                    Configuration.ORIENTATION_UNDEFINED -> {
-                        TODO()
-                    }
-                }
-            }
-        }
-    }
-    */
-    val typeView = true // TODO boton para cambiar vista
+//    val typeView = true // TODO boton para cambiar vista
     Scaffold(
         topBar = {
-            AllRoutinesAppBar(title = "ALL ROUTINES", typeView)
+            AllRoutinesAppBar(title = stringResource(id = R.string.all_routines), viewModel = viewModel)
         },
         modifier = Modifier.padding(padding)
     ) {
         val configuration = LocalConfiguration.current
-        if (typeView) {
+        if (viewModel.uiState.stateTypeOfView_List_Grid) {
             LazyColumn(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement

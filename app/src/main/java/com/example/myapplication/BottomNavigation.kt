@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
+import com.example.myapplication.ui.ExampleViewModel
 
 @Composable
 fun BottomBar(navController: NavController) {
@@ -69,13 +70,13 @@ fun MyRoutines(navController: NavController, onNotLoggedIn: () -> Unit) {
 }
 
 @Composable
-fun AllRoutines(navController: NavController, onNotLoggedIn: () -> Unit) {
+fun AllRoutines(navController: NavController, onNotLoggedIn: () -> Unit, viewModel: ExampleViewModel) {
     LaunchedEffect(false) {
         if (false)
             onNotLoggedIn()
     }
     BottomNavLayout(navController = navController) {
-        RutinesScreen(it)
+        RutinesScreen(it, viewModel)
 //        TODO make all routines screen
     }
 }

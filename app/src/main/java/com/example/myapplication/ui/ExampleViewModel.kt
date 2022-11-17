@@ -17,6 +17,12 @@ class ExampleViewModel(
     var uiState by mutableStateOf(ExampleUiState(isAuthenticated = sessionManager.loadAuthToken() != null))
         private set
 
+    fun toggleView() {
+        uiState = uiState.copy(
+            typeOfView_List_Grid = !uiState.typeOfView_List_Grid
+        )
+    }
+
     fun login(username: String, password: String, onLogIn: (() -> Unit)? = null) = viewModelScope.launch {
         uiState = uiState.copy(
             isFetching = true,

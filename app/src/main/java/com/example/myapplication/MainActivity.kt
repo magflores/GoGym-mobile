@@ -130,7 +130,7 @@ fun LogIn(viewModel: ExampleViewModel, onLogIn: () -> Unit) {
                 IconTitleSubTitle(title = "GoGym!",
                     mySubTitle = stringResource(id = R.string.log_in))
 
-                StyledTextField(stringResource(id = R.string.e_mail_label_to_complete), username, setUsername)
+                StyledTextField(stringResource(id = R.string.user_label_to_complete), username, setUsername)
                 StyledTextFieldPassword(stringResource(id = R.string.password_label_to_complete), password, setPassword)
 
                 ButtonPlusTextBelow(

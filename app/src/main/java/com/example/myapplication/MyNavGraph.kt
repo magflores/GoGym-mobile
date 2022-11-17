@@ -30,7 +30,7 @@ fun MyNavGraph(navController: NavHostController) {
             MyRoutines(navController, onNotLoggedIn)
         }
         composable(Screen.AllRoutinesScreen.route) {
-            AllRoutines(navController, onNotLoggedIn)
+            AllRoutines(navController, onNotLoggedIn, viewModel(factory = getViewModelFactory()))
         }
         composable(Screen.LogInScreen.route) {
             LogIn(viewModel(factory = getViewModelFactory()), onLogIn = {
