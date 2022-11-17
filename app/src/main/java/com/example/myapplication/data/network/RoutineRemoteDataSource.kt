@@ -1,8 +1,8 @@
 package com.example.myapplication.data.network
 
-import com.example.myapplication.data.model.CycleExercise
 import com.example.myapplication.data.model.Routine
 import com.example.myapplication.data.network.api.ApiRoutinesService
+import com.example.myapplication.data.network.model.NetworkContentExercise
 import com.example.myapplication.data.network.model.NetworkPagedContent
 import com.example.myapplication.data.network.model.NetworkRoutineCycle
 import com.example.myapplication.data.network.model.NetworkRoutines
@@ -52,15 +52,13 @@ class RoutineRemoteDataSource(
         }
     }
 
-    suspend fun getCycleExercises(cycleId: Int): List<CycleExercise> {
+    suspend fun getCycleExercises(cycleId: Int): NetworkPagedContent<NetworkContentExercise> {
         return handleApiResponse {
             apiRoutinesService.getCycleExercises(
                 cycleId = cycleId,
                 orderBy = "order",
                 direction = "asc"
             )
-        }.content.map {
-            it.asModel()
         }
     }
 

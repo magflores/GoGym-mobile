@@ -6,11 +6,10 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ChevronLeft
 import androidx.compose.material.icons.filled.ChevronRight
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.myapplication.ui.screens.detail.RoutineTopBar
 import com.example.myapplication.ui.state.PlayViewModel
@@ -18,9 +17,10 @@ import com.example.myapplication.ui.state.canNextExercise
 import com.example.myapplication.ui.state.canPrevExercise
 
 @Composable
-fun PlayRoutine(navController: NavController, routineId: Int, onBack: () -> Unit) {
-    val viewModel: PlayViewModel = viewModel()
-    viewModel.getCycles()
+fun PlayRoutine(navController: NavController, routineId: Int, onBack: () -> Unit, viewModel: PlayViewModel) {
+    LaunchedEffect(Unit) {
+        viewModel.getCycles(routineId)
+    }
     Scaffold(
         topBar = { RoutineTopBar(onBack) },
         bottomBar = { PlayingControls(viewModel = viewModel) }
@@ -59,10 +59,10 @@ fun PlayingCycles(modifier: Modifier, viewModel: PlayViewModel) {
                         }
                         cycle.exercises.forEachIndexed { exerciseIndex, cycleExercise ->
                             if (uiState.playingCycle == cycleIndex && uiState.playingExercise == exerciseIndex) Text(
-                                text = cycleExercise.exercise.name,
+                                text = cycleExercise.name,
                                 color = Color.Red
                             )
-                            else Text(text = cycleExercise.exercise.name)
+                            else Text(text = cycleExercise.name)
                         }
                     }
                 }

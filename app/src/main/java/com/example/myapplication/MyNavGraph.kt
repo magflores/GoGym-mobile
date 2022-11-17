@@ -10,6 +10,7 @@ import androidx.navigation.navArgument
 import com.example.myapplication.ui.screens.detail.DetailedRoutine
 import com.example.myapplication.ui.screens.favroutines.FavRoutines
 import com.example.myapplication.ui.screens.play.PlayRoutine
+import com.example.myapplication.ui.state.PlayViewModel
 import com.example.myapplication.util.getViewModelFactory
 
 @Composable
@@ -56,9 +57,13 @@ fun MyNavGraph(navController: NavHostController) {
             arguments = listOf(navArgument("routineId") { type = NavType.IntType })
         ) { backStackEntry ->
             val routineId = backStackEntry.arguments?.getInt("routineId") ?: 0
-            PlayRoutine(navController = navController,
+            val playViewModel: PlayViewModel = viewModel(factory = getViewModelFactory())
+            PlayRoutine(
+                navController = navController,
                 routineId = routineId,
-                onBack = { navController.popBackStack() })
+                onBack = { navController.popBackStack() },
+                viewModel = playViewModel
+            )
         }
     }
 }

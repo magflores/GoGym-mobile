@@ -13,4 +13,6 @@ data class NetworkExercise(
 //    le agrego esto del metadata para getCycleExercises, ver de sino hacer una data class nueva
     @SerializedName("metadata"    ) var metadata    : NetworkUserMetadata? = null
 
-)
+) {
+
+}
