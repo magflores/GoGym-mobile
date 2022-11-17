@@ -19,4 +19,7 @@
     <string name="hide_password">Ocultar contraseña</string>
     <string name="show_password">Mostrar contraseña</string>
     <string name="dismiss">Descartar</string>
+    <string name="logout">Salir</string>
+    <string name="share">Compartir</string>
+    <string name="more">Más</string>
 </resources>
