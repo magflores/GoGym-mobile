@@ -70,5 +70,33 @@ class RoutinesViewModel(
             )
         }
     }
+
+    fun getRoutine(routineId: Int) = viewModelScope.launch {
+        uiState = uiState.copy(isFetching = true, message = null)
+        kotlin.runCatching {
+            routineRepository.getRoutine(routineId)
+        }.onSuccess { response ->
+            uiState = uiState.copy(
+                isFetching = false, currentRoutine = response
+            )
+        }.onFailure { e ->
+            uiState = uiState.copy(
+                message = e.message, isFetching = false
+            )
+        }
+    }
+
+    fun isFavorite(routineId: Int): Boolean {
+//        TODO()
+        return false
+    }
+
+    fun markFavorite(routineId: Int) {
+//        TODO("Not yet implemented")
+    }
+
+    fun dismissMessage() {
+        uiState = uiState.copy(message = null)
+    }
 }
 

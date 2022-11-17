@@ -12,9 +12,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.myapplication.R
+import com.example.myapplication.data.model.Routine
 
 @Composable
-fun RoutineInfoCard(modifier: Modifier = Modifier) {
+fun RoutineInfoCard(modifier: Modifier = Modifier, routine: Routine) {
     Surface(
         modifier = modifier.fillMaxWidth()
     ) {
@@ -25,9 +26,8 @@ fun RoutineInfoCard(modifier: Modifier = Modifier) {
                 modifier = Modifier.fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Text(text = "Routine title", fontWeight = FontWeight.Bold, fontSize = 30.sp)
-                Text(text = "Routine detail", fontWeight = FontWeight.Light, fontSize = 20.sp)
-
+                Text(text = routine.name, fontWeight = FontWeight.Bold, fontSize = 30.sp)
+                Text(text = routine.detail, fontWeight = FontWeight.Light, fontSize = 20.sp)
             }
             Row(
                 verticalAlignment = Alignment.CenterVertically,
@@ -39,17 +39,17 @@ fun RoutineInfoCard(modifier: Modifier = Modifier) {
                     modifier = Modifier.size(80.dp)
                 )
                 Column {
-                    Text(text = "Author")
-                    Text(text = "Last online")
+                    Text(text = routine.user.username)
+                    Text(text = routine.user.lastActivity.toString())
                 }
             }
             Row(
                 modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly
             ) {
-                Text(text = "creation date")
-                Text(text = "Score")
-                Text(text = "difficulty")
-                Text(text = "Category")
+                Text(text = routine.date.toString())
+                Text(text = routine.score.toString())
+                Text(text = routine.difficulty)
+                Text(text = routine.category)
             }
         }
     }

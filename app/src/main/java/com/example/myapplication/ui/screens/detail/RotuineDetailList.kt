@@ -12,10 +12,16 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.myapplication.data.model.Routine
+import com.example.myapplication.data.model.RoutineCycle
 
 
 @Composable
-fun RoutineDetailList(padding: PaddingValues, constraints : BoxWithConstraintsScope) {
+fun RoutineDetailList(
+    padding: PaddingValues,
+    constraints: BoxWithConstraintsScope,
+    routine: Routine
+) {
     LazyColumn(
         modifier = Modifier.padding(padding),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -23,7 +29,7 @@ fun RoutineDetailList(padding: PaddingValues, constraints : BoxWithConstraintsSc
         contentPadding = PaddingValues(16.dp)
     ) {
         if (constraints.maxWidth < 600.dp) {
-            this.item { RoutineInfoCard(modifier = Modifier.padding(padding)) }
+            this.item { RoutineInfoCard(modifier = Modifier.padding(padding), routine = routine) }
         }
         this.item {
             Spacer(
@@ -32,8 +38,10 @@ fun RoutineDetailList(padding: PaddingValues, constraints : BoxWithConstraintsSc
                     .padding(padding)
             )
         }
-        this.items(items = getRoutineCycles()) {
-            RoutineCycleCard(it)
+        routine.cycles?.let { cycles ->
+            this.items(items = cycles) {
+                RoutineCycleCard(it)
+            }
         }
     }
 }
@@ -49,17 +57,17 @@ fun RoutineCycleCard(cycle: RoutineCycle) {
                 .padding(16.dp)
         ) {
             Text(
-                text = "${cycle.title} Repeat: ${cycle.repeats}",
+                text = "${cycle.name} Repeat: ${cycle.repetitions}",
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Bold
             )
             Spacer(modifier = Modifier.height(8.dp))
             Text(
-                text = "${cycle.repeats}", fontSize = 16.sp
+                text = "${cycle.repetitions}", fontSize = 16.sp
             )
             for (exercise in cycle.exercises) {
                 Text(
-                    text = exercise, fontSize = 16.sp
+                    text = exercise.name, fontSize = 16.sp
                 )
             }
         }

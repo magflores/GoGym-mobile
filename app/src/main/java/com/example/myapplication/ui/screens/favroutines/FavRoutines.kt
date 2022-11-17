@@ -26,18 +26,19 @@ import androidx.navigation.NavController
 import com.example.myapplication.AllRoutinesAppBar
 import com.example.myapplication.BottomNavLayout
 import com.example.myapplication.R
-import com.example.myapplication.R
 import com.example.myapplication.Screen
 import com.example.myapplication.ui.ExampleViewModel
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun FavRoutines(
     navController: NavController,
     onNotLoggedIn: () -> Unit,
     viewModel: FavRoutinesViewModel,
-    mainViewModel: ExampleViewModel
+    mainViewModel: ExampleViewModel,
+    onGoToRoutine: (Int) -> Unit
 ) {
     LaunchedEffect(mainViewModel.uiState.isAuthenticated) {
         if (!mainViewModel.uiState.isAuthenticated) onNotLoggedIn()
@@ -53,7 +54,6 @@ fun FavRoutines(
             topBar = {
                 AllRoutinesAppBar(
                     title = "Favourites",
-                    typeView = true,
                     mainViewModel = mainViewModel
                 )
             },
@@ -90,7 +90,10 @@ fun FavRoutines(
                                             modifier = Modifier
                                                 .fillMaxWidth()
                                                 .padding(horizontal = 12.dp, vertical = 5.dp),
-                                            backgroundColor = MaterialTheme.colors.primary
+                                            backgroundColor = MaterialTheme.colors.primary,
+                                            onClick = {
+                                                it.id?.let { it1 -> onGoToRoutine(it1) }
+                                            }
                                         ) {
                                             Row {
                                                 Column(
