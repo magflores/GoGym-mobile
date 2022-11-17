@@ -18,9 +18,14 @@ import com.example.myapplication.Screen
 import com.example.myapplication.ui.ExampleViewModel
 
 @Composable
-fun FavRoutines(navController: NavController, onNotLoggedIn: () -> Unit, viewModel: FavRoutinesViewModel, mainViewModel: ExampleViewModel) {
+fun FavRoutines(
+    navController: NavController,
+    onNotLoggedIn: () -> Unit,
+    viewModel: FavRoutinesViewModel,
+    mainViewModel: ExampleViewModel
+) {
     LaunchedEffect(mainViewModel.uiState.isAuthenticated) {
-        if (! mainViewModel.uiState.isAuthenticated)
+        if (!mainViewModel.uiState.isAuthenticated)
             onNotLoggedIn()
     }
     val uiState = viewModel.uiState
@@ -37,7 +42,7 @@ fun FavRoutines(navController: NavController, onNotLoggedIn: () -> Unit, viewMod
                 .padding(padding)
                 .fillMaxWidth()
         ) {
-            Button(onClick = {     viewModel.getFavourites() }) {
+            Button(onClick = { viewModel.getFavourites() }) {
                 Text(text = "GET")
             }
             Button(onClick = { navController.navigate("${Screen.RoutineScreen.route}/1") }) {
@@ -50,7 +55,7 @@ fun FavRoutines(navController: NavController, onNotLoggedIn: () -> Unit, viewMod
                     .fillMaxWidth(),
             ) {
                 uiState.favourites?.forEach() {
-                    this.item{
+                    this.item {
                         Card(modifier = Modifier.fillMaxWidth()) {
                             Text(text = it.name)
                         }
@@ -58,6 +63,6 @@ fun FavRoutines(navController: NavController, onNotLoggedIn: () -> Unit, viewMod
                 }
             }
         }
-        
+
     }
 }

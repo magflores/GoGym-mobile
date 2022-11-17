@@ -66,8 +66,8 @@ fun MyRoutines(
     routinesViewModel: RoutinesViewModel,
     exampleViewModel: ExampleViewModel
 ) {
-    LaunchedEffect(true) {
-        if (false)
+    LaunchedEffect(exampleViewModel.uiState.isAuthenticated) {
+        if (!exampleViewModel.uiState.isAuthenticated)
             onNotLoggedIn()
     }
     BottomNavLayout(navController = navController) {
@@ -83,10 +83,11 @@ fun MyRoutines(
 fun AllRoutines(
     navController: NavController,
     onNotLoggedIn: () -> Unit,
-    routinesViewModel: RoutinesViewModel
+    routinesViewModel: RoutinesViewModel,
+    exampleViewModel: ExampleViewModel
 ) {
-    LaunchedEffect(false) {
-        if (false)
+    LaunchedEffect(exampleViewModel.uiState.isAuthenticated) {
+        if (!exampleViewModel.uiState.isAuthenticated)
             onNotLoggedIn()
     }
     BottomNavLayout(navController = navController) {

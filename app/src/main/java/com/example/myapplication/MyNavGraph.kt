@@ -40,7 +40,8 @@ fun MyNavGraph(navController: NavHostController, exampleViewModel: ExampleViewMo
             AllRoutines(
                 navController,
                 onNotLoggedIn,
-                routinesViewModel = viewModel(factory = getViewModelFactory())
+                routinesViewModel = viewModel(factory = getViewModelFactory()),
+                exampleViewModel = exampleViewModel
             )
         }
         composable(Screen.LogInScreen.route) {
