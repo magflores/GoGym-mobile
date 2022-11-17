@@ -19,12 +19,14 @@ import com.example.myapplication.ui.ExampleViewModel
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun FavRoutines(
     navController: NavController,
     onNotLoggedIn: () -> Unit,
     viewModel: FavRoutinesViewModel,
-    mainViewModel: ExampleViewModel
+    mainViewModel: ExampleViewModel,
+    onGoToRoutine: (Int) -> Unit
 ) {
     LaunchedEffect(mainViewModel.uiState.isAuthenticated) {
         if (!mainViewModel.uiState.isAuthenticated) onNotLoggedIn()
@@ -62,7 +64,10 @@ fun FavRoutines(
                         ) {
                             uiState.favourites?.forEach() {
                                 this.item {
-                                    Card(modifier = Modifier.fillMaxWidth()) {
+                                    Card(modifier = Modifier.fillMaxWidth(),
+                                        onClick = {
+                                            it.id?.let { it1 -> onGoToRoutine(it1) }
+                                        }) {
                                         Text(text = it.name)
                                     }
                                 }

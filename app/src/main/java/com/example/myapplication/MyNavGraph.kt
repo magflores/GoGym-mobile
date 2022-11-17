@@ -10,22 +10,28 @@ import androidx.navigation.navArgument
 import com.example.myapplication.ui.ExampleViewModel
 import com.example.myapplication.ui.screens.detail.DetailedRoutine
 import com.example.myapplication.ui.screens.favroutines.FavRoutines
+import com.example.myapplication.ui.screens.favroutines.FavRoutinesViewModel
 import com.example.myapplication.ui.screens.play.PlayRoutine
 import com.example.myapplication.ui.screens.play.PlayViewModel
 import com.example.myapplication.util.getViewModelFactory
 
 @Composable
 fun MyNavGraph(navController: NavHostController, exampleViewModel: ExampleViewModel) {
+    val favRoutinesViewModel: FavRoutinesViewModel = viewModel(factory = getViewModelFactory())
+//    val playRoutinesViewModel: PlayViewModel = viewModel(factory = getViewModelFactory())
     NavHost(
         navController = navController, startDestination = Screen.FavRoutinesScreen.route
     ) {
         val onNotLoggedIn = { navController.navigate(Screen.LogInScreen.route) }
+        val goToRoutine: (Int) -> Unit =
+            { navController.navigate(Screen.RoutineScreen.route + "/" + it.toString()) }
         composable(Screen.FavRoutinesScreen.route) {
             FavRoutines(
                 navController = navController,
                 onNotLoggedIn = onNotLoggedIn,
-                viewModel = viewModel(factory = getViewModelFactory()),
-                mainViewModel = viewModel(factory = getViewModelFactory())
+                viewModel = favRoutinesViewModel,
+                mainViewModel = exampleViewModel,
+                onGoToRoutine = goToRoutine
             )
         }
         composable(Screen.MyRoutinesScreen.route) {
@@ -33,7 +39,8 @@ fun MyNavGraph(navController: NavHostController, exampleViewModel: ExampleViewMo
                 navController,
                 onNotLoggedIn,
                 routinesViewModel = viewModel(factory = getViewModelFactory()),
-                exampleViewModel = exampleViewModel
+                exampleViewModel = exampleViewModel,
+                onGoToRoutine = goToRoutine,
             )
         }
         composable(Screen.AllRoutinesScreen.route) {
@@ -41,15 +48,19 @@ fun MyNavGraph(navController: NavHostController, exampleViewModel: ExampleViewMo
                 navController,
                 onNotLoggedIn,
                 routinesViewModel = viewModel(factory = getViewModelFactory()),
-                exampleViewModel = exampleViewModel
+                exampleViewModel = exampleViewModel,
+                onGoToRoutine = goToRoutine
             )
         }
         composable(Screen.LogInScreen.route) {
-            LogIn(viewModel = exampleViewModel, onLogIn = {
-                navController.navigate(Screen.FavRoutinesScreen.route) {
-                    popUpTo(Screen.FavRoutinesScreen.route)
+            LogIn(
+                viewModel = exampleViewModel,
+                onLogIn = {
+                    navController.navigate(Screen.FavRoutinesScreen.route) {
+                        popUpTo(Screen.FavRoutinesScreen.route)
+                    }
                 }
-            })
+            )
         }
         composable(
             Screen.RoutineScreen.route + "/{routineId}",
@@ -63,7 +74,10 @@ fun MyNavGraph(navController: NavHostController, exampleViewModel: ExampleViewMo
                 onBack = { navController.popBackStack() },
                 onPlay = {
                     navController.navigate("${Screen.PlayRoutineScreen.route}/$routineId")
-                })
+                },
+                routinesViewModel = viewModel(factory = getViewModelFactory()),
+                favRoutinesViewModel = favRoutinesViewModel
+            )
         }
         composable(
             Screen.PlayRoutineScreen.route + "/{routineId}",

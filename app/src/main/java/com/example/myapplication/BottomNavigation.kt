@@ -55,7 +55,11 @@ fun BottomBar(navController: NavController) {
 }
 
 @Composable
-fun BottomNavLayout(navController: NavController, mainViewModel: ExampleViewModel, content: @Composable (PaddingValues) -> Unit) {
+fun BottomNavLayout(
+    navController: NavController,
+    mainViewModel: ExampleViewModel,
+    content: @Composable (PaddingValues) -> Unit
+) {
     val scaffoldState: ScaffoldState = rememberScaffoldState()
     Scaffold(
         modifier = Modifier.fillMaxSize(),
@@ -86,7 +90,8 @@ fun MyRoutines(
     navController: NavController,
     onNotLoggedIn: () -> Unit,
     routinesViewModel: RoutinesViewModel,
-    exampleViewModel: ExampleViewModel
+    exampleViewModel: ExampleViewModel,
+    onGoToRoutine: (Int) -> Unit
 ) {
     LaunchedEffect(exampleViewModel.uiState.isAuthenticated) {
         if (!exampleViewModel.uiState.isAuthenticated)
@@ -96,7 +101,8 @@ fun MyRoutines(
         UserRoutinesScreen(
             padding = it,
             routinesViewModel = routinesViewModel,
-            exampleViewModel = exampleViewModel
+            exampleViewModel = exampleViewModel,
+            onGoToRoutine = onGoToRoutine
         )
     }
 }
@@ -106,14 +112,20 @@ fun AllRoutines(
     navController: NavController,
     onNotLoggedIn: () -> Unit,
     routinesViewModel: RoutinesViewModel,
-    exampleViewModel: ExampleViewModel
+    exampleViewModel: ExampleViewModel,
+    onGoToRoutine: (Int) -> Unit
 ) {
     LaunchedEffect(exampleViewModel.uiState.isAuthenticated) {
         if (!exampleViewModel.uiState.isAuthenticated)
             onNotLoggedIn()
     }
     BottomNavLayout(navController = navController, mainViewModel = exampleViewModel) {
-        RutinesScreen(padding = it, routinesViewModel = routinesViewModel, mainViewModel = exampleViewModel)
+        RutinesScreen(
+            padding = it,
+            routinesViewModel = routinesViewModel,
+            mainViewModel = exampleViewModel,
+            onGoToRoutine = onGoToRoutine
+        )
 //        TODO make all routines screen
     }
 }

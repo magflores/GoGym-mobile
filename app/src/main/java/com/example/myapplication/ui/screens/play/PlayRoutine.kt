@@ -4,14 +4,33 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.ChevronLeft
 import androidx.compose.material.icons.filled.ChevronRight
-import androidx.compose.runtime.*
+import androidx.compose.material.icons.filled.Share
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.myapplication.ui.screens.detail.RoutineTopBar
+import com.example.myapplication.R
+
+@Composable
+fun PlayRoutineTopBar(onBack: () -> Unit, playViewModel: PlayViewModel) {
+    TopAppBar(title = {
+        Text("Routine")
+    }, navigationIcon = {
+        IconButton(onClick = onBack) {
+            Icon(Icons.Filled.ArrowBack, contentDescription = "Back")
+        }
+    }, actions = {
+        IconButton(onClick = { /*TODO*/ }) {
+            Icon(imageVector = Icons.Default.Share, contentDescription = stringResource(R.string.share))
+        }
+    })
+}
 
 @Composable
 fun PlayRoutine(navController: NavController, routineId: Int, onBack: () -> Unit, viewModel: PlayViewModel) {
@@ -19,7 +38,7 @@ fun PlayRoutine(navController: NavController, routineId: Int, onBack: () -> Unit
         viewModel.getCycles(routineId)
     }
     Scaffold(
-        topBar = { RoutineTopBar(onBack) },
+        topBar = { PlayRoutineTopBar(onBack = onBack, playViewModel = viewModel) },
         bottomBar = { PlayingControls(viewModel = viewModel) }
     ) { padding ->
         Column(
