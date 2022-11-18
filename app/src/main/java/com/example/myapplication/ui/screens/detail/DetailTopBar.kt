@@ -15,8 +15,11 @@ import com.example.myapplication.R
 import com.example.myapplication.ui.screens.allroutines.RoutinesViewModel
 
 @Composable
-fun RoutineTopBar(onBack: () -> Unit, routineId: Int,
-                  routinesViewModel: RoutinesViewModel, title: String) {
+fun RoutineTopBar(
+    onBack: () -> Unit, routineId: Int,
+    routinesViewModel: RoutinesViewModel, title: String
+) {
+    val routine = routinesViewModel.uiState.currentRoutine
     TopAppBar(title = {
         Text(title)
     }, navigationIcon = {
@@ -24,14 +27,28 @@ fun RoutineTopBar(onBack: () -> Unit, routineId: Int,
             Icon(Icons.Filled.ArrowBack, contentDescription = "Back")
         }
     }, actions = {
-        IconButton(onClick = { routinesViewModel.markFavourite(routineId) }) {
-            if (routinesViewModel.isFavorite(routineId))
-                Icon(Icons.Filled.Favorite, contentDescription = stringResource(R.string.favourite))
-            else
-                Icon(Icons.Outlined.FavoriteBorder, contentDescription = stringResource(R.string.favourite))
+        IconButton(onClick = {
+            routinesViewModel.markFavourite(routineId)
+        }) {
+            routine?.let {
+                if (it.isFavorite)
+                    Icon(
+                        Icons.Filled.Favorite,
+                        contentDescription = stringResource(R.string.favourite)
+                    )
+                else
+                    Icon(
+                        Icons.Outlined.FavoriteBorder,
+                        contentDescription = stringResource(R.string.favourite)
+                    )
+            }
+
         }
         IconButton(onClick = { /*shareRoutine(routineId)*/ }) {
-            Icon(imageVector = Icons.Default.Share, contentDescription = stringResource(R.string.share))
+            Icon(
+                imageVector = Icons.Default.Share,
+                contentDescription = stringResource(R.string.share)
+            )
         }
     })
 }

@@ -92,38 +92,41 @@ class RoutinesViewModel(
         }
     }
 
-    fun isFavorite(routineId: Int): Boolean {
-//        TODO()
-//        uiState = uiState.copy(isFetching = true, message = null)
-//        kotlin.runCatching {
-//            return routineRepository.isFavorite(routineId)
-//        }.onSuccess {
-//            uiState = uiState.copy(
-//                isFetching = false,
-//            )
-//        }.onFailure { e ->
-//            uiState = uiState.copy(
-//                message = e.message, isFetching = false
-//            )
-//        }
-//        return false
-        return routineRepository.isFavorite(routineId)
+    fun isFavorite(routineId: Int) = viewModelScope.launch {
+        uiState = uiState.copy(isFetching = true, message = null)
+        kotlin.runCatching {
+            routineRepository.isFavorite(routineId)
+        }.onSuccess {
+            var copyRoutine = uiState.currentRoutine
+            copyRoutine = copyRoutine?.copy(isFavorite = it)
+            uiState = uiState.copy(
+                isFetching = false,
+                currentRoutine = copyRoutine
+            )
+        }.onFailure { e ->
+            uiState = uiState.copy(
+                message = e.message, isFetching = false
+            )
+        }
     }
 
     fun markFavourite(routineId: Int) = viewModelScope.launch {
-//        TODO("Not yet implemented")
         uiState = uiState.copy(isFetching = true, message = null)
+        var fav = false
         kotlin.runCatching {
             val newRoutineToAdd = routineRepository.getRoutine(routineId)
-            if  (newRoutineToAdd.id?.let { routineRepository.isFavorite(it) } == true)
+            if (newRoutineToAdd.id?.let { routineRepository.isFavorite(it) } == true) {
+                fav = true
                 routineRepository.deleteToFavourite(newRoutineToAdd.id)
-            else
-                routineRepository.addToFavourite(newRoutineToAdd.id!!)
-//            newRoutineToAdd.id?.let { routineRepository.addToFavourite(it) }
+            } else
+                newRoutineToAdd.id?.let { routineRepository.addToFavourite(it) }
         }.onSuccess {
+            var copyRoutine = uiState.currentRoutine
+            copyRoutine = copyRoutine?.copy(isFavorite = fav)
             uiState = uiState.copy(
-                isFetching = false, currentRoutine = null
+                isFetching = false, currentRoutine = copyRoutine
             )
+            getRoutine(routineId)
         }.onFailure { e ->
             uiState = uiState.copy(
                 message = e.message, isFetching = false

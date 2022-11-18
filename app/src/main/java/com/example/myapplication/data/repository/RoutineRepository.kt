@@ -92,9 +92,11 @@ class RoutineRepository(
         return routinesMutex.withLock { this.routines }
     }
 
-    fun isFavorite(routineId: Int): Boolean {
-        if (this.routines.isEmpty()) return false
-        this.routines.forEach { elem ->
+    suspend fun isFavorite(routineId: Int): Boolean {
+        if (this.routines.isEmpty()) {
+            getFavs(true)
+        }
+        this.favs.forEach { elem ->
             if (elem.id == routineId) return true
         }
         return false
@@ -102,12 +104,10 @@ class RoutineRepository(
 
     suspend fun addToFavourite(newRoutineId: Int){
         remoteDataSource.markFavourite(newRoutineId)
-        favsMutex.withLock { this.favs = emptyList() }
     }
 
     suspend fun deleteToFavourite(newRoutineId: Int){
         remoteDataSource.unmarkFavourite(newRoutineId)
-        favsMutex.withLock { this.favs = emptyList() }
     }
 
     suspend fun getUserRoutines(userId: Int, orderBy: String, sort: String): List<Routine> {

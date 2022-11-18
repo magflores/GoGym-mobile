@@ -30,6 +30,10 @@ fun DetailedRoutine(
     LaunchedEffect(Unit) {
         routinesViewModel.getRoutine(routineId)
     }
+    LaunchedEffect(routinesViewModel.uiState.currentRoutine) {
+        if (routinesViewModel.uiState.currentRoutine != null)
+            routinesViewModel.isFavorite(routineId)
+    }
     val routinesUiState = routinesViewModel.uiState
     val scaffoldState = rememberScaffoldState()
 

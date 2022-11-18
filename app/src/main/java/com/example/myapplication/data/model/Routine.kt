@@ -14,4 +14,5 @@ data class Routine(
     val category: String,
     val cycles: List<RoutineCycle>?,
     val metadata: String,
+    val isFavorite: Boolean = false,
 )
