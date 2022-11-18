@@ -10,5 +10,4 @@ data class FavRoutinesUiState(
 )
 
 val FavRoutinesUiState.hasError: Boolean get() = message != null
-
 val FavRoutinesUiState.stateTypeOfView_List_Grid: Boolean get() = typeOfView_List_Grid
