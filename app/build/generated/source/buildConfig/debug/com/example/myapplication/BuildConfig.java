@@ -12,5 +12,7 @@ public final class BuildConfig {
   // Field from build type: debug
   public static final String API_BASE_URL = "http://10.0.2.2:8080/api/";
   // Field from build type: debug
+  public static final String API_UNAUTHORIZED_MESSAGE = "Unauthorized";
+  // Field from build type: debug
   public static final String WEBPAGE_BASE_URL = "https://gogym.com";
 }

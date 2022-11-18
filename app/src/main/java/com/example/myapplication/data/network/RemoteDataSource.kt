@@ -22,6 +22,8 @@ abstract class RemoteDataSource {
                 throw DataSourceException(error.code, error.description, error.details)
             }
             throw DataSourceException(UNEXPECTED_ERROR_CODE, "Missing error", null)
+        } catch (e: DataSourceException) {
+            throw e
         } catch (e: IOException) {
             throw DataSourceException(CONNECTION_ERROR_CODE, "Connection error", getDetailsFromException(e))
         } catch (e: Exception) {
