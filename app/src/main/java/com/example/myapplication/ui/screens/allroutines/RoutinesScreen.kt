@@ -11,8 +11,7 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -23,6 +22,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.myapplication.AllRoutinesAppBar
 import com.example.myapplication.R
+import com.example.myapplication.SortPopup
 import com.example.myapplication.data.model.Routine
 import com.example.myapplication.ui.ExampleViewModel
 
@@ -126,12 +126,16 @@ fun RoutinesLayout(
     mainViewModel: ExampleViewModel,
     onGoToRoutine: (Int) -> Unit
 ) {
+    var showPopup by remember{ mutableStateOf(false) }
+    val onPopupDismissed = {showPopup = false}
+    val onSortClick = {showPopup = true}
     Scaffold(
         topBar = {
             AllRoutinesAppBar(
                 title = title,
                 mainViewModel = mainViewModel,
-                viewModel = viewModel
+                viewModel = viewModel,
+                onSortClick = onSortClick
             )
         },
         modifier = Modifier.padding(padding)
@@ -197,6 +201,10 @@ fun RoutinesLayout(
                 }
             }
         }
+    }
+
+    if (showPopup) {
+        SortPopup(onPopupDismissed, routinesViewModel = viewModel)
     }
 }
 
