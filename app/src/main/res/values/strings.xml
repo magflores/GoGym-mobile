@@ -23,4 +23,6 @@
     <string name="more">More</string>
     <string name="favourite">Favourite</string>
     <string name="user_label_to_complete">USERNAME</string>
+    <string name="loading">Loading</string>
+    <string name="selected_routine">Selected Routine</string>
 </resources>

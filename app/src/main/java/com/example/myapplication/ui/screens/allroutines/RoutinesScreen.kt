@@ -1,15 +1,9 @@
 package com.example.myapplication.ui.screens.allroutines
 
-import androidx.compose.foundation.layout.*
-import androidx.compose.material.*
-import androidx.compose.runtime.*
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-
 
 import android.content.res.Configuration
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -23,7 +17,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.myapplication.AllRoutinesAppBar
 import com.example.myapplication.R
 import com.example.myapplication.data.model.Routine
@@ -131,7 +128,11 @@ fun RoutinesLayout(
 ) {
     Scaffold(
         topBar = {
-            AllRoutinesAppBar(title = title, mainViewModel = mainViewModel,viewModel = viewModel)
+            AllRoutinesAppBar(
+                title = title,
+                mainViewModel = mainViewModel,
+                viewModel = viewModel
+            )
         },
         modifier = Modifier.padding(padding)
     ) {
@@ -220,7 +221,7 @@ fun UserRoutinesScreen(
         }
     }
     if (exampleViewModel.uiState.currentUser == null || routinesViewModel.uiState.routines.isEmpty()) {
-        Text(text = "Loading")
+        Text(text = stringResource(id = R.string.loading)   )
         return
     }
     val uiState = routinesViewModel.uiState
@@ -236,7 +237,7 @@ fun UserRoutinesScreen(
         padding = padding,
         uiState = uiState,
         viewModel = routinesViewModel,
-        title = stringResource(id = R.string.all_routines),
+        title = stringResource(id = R.string.my_routines),
         mainViewModel = exampleViewModel,
         onGoToRoutine = onGoToRoutine
     )

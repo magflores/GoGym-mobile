@@ -94,7 +94,20 @@ class RoutinesViewModel(
 
     fun isFavorite(routineId: Int): Boolean {
 //        TODO()
-        return false
+//        uiState = uiState.copy(isFetching = true, message = null)
+//        kotlin.runCatching {
+//            return routineRepository.isFavorite(routineId)
+//        }.onSuccess {
+//            uiState = uiState.copy(
+//                isFetching = false,
+//            )
+//        }.onFailure { e ->
+//            uiState = uiState.copy(
+//                message = e.message, isFetching = false
+//            )
+//        }
+//        return false
+        return routineRepository.isFavorite(routineId)
     }
 
     fun markFavorite(routineId: Int) {

@@ -34,7 +34,7 @@ fun DetailedRoutine(
     val scaffoldState = rememberScaffoldState()
 
     if (routinesUiState.isFetching) {
-        Text(text = "loading")
+        Text(text = stringResource(id = R.string.loading))
         return
     }
 
@@ -44,6 +44,8 @@ fun DetailedRoutine(
         Scaffold(
             topBar = {
                 RoutineTopBar(
+//                    title = routinesUiState.currentRoutine?.name,
+                    title = stringResource(id = R.string.selected_routine),
                     onBack = onBack,
                     routineId = routineId,
                     routinesViewModel = routinesViewModel

@@ -92,6 +92,18 @@ class RoutineRepository(
         return routinesMutex.withLock { this.routines }
     }
 
+    fun isFavorite(routineId: Int): Boolean {
+        if (this.routines.isEmpty()) return false
+        this.routines.forEach { elem ->
+            if (elem.id == routineId) return true
+        }
+        return false
+    }
+
+//    fun addToFavourite(newRoutine: Routine){
+//        favs.(newRoutine)
+//    }
+
     suspend fun getUserRoutines(userId: Int, orderBy: String, sort: String): List<Routine> {
         val result = remoteDataSource.getRoutines(
             userId = userId,

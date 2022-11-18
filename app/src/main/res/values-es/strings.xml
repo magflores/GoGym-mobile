@@ -24,4 +24,6 @@
     <string name="more">Más</string>
     <string name="user_label_to_complete">NOMBRE DE USUARIO</string>
     <string name="favourite">Favorito</string>
+    <string name="loading">Cargando</string>
+    <string name="selected_routine">Rutina Seleccionada</string>
 </resources>
