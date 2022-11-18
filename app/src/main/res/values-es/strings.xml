@@ -26,10 +26,13 @@
     <string name="favourite">Favorito</string>
     <string name="loading">Cargando</string>
     <string name="selected_routine">Rutina Seleccionada</string>
-    <string name="sorttext">Dirección</string>
+    <string name="sorttext">Ordenar</string>
     <string name="order">Ordenar</string>
     <string name="apply">Aplicar</string>
     <string name="summaryView">Resumida</string>
     <string name="detailedView">Detallada</string>
-    <string name="score">Valoración</string>
+    <string name="difficulty">Dificultad</string>
+    <string name="category">Categoría</string>
+    <string name="authorPicture">Foto de perfil del autor</string>
+    <string name="score">Puntuación</string>
 </resources>

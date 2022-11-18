@@ -31,4 +31,8 @@
     <string name="apply">Sich bewerben</string>
     <string name="summaryView">Knapp</string>
     <string name="detailedView">Ausführlich</string>
+    <string name="difficulty">Schwierigkeit</string>
+    <string name="category">Kategorie</string>
+    <string name="authorPicture">Profilbild des Autors</string>
+    <string name="score">Punktzahl</string>
 </resources>

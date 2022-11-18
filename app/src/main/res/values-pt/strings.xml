@@ -31,4 +31,8 @@
     <string name="apply">Aplicar</string>
     <string name="summaryView">Resumido</string>
     <string name="detailedView">Detalhado</string>
+    <string name="difficulty">Dificuldade</string>
+    <string name="category">Categoria</string>
+    <string name="authorPicture">Foto do perfil do autor</string>
+    <string name="score">Pontuação</string>
 </resources>
