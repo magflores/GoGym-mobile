@@ -9,7 +9,7 @@ import com.example.myapplication.data.repository.RoutineRepository
 import kotlinx.coroutines.launch
 
 class RoutinesViewModel(
-    private val routineRepository: RoutineRepository,
+    private val routineRepository: RoutineRepository
 ) : ViewModel() {
     var uiState by mutableStateOf(RoutinesUiState())
         private set
@@ -110,8 +110,25 @@ class RoutinesViewModel(
         return routineRepository.isFavorite(routineId)
     }
 
-    fun markFavorite(routineId: Int) {
+    fun markFavourite(routineId: Int) = viewModelScope.launch {
 //        TODO("Not yet implemented")
+        uiState = uiState.copy(isFetching = true, message = null)
+        kotlin.runCatching {
+            val newRoutineToAdd = routineRepository.getRoutine(routineId)
+            if  (newRoutineToAdd.id?.let { routineRepository.isFavorite(it) } == true)
+                routineRepository.deleteToFavourite(newRoutineToAdd.id)
+            else
+                routineRepository.addToFavourite(newRoutineToAdd.id!!)
+//            newRoutineToAdd.id?.let { routineRepository.addToFavourite(it) }
+        }.onSuccess {
+            uiState = uiState.copy(
+                isFetching = false, currentRoutine = null
+            )
+        }.onFailure { e ->
+            uiState = uiState.copy(
+                message = e.message, isFetching = false
+            )
+        }
     }
 
     fun dismissMessage() {

@@ -109,8 +109,9 @@ fun FavouritesRoutinesAppBar(
                         modifier = Modifier.fillMaxWidth()
                     ) {
 //                        TODO: imageVector = Icons.Default.Logout
-                        Icon(imageVector = Icons.Default.Lock, contentDescription = stringResource(
-                            id = R.string.logout
+                        Icon(imageVector = Icons.Default.Lock,
+                            contentDescription = stringResource(
+                                id = R.string.logout
                         ))
                         Text(text = stringResource(id = R.string.logout))
                     }

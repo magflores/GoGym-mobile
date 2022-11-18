@@ -24,7 +24,7 @@ fun RoutineTopBar(onBack: () -> Unit, routineId: Int,
             Icon(Icons.Filled.ArrowBack, contentDescription = "Back")
         }
     }, actions = {
-        IconButton(onClick = { routinesViewModel.markFavorite(routineId) }) {
+        IconButton(onClick = { routinesViewModel.markFavourite(routineId) }) {
             if (routinesViewModel.isFavorite(routineId))
                 Icon(Icons.Filled.Favorite, contentDescription = stringResource(R.string.favourite))
             else
