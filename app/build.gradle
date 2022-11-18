@@ -28,6 +28,8 @@ android {
             // de host del mismo es usando la IP 10.0.2.2.
             buildConfigField "String", "API_BASE_URL",
                     "\"http://10.0.2.2:8080/api/\""
+            buildConfigField "String", "WEBPAGE_BASE_URL",
+                    "\"https://gogym.com\""
         }
         debug {
             // No usar localhost o la IP 127.0.0.1 porque es la interfaz de loopback
@@ -35,6 +37,8 @@ android {
             // de host del mismo es usando la IP 10.0.2.2.
             buildConfigField "String", "API_BASE_URL",
                     "\"http://10.0.2.2:8080/api/\""
+            buildConfigField "String", "WEBPAGE_BASE_URL",
+                    "\"https://gogym.com\""
         }
     }
     compileOptions {

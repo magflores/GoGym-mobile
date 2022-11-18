@@ -7,6 +7,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import androidx.navigation.navDeepLink
 import com.example.myapplication.ui.ExampleViewModel
 import com.example.myapplication.ui.screens.allroutines.RoutinesViewModel
 import com.example.myapplication.ui.screens.detail.DetailedRoutine
@@ -21,6 +22,7 @@ fun MyNavGraph(navController: NavHostController, exampleViewModel: ExampleViewMo
     val favRoutinesViewModel: FavRoutinesViewModel = viewModel(factory = getViewModelFactory())
     val routinesViewModel: RoutinesViewModel = viewModel(factory = getViewModelFactory())
 //    val playRoutinesViewModel: PlayViewModel = viewModel(factory = getViewModelFactory())
+    val routineUri = BuildConfig.WEBPAGE_BASE_URL
     NavHost(
         navController = navController, startDestination = Screen.FavRoutinesScreen.route
     ) {
@@ -67,7 +69,8 @@ fun MyNavGraph(navController: NavHostController, exampleViewModel: ExampleViewMo
         }
         composable(
             Screen.RoutineScreen.route + "/{routineId}",
-            arguments = listOf(navArgument("routineId") { type = NavType.IntType })
+            arguments = listOf(navArgument("routineId") { type = NavType.IntType }),
+            deepLinks = listOf(navDeepLink { uriPattern = "$routineUri/{routineId}" })
         ) { backStackEntry ->
             val routineId = backStackEntry.arguments?.getInt("routineId") ?: 0
             DetailedRoutine(

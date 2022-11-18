@@ -13,8 +13,7 @@ import androidx.compose.material.icons.outlined.Favorite
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.core.net.toUri
-import com.example.myapplication.MyApplication
+import com.example.myapplication.BuildConfig
 import com.example.myapplication.R
 import com.example.myapplication.ui.screens.allroutines.RoutinesViewModel
 
@@ -31,21 +30,41 @@ fun RoutineTopBar(onBack: () -> Unit, routineId: Int, routinesViewModel: Routine
             if (routinesViewModel.isFavorite(routineId))
                 Icon(Icons.Filled.Favorite, contentDescription = stringResource(R.string.favourite))
             else
-                Icon(Icons.Outlined.Favorite, contentDescription = stringResource(R.string.favourite))
+                Icon(
+                    Icons.Outlined.Favorite,
+                    contentDescription = stringResource(R.string.favourite)
+                )
         }
-        IconButton(onClick = { /*shareRoutine(routineId)*/ }) {
-            Icon(imageVector = Icons.Default.Share, contentDescription = stringResource(R.string.share))
+        ShareRoutineButton(routineId = routineId) {
+            Icon(
+                imageVector = Icons.Default.Share,
+                contentDescription = stringResource(R.string.share)
+            )
         }
     })
 }
-//
-//@Composable
-//fun shareRoutine(routineId: Int) {
-//    val context = LocalContext.current
-//    val deepLinkIntent = Intent(
-//        Intent.ACTION_VIEW,
-//        "https://gogym.com/routine/$routineId".toUri(),
-//        context,
-//        MyApplication::class.java
-//    )
-//}
+
+@Composable
+fun ShareRoutineButton(routineId: Int, icon: @Composable () -> Unit) {
+    val context = LocalContext.current
+    val sendIntent: Intent = Intent().apply {
+        action = Intent.ACTION_SEND
+        putExtra(Intent.EXTRA_TEXT, "${BuildConfig.WEBPAGE_BASE_URL}/viewroutine/$routineId")
+        type = "text/plain"
+    }
+    val shareIntent = Intent.createChooser(sendIntent, null)
+    IconButton(onClick = { context.startActivity(shareIntent) }, content = icon)
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
