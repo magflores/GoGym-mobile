@@ -39,10 +39,9 @@ fun DetailedRoutine(
     val scaffoldState = rememberScaffoldState()
 
 
-
     var showScorePopup by remember { mutableStateOf(false) }
-    val onPopupDismissed = {showScorePopup = false}
-    val onRatingClick = {showScorePopup = true}
+    val onPopupDismissed = { showScorePopup = false }
+    val onRatingClick = { showScorePopup = true }
 
     BottomNavLayout(
         navController = navController, mainViewModel = mainViewModel
@@ -93,17 +92,19 @@ fun DetailedRoutine(
                     }
                 } else {
                     Row {
-                        Box(modifier = Modifier.fillMaxWidth(0.3f)) {
+                        Box(modifier = Modifier.weight(1f)) {
                             routinesUiState.currentRoutine?.let {
                                 RoutineInfoCard(routine = it)
                             }
                         }
-                        routinesUiState.currentRoutine?.let {
-                            RoutineDetailList(
-                                padding = padding,
-                                constraints = boxWithConstraintsScope,
-                                routine = it
-                            )
+                        Box(modifier = Modifier.weight(2f)) {
+                            routinesUiState.currentRoutine?.let {
+                                RoutineDetailList(
+                                    padding = padding,
+                                    constraints = boxWithConstraintsScope,
+                                    routine = it
+                                )
+                            }
                         }
                     }
                 }
@@ -126,10 +127,12 @@ fun DetailedRoutine(
         }
     }
 
-    if (showScorePopup){
-        ScorePopup(onPopupDismissed = onPopupDismissed,
+    if (showScorePopup) {
+        ScorePopup(
+            onPopupDismissed = onPopupDismissed,
             routinesViewModel = routinesViewModel,
-            myRoutineId = routineId)
+            myRoutineId = routineId
+        )
     }
 
 }

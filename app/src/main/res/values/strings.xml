@@ -30,5 +30,8 @@
     <string name="apply">Apply</string>
     <string name="summaryView">Brief</string>
     <string name="detailedView">Detailed</string>
+    <string name="difficulty">Difficulty</string>
+    <string name="category">Category</string>
+    <string name="authorPicture">Author profile picture</string>
     <string name="score">Score</string>
 </resources>
