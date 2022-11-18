@@ -23,8 +23,8 @@
     <string name="share">Partager</string>
     <string name="more">Plus</string>
     <string name="user_label_to_complete">NOM D\'UTILISATEUR</string>
-    <string name="favourite">Favori</string>
-    <string name="loading">Mise en charge</string>
+    <string name="favourite">Préféré</string>
+    <string name="loading">Chargement en cours</string>
     <string name="selected_routine">Programme sélectionné</string>
     <string name="sorttext">Triere</string>
     <string name="order">Ordonner</string>
