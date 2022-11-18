@@ -1,11 +1,13 @@
 package com.example.myapplication.ui.screens.detail
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -17,6 +19,8 @@ import com.example.myapplication.ui.ExampleViewModel
 import com.example.myapplication.ui.screens.allroutines.RoutinesViewModel
 import com.example.myapplication.ui.screens.allroutines.hasError
 import com.example.myapplication.ui.screens.favroutines.FavRoutinesViewModel
+import com.google.accompanist.swiperefresh.SwipeRefresh
+import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 
 @Composable
 fun DetailedRoutine(
@@ -32,83 +36,71 @@ fun DetailedRoutine(
         routinesViewModel.getRoutine(routineId)
     }
     LaunchedEffect(routinesViewModel.uiState.currentRoutine) {
-        if (routinesViewModel.uiState.currentRoutine != null)
-            routinesViewModel.isFavorite(routineId)
+        if (routinesViewModel.uiState.currentRoutine != null) routinesViewModel.isFavorite(routineId)
     }
     val routinesUiState = routinesViewModel.uiState
     val scaffoldState = rememberScaffoldState()
 
 
     var showScorePopup by remember { mutableStateOf(false) }
-    val onPopupDismissed = { showScorePopup = false }
+    val onPopupDismissed: () -> Unit = { showScorePopup = false }
     val onRatingClick = { showScorePopup = true }
+
 
     BottomNavLayout(
         navController = navController, mainViewModel = mainViewModel
     ) { bottomNavPadding ->
-        Scaffold(
-            topBar = {
-                RoutineTopBar(
-//                    title = routinesUiState.currentRoutine?.name,
-                    title = stringResource(id = R.string.routine),
-                    onBack = onBack,
-                    routineId = routineId,
-                    routinesViewModel = routinesViewModel,
-                    onRatingClick = onRatingClick
+        Scaffold(topBar = {
+            RoutineTopBar(
+                title = stringResource(id = R.string.routine),
+                onBack = onBack,
+                routinesViewModel = routinesViewModel,
+                onRatingClick = onRatingClick
+            )
+        }, floatingActionButton = {
+            FloatingActionButton(onClick = onPlay) {
+                Icon(
+                    Icons.Filled.PlayArrow,
+                    contentDescription = stringResource(id = R.string.play)
                 )
-            },
-            floatingActionButton = {
-                FloatingActionButton(onClick = onPlay) {
-                    Icon(
-                        Icons.Filled.PlayArrow,
-                        contentDescription = stringResource(id = R.string.play)
-                    )
-                }
-            },
-            modifier = Modifier.padding(bottomNavPadding),
-            scaffoldState = scaffoldState
+            }
+        }, modifier = Modifier.padding(bottomNavPadding), scaffoldState = scaffoldState
         ) { padding ->
-            if (routinesUiState.isFetching) {
-                Column(
-                    modifier = Modifier.fillMaxSize(),
-                    verticalArrangement = Arrangement.Center,
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    CircularProgressIndicator(
-                        modifier = Modifier.fillMaxSize(0.5f)
-                    )
-                }
-                return@Scaffold
-            }
-            BoxWithConstraints(modifier = Modifier.padding(padding)) {
-                val boxWithConstraintsScope = this
-                if (maxWidth < 600.dp) {
-                    routinesUiState.currentRoutine?.let {
-                        RoutineDetailList(
-                            padding = padding,
-                            constraints = boxWithConstraintsScope,
-                            routine = it
-                        )
-                    }
-                } else {
-                    Row {
-                        Box(modifier = Modifier.weight(1f)) {
-                            routinesUiState.currentRoutine?.let {
-                                RoutineInfoCard(routine = it)
-                            }
+            SwipeRefresh(
+                state = rememberSwipeRefreshState(isRefreshing = routinesUiState.isFetching),
+                onRefresh = { routinesViewModel.getRoutine(routineId, true) }
+            ) {
+                BoxWithConstraints(modifier = Modifier.padding(padding)) {
+                    val boxWithConstraintsScope = this
+                    if (maxWidth < 600.dp) {
+                        routinesUiState.currentRoutine?.let {
+                            RoutineDetailList(
+                                padding = padding,
+                                constraints = boxWithConstraintsScope,
+                                routinesViewModel = routinesViewModel
+                            )
                         }
-                        Box(modifier = Modifier.weight(2f)) {
-                            routinesUiState.currentRoutine?.let {
-                                RoutineDetailList(
-                                    padding = padding,
-                                    constraints = boxWithConstraintsScope,
-                                    routine = it
-                                )
+                    } else {
+                        Row {
+                            Box(modifier = Modifier.weight(1f)) {
+                                routinesUiState.currentRoutine?.let {
+                                    RoutineInfoCard(routinesViewModel = routinesViewModel)
+                                }
+                            }
+                            Box(modifier = Modifier.weight(2f)) {
+                                routinesUiState.currentRoutine?.let {
+                                    RoutineDetailList(
+                                        padding = padding,
+                                        constraints = boxWithConstraintsScope,
+                                        routinesViewModel = routinesViewModel
+                                    )
+                                }
                             }
                         }
                     }
                 }
             }
+
         }
     }
 

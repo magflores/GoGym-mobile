@@ -21,13 +21,12 @@ import com.example.myapplication.ui.screens.allroutines.RoutinesViewModel
 @Composable
 fun RoutineTopBar(
     onBack: () -> Unit,
-    routineId: Int,
     routinesViewModel: RoutinesViewModel,
     onRatingClick: () -> Unit,
     title: String
 ) {
     val routine = routinesViewModel.uiState.currentRoutine
-//    var showScoreButton by remember { mutableStateOf(false)}
+    val routineId = routine?.id
     TopAppBar(title = {
         Text(title)
     }, navigationIcon = {
@@ -35,12 +34,14 @@ fun RoutineTopBar(
             Icon(Icons.Filled.ArrowBack, contentDescription = "Back")
         }
     }, actions = {
-        IconButton(onClick = { onRatingClick }) {
+        IconButton(onClick = { onRatingClick() }) {
             Icon(Icons.Filled.Star,
                 contentDescription = stringResource(id = R.string.score))
         }
         IconButton(onClick = {
-            routinesViewModel.markFavourite(routineId)
+            if (routineId != null) {
+                routinesViewModel.markFavourite(routineId)
+            }
         }) {
             routine?.let {
                 if (it.isFavorite)
@@ -56,11 +57,13 @@ fun RoutineTopBar(
             }
 
         }
-        ShareRoutineButton(routineId = routineId) {
-            Icon(
-                imageVector = Icons.Default.Share,
-                contentDescription = stringResource(R.string.share)
-            )
+        if (routineId != null) {
+            ShareRoutineButton(routineId = routineId) {
+                Icon(
+                    imageVector = Icons.Default.Share,
+                    contentDescription = stringResource(R.string.share)
+                )
+            }
         }
     })
 }

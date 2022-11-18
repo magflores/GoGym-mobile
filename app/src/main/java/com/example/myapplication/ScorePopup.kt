@@ -26,7 +26,8 @@ fun ScorePopup(
         confirmButton = {
             Button(onClick = {
                 routinesViewModel.setScore(myRoutineId, score, "")
-//                myRoutine.id?.let { routinesViewModel.setScore(it, score, null) }
+                routinesViewModel.getRoutine(myRoutineId, true)
+                onPopupDismissed()
             }) {
                 Text(text = stringResource(id = R.string.apply))
             }
@@ -42,7 +43,7 @@ fun ScorePopup(
                             RadioButton(selected = (score == elem),
                                 onClick = {
                                     score = elem
-                            })
+                                })
                             Text(text = elem.toString())
                         }
                     }

@@ -81,10 +81,13 @@ class RoutinesViewModel(
         }
     }
 
-    fun getRoutine(routineId: Int) = viewModelScope.launch {
+    fun getRoutine(routineId: Int, refresh: Boolean = false) = viewModelScope.launch {
         uiState = uiState.copy(isFetching = true, message = null)
         kotlin.runCatching {
-            routineRepository.getRoutine(routineId)
+            routineRepository.getRoutine(
+                routineId = routineId,
+                refresh = refresh
+            )
         }.onSuccess { response ->
             uiState = uiState.copy(
                 isFetching = false, currentRoutine = response

@@ -12,35 +12,43 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.myapplication.data.model.Routine
 import com.example.myapplication.data.model.RoutineCycle
+import com.example.myapplication.ui.screens.allroutines.RoutinesViewModel
 
 
 @Composable
 fun RoutineDetailList(
     padding: PaddingValues,
     constraints: BoxWithConstraintsScope,
-    routine: Routine
+    routinesViewModel: RoutinesViewModel
 ) {
-    LazyColumn(
-        modifier = Modifier.padding(padding),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(16.dp),
-        contentPadding = PaddingValues(16.dp)
-    ) {
-        if (constraints.maxWidth < 600.dp) {
-            this.item { RoutineInfoCard(modifier = Modifier.padding(padding), routine = routine) }
-        }
-        this.item {
-            Spacer(
-                modifier = Modifier
-                    .height(16.dp)
-                    .padding(padding)
-            )
-        }
-        routine.cycles?.let { cycles ->
-            this.items(items = cycles) {
-                RoutineCycleCard(it)
+    val routine = routinesViewModel.uiState.currentRoutine
+    routine?.let {
+
+        LazyColumn(
+            modifier = Modifier.padding(padding),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(16.dp),
+            contentPadding = PaddingValues(16.dp)
+        ) {
+            if (constraints.maxWidth < 600.dp) {
+                this.item {
+                    RoutineInfoCard(
+                        modifier = Modifier.padding(padding), routinesViewModel = routinesViewModel
+                    )
+                }
+            }
+            this.item {
+                Spacer(
+                    modifier = Modifier
+                        .height(16.dp)
+                        .padding(padding)
+                )
+            }
+            routine.cycles?.let { cycles ->
+                this.items(items = cycles) {
+                    RoutineCycleCard(it)
+                }
             }
         }
     }
