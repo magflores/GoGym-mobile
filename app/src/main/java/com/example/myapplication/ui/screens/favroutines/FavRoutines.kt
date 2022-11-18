@@ -32,7 +32,8 @@ fun FavRoutines(
     viewModel: FavRoutinesViewModel,
     mainViewModel: ExampleViewModel,
     routinesViewModel: RoutinesViewModel,
-    onGoToRoutine: (Int) -> Unit
+    onGoToRoutine: (Int) -> Unit,
+    navigateOnLogout: () -> Unit
 ) {
     LaunchedEffect(mainViewModel.uiState.isAuthenticated) {
         if (!mainViewModel.uiState.isAuthenticated) onNotLoggedIn()
@@ -45,7 +46,7 @@ fun FavRoutines(
     val scaffoldState = rememberScaffoldState()
 
     var showPopup by remember{ mutableStateOf(false) }
-    val onPopupDismissed = {showPopup = false}
+//    val onPopupDismissed = {showPopup = false}
     val onSortClick = {showPopup = true}
 
     BottomNavLayout(
@@ -60,7 +61,8 @@ fun FavRoutines(
                     viewModel = routinesViewModel,
                     mainViewModel = mainViewModel,
                     onSortClick = onSortClick,
-                    showSortButton = false
+                    showSortButton = false,
+                    navigateOnLogout = navigateOnLogout
                 )
             },
             scaffoldState = scaffoldState

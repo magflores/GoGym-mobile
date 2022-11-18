@@ -91,7 +91,8 @@ fun MyRoutines(
     onNotLoggedIn: () -> Unit,
     routinesViewModel: RoutinesViewModel,
     exampleViewModel: ExampleViewModel,
-    onGoToRoutine: (Int) -> Unit
+    onGoToRoutine: (Int) -> Unit,
+    navigateOnLogout: () -> Unit
 ) {
     LaunchedEffect(exampleViewModel.uiState.isAuthenticated) {
         if (!exampleViewModel.uiState.isAuthenticated)
@@ -102,7 +103,8 @@ fun MyRoutines(
             padding = it,
             routinesViewModel = routinesViewModel,
             exampleViewModel = exampleViewModel,
-            onGoToRoutine = onGoToRoutine
+            onGoToRoutine = onGoToRoutine,
+            navigateOnLogout = navigateOnLogout
         )
     }
 }
@@ -113,7 +115,8 @@ fun AllRoutines(
     onNotLoggedIn: () -> Unit,
     routinesViewModel: RoutinesViewModel,
     exampleViewModel: ExampleViewModel,
-    onGoToRoutine: (Int) -> Unit
+    onGoToRoutine: (Int) -> Unit,
+    navigateOnLogout: () -> Unit
 ) {
     LaunchedEffect(exampleViewModel.uiState.isAuthenticated) {
         if (!exampleViewModel.uiState.isAuthenticated)
@@ -125,7 +128,8 @@ fun AllRoutines(
             padding = it,
             routinesViewModel = routinesViewModel,
             mainViewModel = exampleViewModel,
-            onGoToRoutine = onGoToRoutine
+            onGoToRoutine = onGoToRoutine,
+            navigateOnLogout = navigateOnLogout
         )
 //        TODO make all routines screen
     }

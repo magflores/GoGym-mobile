@@ -4,10 +4,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Lock
-import androidx.compose.material.icons.filled.Menu
-import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material.icons.outlined.GridView
 import androidx.compose.material.icons.outlined.List
@@ -25,84 +21,81 @@ fun AllRoutinesAppBar(
     viewModel: RoutinesViewModel,
     mainViewModel: ExampleViewModel,
     onSortClick: () -> Unit,
-    showSortButton: Boolean = true
+    showSortButton: Boolean = true,
+    navigateOnLogout: () -> Unit
 ) {
     var showMenu by remember {
         mutableStateOf(false)
     }
-    TopAppBar(
-        title = { Text(text = title) },
-        actions = {
-            IconButton(onClick = {
-                viewModel.toggleView()
-            }) {
-                if (!viewModel.uiState.stateTypeOfView_List_Grid) {
-                    Icon(
-                        Icons.Outlined.List,
-                        contentDescription = null
-                    )
-                } else {
-                    Icon(
-                        Icons.Outlined.GridView,
-                        contentDescription = null
-                    )
-                }
-            }
-            IconButton(onClick = { showMenu = !showMenu }) {
+    TopAppBar(title = { Text(text = title) }, actions = {
+        IconButton(onClick = {
+            viewModel.toggleView()
+        }) {
+            if (!viewModel.uiState.stateTypeOfView_List_Grid) {
                 Icon(
-                    imageVector = Icons.Default.MoreVert,
-                    contentDescription = stringResource(id = R.string.more)
+                    Icons.Outlined.List, contentDescription = null
+                )
+            } else {
+                Icon(
+                    Icons.Outlined.GridView, contentDescription = null
                 )
             }
-            DropdownMenu(expanded = showMenu, onDismissRequest = { showMenu = false }) {
-                if (showSortButton) {
-                    DropdownMenuItem(onClick = onSortClick) {
-                        Row(modifier = Modifier.fillMaxWidth()) {
-                            Icon(
-                                imageVector = Icons.Default.Sort,
-                                contentDescription = stringResource(id = R.string.sorttext)
-                            )
-                            Text(stringResource(R.string.sorttext))
-                        }
+        }
+        IconButton(onClick = { showMenu = !showMenu }) {
+            Icon(
+                imageVector = Icons.Default.MoreVert,
+                contentDescription = stringResource(id = R.string.more)
+            )
+        }
+        DropdownMenu(expanded = showMenu, onDismissRequest = { showMenu = false }) {
+            if (showSortButton) {
+                DropdownMenuItem(onClick = {
+                    showMenu = false
+                    onSortClick()
+                }) {
+                    Row(modifier = Modifier.fillMaxWidth()) {
+                        Icon(
+                            imageVector = Icons.Default.Sort,
+                            contentDescription = stringResource(id = R.string.sorttext)
+                        )
+                        Text(stringResource(R.string.sorttext))
                     }
                 }
-                DropdownMenuItem(onClick = { mainViewModel.logout() }) {
-                    Row(
-                        modifier = Modifier.fillMaxWidth()
-                    ) {
-                        Icon(
-                            imageVector = Icons.Default.Logout, contentDescription = stringResource(
-                                id = R.string.logout
-                            )
+            }
+            DropdownMenuItem(onClick = {
+                showMenu = false
+                mainViewModel.logout()
+                navigateOnLogout()
+            }) {
+                Row(
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Logout, contentDescription = stringResource(
+                            id = R.string.logout
                         )
-                        Text(text = stringResource(id = R.string.logout))
-                    }
+                    )
+                    Text(text = stringResource(id = R.string.logout))
                 }
             }
         }
-    )
+    })
 }
 
 @Composable
 fun FavouritesRoutinesAppBar(
-    title: String,
-    viewModel: FavRoutinesViewModel,
-    mainViewModel: ExampleViewModel
+    title: String, viewModel: FavRoutinesViewModel, mainViewModel: ExampleViewModel
 ) {
     var showMenu by remember {
         mutableStateOf(false)
     }
-    TopAppBar(
-        title = { Text(text = title) },
-        navigationIcon = {
-            IconButton(onClick = { }) {
-                Icon(
-                    imageVector = Icons.Default.Menu,
-                    contentDescription = null
-                )
-            }
-        },
-        actions = {
+    TopAppBar(title = { Text(text = title) }, navigationIcon = {
+        IconButton(onClick = { }) {
+            Icon(
+                imageVector = Icons.Default.Menu, contentDescription = null
+            )
+        }
+    }, actions = {
 //            IconButton(onClick = {
 //                viewModel.toggleView()
 //            }) {
@@ -116,34 +109,32 @@ fun FavouritesRoutinesAppBar(
 //                        contentDescription = null)
 //                }
 //            }
-            IconButton(onClick = { /*TODO*/ }) {
-                Icon(
-                    imageVector = Icons.Default.Sort,
-                    contentDescription = stringResource(id = R.string.sorttext)
-                )
-            }
-            IconButton(onClick = { showMenu = !showMenu }) {
-                Icon(
-                    imageVector = Icons.Default.MoreVert,
-                    contentDescription = stringResource(id = R.string.more)
-                )
-            }
-            DropdownMenu(expanded = showMenu, onDismissRequest = { showMenu = false }) {
-                DropdownMenuItem(onClick = { mainViewModel.logout() }) {
-                    Row(
-                        modifier = Modifier.fillMaxWidth()
-                    ) {
+        IconButton(onClick = { /*TODO*/ }) {
+            Icon(
+                imageVector = Icons.Default.Sort,
+                contentDescription = stringResource(id = R.string.sorttext)
+            )
+        }
+        IconButton(onClick = { showMenu = !showMenu }) {
+            Icon(
+                imageVector = Icons.Default.MoreVert,
+                contentDescription = stringResource(id = R.string.more)
+            )
+        }
+        DropdownMenu(expanded = showMenu, onDismissRequest = { showMenu = false }) {
+            DropdownMenuItem(onClick = { mainViewModel.logout() }) {
+                Row(
+                    modifier = Modifier.fillMaxWidth()
+                ) {
 //                        TODO: imageVector = Icons.Default.Logout
-                        Icon(
-                            imageVector = Icons.Default.Lock,
-                            contentDescription = stringResource(
-                                id = R.string.logout
-                            )
+                    Icon(
+                        imageVector = Icons.Default.Lock, contentDescription = stringResource(
+                            id = R.string.logout
                         )
-                        Text(text = stringResource(id = R.string.logout))
-                    }
+                    )
+                    Text(text = stringResource(id = R.string.logout))
                 }
             }
         }
-    )
+    })
 }

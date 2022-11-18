@@ -21,11 +21,11 @@ class RoutinesViewModel(
         )
     }
 
-    fun getAllRoutines() = viewModelScope.launch {
+    fun getAllRoutines(refresh: Boolean = false) = viewModelScope.launch {
         uiState = uiState.copy(isFetching = true, message = null)
         kotlin.runCatching {
             routineRepository.getAllRoutines(
-                refresh = false, orderBy = uiState.orderBy.order, sort = uiState.sort.sort
+                refresh = refresh, orderBy = uiState.orderBy.order, sort = uiState.sort.sort
             )
         }.onSuccess { response ->
             uiState = uiState.copy(

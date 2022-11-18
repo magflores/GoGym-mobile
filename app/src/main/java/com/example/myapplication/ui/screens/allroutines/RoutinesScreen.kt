@@ -25,23 +25,21 @@ import com.example.myapplication.R
 import com.example.myapplication.SortPopup
 import com.example.myapplication.data.model.Routine
 import com.example.myapplication.ui.ExampleViewModel
+import com.google.accompanist.swiperefresh.SwipeRefresh
+import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun ListRow(model: Routine, onGoToRoutine: (Int) -> Unit) {
     Row(
-        verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier
-            .wrapContentHeight()
+        verticalAlignment = Alignment.CenterVertically, modifier = Modifier.wrapContentHeight()
     ) {
-        Card(
-            shape = RoundedCornerShape(8.dp),
+        Card(shape = RoundedCornerShape(8.dp),
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(16.dp, 5.dp),
             backgroundColor = MaterialTheme.colors.primary,
-            onClick = { model.id?.let { onGoToRoutine(it) } }
-        ) {
+            onClick = { model.id?.let { onGoToRoutine(it) } }) {
             Row {
                 Column(
                     modifier = Modifier.fillMaxWidth(0.5F),
@@ -73,8 +71,7 @@ fun ListRow(model: Routine, onGoToRoutine: (Int) -> Unit) {
                         .padding(5.dp, 0.dp)
                         .fillMaxWidth(),
                     horizontalAlignment = Alignment.End
-                )
-                {
+                ) {
                     Text(
                         modifier = Modifier.padding(5.dp, 0.dp),
                         text = model.score.toString(), // TODO como mostrar esto bien
@@ -99,9 +96,12 @@ fun RutinesScreen(
     padding: PaddingValues,
     routinesViewModel: RoutinesViewModel,
     mainViewModel: ExampleViewModel,
-    onGoToRoutine: (Int) -> Unit
+    onGoToRoutine: (Int) -> Unit,
+    navigateOnLogout: () -> Unit
 ) {
-
+    val onRefresh: () -> Unit = {
+        routinesViewModel.getAllRoutines(true)
+    }
 
     LaunchedEffect(Unit) {
         routinesViewModel.getAllRoutines()
@@ -113,7 +113,9 @@ fun RutinesScreen(
         viewModel = routinesViewModel,
         title = stringResource(id = R.string.all_routines),
         mainViewModel = mainViewModel,
-        onGoToRoutine = onGoToRoutine
+        onGoToRoutine = onGoToRoutine,
+        onRefresh = onRefresh,
+        navigateOnLogout = navigateOnLogout
     )
 }
 
@@ -124,88 +126,91 @@ fun RoutinesLayout(
     viewModel: RoutinesViewModel,
     title: String,
     mainViewModel: ExampleViewModel,
-    onGoToRoutine: (Int) -> Unit
+    onGoToRoutine: (Int) -> Unit,
+    onRefresh: () -> Unit,
+    navigateOnLogout: () -> Unit
 ) {
-    var showPopup by remember{ mutableStateOf(false) }
-    val onPopupDismissed = {showPopup = false}
-    val onSortClick = {showPopup = true}
+    var showPopup by remember { mutableStateOf(false) }
+    val onPopupDismissed = { showPopup = false }
+    val onSortClick = { showPopup = true }
     Scaffold(
         topBar = {
             AllRoutinesAppBar(
                 title = title,
                 mainViewModel = mainViewModel,
                 viewModel = viewModel,
-                onSortClick = onSortClick
+                onSortClick = onSortClick,
+                navigateOnLogout = navigateOnLogout
             )
-        },
-        modifier = Modifier.padding(padding)
+        }, modifier = Modifier.padding(padding)
     ) {
-        val configuration = LocalConfiguration.current
-        if (uiState.stateTypeOfView_List_Grid) {
-            LazyColumn(
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement
-                    .spacedBy(4.dp),
-                contentPadding = PaddingValues(
-                    horizontal = 16.dp,
-                    vertical = 8.dp),
-                modifier = Modifier
-                    .background(Color.White)
-            ) {
-                items(uiState.routines) { model ->
-                    ListRow(model = model, onGoToRoutine)
-                }
-            }
-        } else {
-            when (configuration.orientation) {
-                Configuration.ORIENTATION_LANDSCAPE -> {
-                    LazyVerticalGrid(
-                        columns = GridCells.Adaptive(200.dp),
-                        verticalArrangement = Arrangement
-                            .spacedBy(4.dp),
-                        contentPadding =
-                        PaddingValues(
-                            horizontal = 16.dp,
-                            vertical = 8.dp),
-                        modifier = Modifier
-                            .background(Color.White)
-                    ) {
-                        items(uiState.routines) { model ->
-                            ListRow(model = model, onGoToRoutine)
-                        }
+        SwipeRefresh(
+            state = rememberSwipeRefreshState(isRefreshing = viewModel.uiState.isFetching),
+            onRefresh = onRefresh
+        ) {
+            val configuration = LocalConfiguration.current
+            if (uiState.stateTypeOfView_List_Grid) {
+                LazyColumn(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.spacedBy(4.dp),
+                    contentPadding = PaddingValues(
+                        horizontal = 16.dp, vertical = 8.dp
+                    ),
+                    modifier = Modifier.background(Color.White)
+                ) {
+                    items(uiState.routines) { model ->
+                        ListRow(model = model, onGoToRoutine)
                     }
                 }
-                Configuration.ORIENTATION_PORTRAIT -> {
-                    LazyVerticalGrid(
-                        columns = GridCells.Adaptive(150.dp),
-                        verticalArrangement = Arrangement
-                            .spacedBy(4.dp),
-                        contentPadding =
-                        PaddingValues(
-                            horizontal = 16.dp,
-                            vertical = 8.dp),
-                        modifier = Modifier
-                            .padding(it)
-                            .background(Color.White)
-                    ) {
-                        items(uiState.routines) { model ->
-                            ListRow(model = model, onGoToRoutine)
+            } else {
+                when (configuration.orientation) {
+                    Configuration.ORIENTATION_LANDSCAPE -> {
+                        LazyVerticalGrid(
+                            columns = GridCells.Adaptive(200.dp),
+                            verticalArrangement = Arrangement.spacedBy(4.dp),
+                            contentPadding = PaddingValues(
+                                horizontal = 16.dp, vertical = 8.dp
+                            ),
+                            modifier = Modifier.background(Color.White)
+                        ) {
+                            items(uiState.routines) { model ->
+                                ListRow(model = model, onGoToRoutine)
+                            }
                         }
                     }
-                }
-                Configuration.ORIENTATION_UNDEFINED -> {
-                    TODO()
-                }
-                Configuration.ORIENTATION_SQUARE -> {
-                    TODO()
+                    Configuration.ORIENTATION_PORTRAIT -> {
+                        LazyVerticalGrid(
+                            columns = GridCells.Adaptive(150.dp),
+                            verticalArrangement = Arrangement.spacedBy(4.dp),
+                            contentPadding = PaddingValues(
+                                horizontal = 16.dp, vertical = 8.dp
+                            ),
+                            modifier = Modifier
+                                .padding(it)
+                                .background(Color.White)
+                        ) {
+                            items(uiState.routines) { model ->
+                                ListRow(model = model, onGoToRoutine)
+                            }
+                        }
+                    }
+                    Configuration.ORIENTATION_UNDEFINED -> {
+                        TODO()
+                    }
+                    Configuration.ORIENTATION_SQUARE -> {
+                        TODO()
+                    }
                 }
             }
         }
     }
 
     if (showPopup) {
-        SortPopup(onPopupDismissed,
-            routinesViewModel = viewModel)
+        SortPopup(
+            onPopupDismissed = onPopupDismissed,
+            routinesViewModel = viewModel,
+            onRefresh = onRefresh
+        )
     }
 }
 
@@ -214,29 +219,20 @@ fun UserRoutinesScreen(
     padding: PaddingValues,
     routinesViewModel: RoutinesViewModel,
     exampleViewModel: ExampleViewModel,
-    onGoToRoutine: (Int) -> Unit
+    onGoToRoutine: (Int) -> Unit,
+    navigateOnLogout: () -> Unit
 ) {
-//    LaunchedEffect(Unit) {
-//        exampleViewModel.getCurrentUser().invokeOnCompletion {
-//            exampleViewModel.uiState.currentUser?.let {
-//                it.id?.let { id ->
-//                    routinesViewModel.getUserRoutines(id)
-//                }
-    LaunchedEffect(exampleViewModel.uiState.currentUser) {
+    val onRefresh: () -> Unit = {
         exampleViewModel.uiState.currentUser?.let {
             it.id?.let { id ->
                 routinesViewModel.getUserRoutines(id)
             }
         }
     }
+    LaunchedEffect(exampleViewModel.uiState.currentUser) {
+        onRefresh()
+    }
     val uiState = routinesViewModel.uiState
-//    RoutinesLayout(
-//        padding = padding,
-//        uiState = uiState,
-//        title = "MY ROUTINES",
-//        mainViewModel = exampleViewModel,
-//        onGoToRoutine = onGoToRoutine
-//    )
 
     RoutinesLayout(
         padding = padding,
@@ -244,6 +240,8 @@ fun UserRoutinesScreen(
         viewModel = routinesViewModel,
         title = stringResource(id = R.string.my_routines),
         mainViewModel = exampleViewModel,
-        onGoToRoutine = onGoToRoutine
+        onGoToRoutine = onGoToRoutine,
+        onRefresh = onRefresh,
+        navigateOnLogout = navigateOnLogout
     )
 }

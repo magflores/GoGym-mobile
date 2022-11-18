@@ -19,7 +19,9 @@ import com.example.myapplication.ui.screens.allroutines.Sort
 @Composable
 fun SortPopup(
     onPopupDismissed: () -> Unit,
-    routinesViewModel: RoutinesViewModel) {
+    routinesViewModel: RoutinesViewModel,
+    onRefresh: () -> Unit
+) {
 
     val orderOptions = Order.values()
     val (orderSelected, onOrderSelected) = remember { mutableStateOf(routinesViewModel.uiState.orderBy) }
@@ -29,6 +31,7 @@ fun SortPopup(
     AlertDialog(onDismissRequest = onPopupDismissed, confirmButton = {
         Button(onClick = {
             routinesViewModel.orderBy(orderSelected)
+            onRefresh()
             onPopupDismissed()
         }) {
             Text(text = stringResource(id = R.string.apply))
