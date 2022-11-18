@@ -24,9 +24,6 @@ import com.example.myapplication.ui.screens.allroutines.stateTypeOfView_List_Gri
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 
-//import com.google.accompanist.swiperefresh.SwipeRefresh
-//import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
-
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun FavRoutines(

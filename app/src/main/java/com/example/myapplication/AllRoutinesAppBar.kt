@@ -66,8 +66,7 @@ fun AllRoutinesAppBar(
                     Row(
                         modifier = Modifier.fillMaxWidth()
                     ) {
-//                        TODO: imageVector = Icons.Default.Logout
-                        Icon(imageVector = Icons.Default.Lock, contentDescription = stringResource(
+                        Icon(imageVector = Icons.Default.Logout, contentDescription = stringResource(
                             id = R.string.logout
                         ))
                         Text(text = stringResource(id = R.string.logout))

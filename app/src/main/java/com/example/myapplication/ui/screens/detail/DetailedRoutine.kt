@@ -6,6 +6,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -37,10 +38,7 @@ fun DetailedRoutine(
     val routinesUiState = routinesViewModel.uiState
     val scaffoldState = rememberScaffoldState()
 
-    if (routinesUiState.isFetching) {
-        Text(text = stringResource(id = R.string.loading))
-        return
-    }
+
 
     BottomNavLayout(
         navController = navController, mainViewModel = mainViewModel
@@ -66,6 +64,18 @@ fun DetailedRoutine(
             modifier = Modifier.padding(bottomNavPadding),
             scaffoldState = scaffoldState
         ) { padding ->
+            if (routinesUiState.isFetching) {
+                Column(
+                    modifier = Modifier.fillMaxSize(),
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    CircularProgressIndicator(
+                        modifier = Modifier.fillMaxSize(0.5f)
+                    )
+                }
+                return@Scaffold
+            }
             BoxWithConstraints(modifier = Modifier.padding(padding)) {
                 val boxWithConstraintsScope = this
                 if (maxWidth < 600.dp) {

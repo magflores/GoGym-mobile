@@ -9,6 +9,7 @@ import androidx.compose.material.icons.filled.ChevronLeft
 import androidx.compose.material.icons.filled.ChevronRight
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
@@ -59,6 +60,18 @@ fun PlayRoutine(
                 .padding(padding)
                 .fillMaxWidth()
         ) {
+            if (viewModel.uiState.isFetching) {
+                Column(
+                    modifier = Modifier.fillMaxSize(),
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    CircularProgressIndicator(
+                        modifier = Modifier.fillMaxSize(0.5f)
+                    )
+                }
+                return@Column
+            }
             PlayingCycles(modifier = Modifier, viewModel = viewModel)
         }
     }

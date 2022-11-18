@@ -228,10 +228,6 @@ fun UserRoutinesScreen(
             }
         }
     }
-    if (exampleViewModel.uiState.currentUser == null || routinesViewModel.uiState.routines.isEmpty()) {
-        Text(text = stringResource(id = R.string.loading)   )
-        return
-    }
     val uiState = routinesViewModel.uiState
 //    RoutinesLayout(
 //        padding = padding,
