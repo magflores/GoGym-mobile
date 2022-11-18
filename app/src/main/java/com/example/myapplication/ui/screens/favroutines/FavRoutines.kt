@@ -73,7 +73,9 @@ fun FavRoutines(
                 onRefresh = { viewModel.getFavourites(true) },
             ) {
                 Column(
-                    modifier = Modifier.padding(scaffoldPadding).fillMaxSize()
+                    modifier = Modifier
+                        .padding(scaffoldPadding)
+                        .fillMaxSize()
                 ) {
                     Column(
                         modifier = Modifier.fillMaxWidth()

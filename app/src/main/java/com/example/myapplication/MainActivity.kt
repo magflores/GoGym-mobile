@@ -23,6 +23,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.rememberNavController
 import com.example.myapplication.ui.ExampleViewModel
+import com.example.myapplication.ui.hasError
 import com.example.myapplication.ui.theme.MyApplicationTheme
 import com.example.myapplication.util.getViewModelFactory
 
@@ -116,30 +117,51 @@ fun LogIn(viewModel: ExampleViewModel, onLogIn: () -> Unit) {
 //    }
     val (username, setUsername) = remember { mutableStateOf("") }
     val (password, setPassword) = remember { mutableStateOf("") }
-
-    Surface(
-        modifier = Modifier.fillMaxSize(),
-        color = MaterialTheme.colors.background
-    ) {
-        Row(
-            modifier = Modifier.padding(24.dp),
-            horizontalArrangement = Arrangement.Center,
-            // verticalAlignment = Arrangement.Center
+    val scaffoldState = rememberScaffoldState()
+    Scaffold(
+        scaffoldState = scaffoldState
+    ) { paddingValues ->
+        Surface(
+            modifier = Modifier
+                .padding(paddingValues)
+                .fillMaxSize(),
+            color = MaterialTheme.colors.background
         ) {
-            Column(
+            Row(
                 modifier = Modifier.padding(24.dp),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
+                horizontalArrangement = Arrangement.Center,
+                // verticalAlignment = Arrangement.Center
             ) {
-                IconTitleSubTitle(title = "GoGym!",
-                    mySubTitle = stringResource(id = R.string.log_in))
+                Column(
+                    modifier = Modifier.padding(24.dp),
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    IconTitleSubTitle(title = "GoGym!",
+                        mySubTitle = stringResource(id = R.string.log_in))
 
-                StyledTextField(stringResource(id = R.string.user_label_to_complete), username, setUsername)
-                StyledTextFieldPassword(stringResource(id = R.string.password_label_to_complete), password, setPassword)
+                    StyledTextField(stringResource(id = R.string.user_label_to_complete), username, setUsername)
+                    StyledTextFieldPassword(stringResource(id = R.string.password_label_to_complete), password, setPassword)
 
-                ButtonPlusTextBelow(
-                    stringResource(id = R.string.enter_button),
-                    stringResource(id  = R.string.forgot_password), viewModel, username, password, onLogIn)
+                    ButtonPlusTextBelow(
+                        stringResource(id = R.string.enter_button),
+                        stringResource(id  = R.string.forgot_password), viewModel, username, password, onLogIn)
+                }
+            }
+        }
+    }
+
+    if (viewModel.uiState.hasError) {
+        val actionLabel = stringResource(id = R.string.dismiss)
+
+        LaunchedEffect(scaffoldState.snackbarHostState) {
+            val result = scaffoldState.snackbarHostState.showSnackbar(
+                message = viewModel.uiState.message!!,
+                actionLabel = actionLabel
+            )
+            when (result) {
+                SnackbarResult.Dismissed -> viewModel.dismissMessage()
+                SnackbarResult.ActionPerformed -> viewModel.dismissMessage()
             }
         }
     }

@@ -5,6 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.myapplication.BuildConfig
 import com.example.myapplication.data.repository.UserRepository
 import com.example.myapplication.util.SessionManager
 import kotlinx.coroutines.launch
@@ -40,10 +41,11 @@ class ExampleViewModel(
                 onLogIn()
             }
         }.onFailure {
-            uiState = uiState.copy(
-                isFetching = false,
-                message = it.message
-            )
+            if (it.message != BuildConfig.API_UNAUTHORIZED_MESSAGE)
+                uiState = uiState.copy(
+                    isFetching = false,
+                    message = it.message
+                )
         }
     }
 
@@ -60,10 +62,11 @@ class ExampleViewModel(
                 currentUser = response
             )
         }.onFailure { e ->
-            uiState = uiState.copy(
-                isFetching = false,
-                message = e.message
-            )
+            if (e.message != BuildConfig.API_UNAUTHORIZED_MESSAGE)
+                uiState = uiState.copy(
+                    isFetching = false,
+                    message = e.message
+                )
         }
     }
 
@@ -84,10 +87,11 @@ class ExampleViewModel(
                 currentUser = null
             )
         }.onFailure { e ->
-            uiState = uiState.copy(
-                isFetching = false,
-                message = e.message
-            )
+            if (e.message != BuildConfig.API_UNAUTHORIZED_MESSAGE)
+                uiState = uiState.copy(
+                    isFetching = false,
+                    message = e.message
+                )
         }
     }
 

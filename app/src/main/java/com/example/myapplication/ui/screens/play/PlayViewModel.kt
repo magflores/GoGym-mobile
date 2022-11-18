@@ -5,6 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.myapplication.BuildConfig
 import com.example.myapplication.data.repository.RoutineRepository
 import kotlinx.coroutines.launch
 
@@ -32,9 +33,10 @@ class PlayViewModel(
                 cycles = it.cycles ?: emptyList()
             )
         }.onFailure { e ->
-            uiState = uiState.copy(
-                message = e.message, isFetching = false
-            )
+            if (e.message != BuildConfig.API_UNAUTHORIZED_MESSAGE)
+                uiState = uiState.copy(
+                    message = e.message, isFetching = false
+                )
         }
     }
 

@@ -30,6 +30,7 @@ android {
                     "\"http://10.0.2.2:8080/api/\""
             buildConfigField "String", "WEBPAGE_BASE_URL",
                     "\"https://gogym.com\""
+            buildConfigField "String", "API_UNAUTHORIZED_MESSAGE", "\"Unauthorized\""
         }
         debug {
             // No usar localhost o la IP 127.0.0.1 porque es la interfaz de loopback
@@ -39,6 +40,7 @@ android {
                     "\"http://10.0.2.2:8080/api/\""
             buildConfigField "String", "WEBPAGE_BASE_URL",
                     "\"https://gogym.com\""
+            buildConfigField "String", "API_UNAUTHORIZED_MESSAGE", "\"Unauthorized\""
         }
     }
     compileOptions {
