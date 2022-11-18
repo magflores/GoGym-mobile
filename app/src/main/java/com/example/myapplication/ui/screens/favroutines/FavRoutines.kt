@@ -19,12 +19,16 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.myapplication.AllRoutinesAppBar
 import com.example.myapplication.BottomNavLayout
 import com.example.myapplication.FavouritesRoutinesAppBar
 import com.example.myapplication.R
 import com.example.myapplication.ui.ExampleViewModel
 import com.example.myapplication.ui.screens.allroutines.ListRow
 import com.example.myapplication.ui.screens.allroutines.RoutinesViewModel
+import com.example.myapplication.ui.screens.allroutines.stateTypeOfView_List_Grid
+import com.google.accompanist.swiperefresh.SwipeRefresh
+import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 
 //import com.google.accompanist.swiperefresh.SwipeRefresh
 //import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
@@ -46,42 +50,42 @@ fun FavRoutines(
         viewModel.getFavourites()
     }
     val uiState = viewModel.uiState
+    val routinesUiState = routinesViewModel.uiState
     val scaffoldState = rememberScaffoldState()
-    BottomNavLayout(navController = navController,
-        mainViewModel = mainViewModel) { padding ->
+    BottomNavLayout(
+        navController = navController,
+        mainViewModel = mainViewModel
+    ) { padding ->
         Scaffold(
             modifier = Modifier.padding(padding),
             topBar = {
-                FavouritesRoutinesAppBar(
-                    title = stringResource(
-                        id = R.string.fav_routines),
-                    viewModel = viewModel,
-                    mainViewModel = mainViewModel,
+                AllRoutinesAppBar(
+                    title = stringResource(R.string.fav_routines),
+                    viewModel = routinesViewModel,
+                    mainViewModel = mainViewModel
                 )
             },
             scaffoldState = scaffoldState
         ) { scaffoldPadding ->
-//            SwipeRefresh
-
-//            TODO: esto va:
-//            SwipeRefresh(
-//                state = rememberSwipeRefreshState(isRefreshing = uiState.isFetching),
-//                onRefresh = { viewModel.getFavourites(true) },
-//            ) {
+            SwipeRefresh(
+                state = rememberSwipeRefreshState(isRefreshing = uiState.isFetching),
+                onRefresh = { viewModel.getFavourites(true) },
+            ) {
                 Column(
-                    modifier = Modifier.padding(scaffoldPadding)
+                    modifier = Modifier.padding(scaffoldPadding).fillMaxSize()
                 ) {
                     Column(
                         modifier = Modifier.fillMaxWidth()
                     ) {
                         val configuration = LocalConfiguration.current
-                        if (uiState.stateTypeOfView_List_Grid) {
+                        if (routinesUiState.stateTypeOfView_List_Grid) {
                             LazyColumn(
                                 horizontalAlignment = Alignment.CenterHorizontally,
                                 verticalArrangement = Arrangement
                                     .spacedBy(4.dp),
                                 contentPadding = PaddingValues(
-                                    horizontal = 16.dp, vertical = 8.dp),
+                                    horizontal = 16.dp, vertical = 8.dp
+                                ),
                                 modifier = Modifier
                                     .background(Color.White)
                             ) {
@@ -89,7 +93,8 @@ fun FavRoutines(
                                     this.item {
                                         ListRow(
                                             model = it,
-                                            onGoToRoutine = onGoToRoutine)
+                                            onGoToRoutine = onGoToRoutine
+                                        )
                                     }
                                 }
                             }
@@ -103,7 +108,8 @@ fun FavRoutines(
                                         contentPadding =
                                         PaddingValues(
                                             horizontal = 16.dp,
-                                            vertical = 8.dp),
+                                            vertical = 8.dp
+                                        ),
                                         modifier = Modifier
                                             .background(Color.White)
                                     ) {
@@ -111,7 +117,8 @@ fun FavRoutines(
                                             this.item {
                                                 ListRow(
                                                     model = it,
-                                                    onGoToRoutine = onGoToRoutine)
+                                                    onGoToRoutine = onGoToRoutine
+                                                )
                                             }
                                         }
                                     }
@@ -124,7 +131,8 @@ fun FavRoutines(
                                         contentPadding =
                                         PaddingValues(
                                             horizontal = 16.dp,
-                                            vertical = 8.dp),
+                                            vertical = 8.dp
+                                        ),
                                         modifier = Modifier
                                             .padding(padding)
                                             .background(Color.White)
@@ -133,7 +141,8 @@ fun FavRoutines(
                                             this.item {
                                                 ListRow(
                                                     model = it,
-                                                    onGoToRoutine = onGoToRoutine)
+                                                    onGoToRoutine = onGoToRoutine
+                                                )
                                             }
                                         }
                                     }
@@ -148,7 +157,7 @@ fun FavRoutines(
                         }
                     }
                 }
-//            }
+            }
         }
     }
 

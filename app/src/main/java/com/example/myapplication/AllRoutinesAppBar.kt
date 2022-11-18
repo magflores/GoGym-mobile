@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Lock
+import androidx.compose.material.icons.filled.Logout
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.runtime.*
@@ -108,8 +109,7 @@ fun FavouritesRoutinesAppBar(
                     Row(
                         modifier = Modifier.fillMaxWidth()
                     ) {
-//                        TODO: imageVector = Icons.Default.Logout
-                        Icon(imageVector = Icons.Default.Lock, contentDescription = stringResource(
+                        Icon(imageVector = Icons.Default.Logout, contentDescription = stringResource(
                             id = R.string.logout
                         ))
                         Text(text = stringResource(id = R.string.logout))
