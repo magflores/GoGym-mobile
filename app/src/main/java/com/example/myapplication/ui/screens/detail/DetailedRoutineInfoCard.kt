@@ -28,7 +28,6 @@ fun RoutineInfoCard(modifier: Modifier = Modifier, routine: Routine) {
             ) {
                 Text(text = routine.name, fontWeight = FontWeight.Bold, fontSize = 30.sp)
                 Text(text = routine.detail, fontWeight = FontWeight.Light, fontSize = 20.sp)
-                Text(text = "FAVORITO: ${routine.isFavorite}")
             }
             Row(
                 verticalAlignment = Alignment.CenterVertically,
