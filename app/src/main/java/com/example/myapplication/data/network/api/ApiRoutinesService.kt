@@ -92,4 +92,17 @@ interface ApiRoutinesService {
 
     @DELETE("favourites/{routineId}")
     suspend fun deleteFavouriteRoutine(@Path("routineId") routineId: Int): Response<Unit>
+
+    @GET("reviews/{routineId}")
+    suspend fun getRoutineReview(@Path("routineId") routineId: Int,
+                                 @Query("page") page: Int? = null,
+                                 @Query("size") size: Int? = null,
+                                 @Query("orderBy") orderBy: String? = null,
+                                 @Query("direction") direction: String? = null,)
+    : Response<NetworkPagedContent<NetworkReviewContent>>
+
+    @POST("reviews/{routineId}")
+    suspend fun addRoutineReview(@Path("routineId") routineId: Int,
+                                 @Body reviewInformation : NetworkReviewInformation)
+    : Response<Unit>
 }
