@@ -26,4 +26,7 @@
     <string name="favourite">Favorito</string>
     <string name="loading">Cargando</string>
     <string name="selected_routine">Rutina Seleccionada</string>
+    <string name="sorttext">Direccion</string>
+    <string name="order">Ordenar</string>
+    <string name="apply">Aplicar</string>
 </resources>

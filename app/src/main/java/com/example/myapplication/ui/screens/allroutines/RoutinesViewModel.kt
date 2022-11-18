@@ -137,5 +137,9 @@ class RoutinesViewModel(
     fun dismissMessage() {
         uiState = uiState.copy(message = null)
     }
+
+    fun orderBy(order: Order) {
+        uiState = uiState.copy(orderBy = order)
+    }
 }
 
