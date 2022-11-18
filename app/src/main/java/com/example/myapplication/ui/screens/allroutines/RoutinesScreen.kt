@@ -204,7 +204,8 @@ fun RoutinesLayout(
     }
 
     if (showPopup) {
-        SortPopup(onPopupDismissed, routinesViewModel = viewModel)
+        SortPopup(onPopupDismissed,
+            routinesViewModel = viewModel)
     }
 }
 

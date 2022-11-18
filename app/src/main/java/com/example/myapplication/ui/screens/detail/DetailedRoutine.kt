@@ -4,8 +4,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.PlayArrow
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -13,6 +12,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.myapplication.BottomNavLayout
 import com.example.myapplication.R
+import com.example.myapplication.ScorePopup
 import com.example.myapplication.ui.ExampleViewModel
 import com.example.myapplication.ui.screens.allroutines.RoutinesViewModel
 import com.example.myapplication.ui.screens.allroutines.hasError
@@ -40,6 +40,10 @@ fun DetailedRoutine(
 
 
 
+    var showScorePopup by remember { mutableStateOf(false) }
+    val onPopupDismissed = {showScorePopup = false}
+    val onRatingClick = {showScorePopup = true}
+
     BottomNavLayout(
         navController = navController, mainViewModel = mainViewModel
     ) { bottomNavPadding ->
@@ -47,10 +51,11 @@ fun DetailedRoutine(
             topBar = {
                 RoutineTopBar(
 //                    title = routinesUiState.currentRoutine?.name,
-                    title = stringResource(id = R.string.selected_routine),
+                    title = stringResource(id = R.string.routine),
                     onBack = onBack,
                     routineId = routineId,
-                    routinesViewModel = routinesViewModel
+                    routinesViewModel = routinesViewModel,
+                    onRatingClick = onRatingClick
                 )
             },
             floatingActionButton = {
@@ -119,6 +124,12 @@ fun DetailedRoutine(
                 SnackbarResult.ActionPerformed -> routinesViewModel.dismissMessage()
             }
         }
+    }
+
+    if (showScorePopup){
+        ScorePopup(onPopupDismissed = onPopupDismissed,
+            routinesViewModel = routinesViewModel,
+            myRoutineId = routineId)
     }
 
 }

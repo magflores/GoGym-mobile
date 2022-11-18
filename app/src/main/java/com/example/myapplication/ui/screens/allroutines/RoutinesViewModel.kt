@@ -116,6 +116,23 @@ class RoutinesViewModel(
         }
     }
 
+    fun setScore(routineId: Int, score: Int, review: String) = viewModelScope.launch {
+        uiState = uiState.copy(isFetching = true, message = null)
+        kotlin.runCatching {
+            routineRepository.setScore(routineId, score, review)
+        }.onSuccess {
+            uiState = uiState.copy(
+                isFetching = false
+            )
+        }.onFailure { e ->
+            uiState = uiState.copy(
+                message = e.message, isFetching = false
+            )
+
+        }
+
+    }
+
     fun markFavourite(routineId: Int) = viewModelScope.launch {
         uiState = uiState.copy(isFetching = true, message = null)
         var fav = false

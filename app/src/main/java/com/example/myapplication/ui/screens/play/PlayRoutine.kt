@@ -4,7 +4,11 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Share
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.material.icons.filled.ChevronLeft
 import androidx.compose.material.icons.filled.ChevronRight
 import androidx.compose.material.icons.filled.MoreVert
@@ -25,7 +29,7 @@ import com.example.myapplication.data.model.RoutineCycle
 fun PlayRoutineTopBar(onBack: () -> Unit, playViewModel: PlayViewModel) {
     var showMenu by remember { mutableStateOf(false) }
     TopAppBar(title = {
-        Text("Routine")
+        Text(stringResource(id = R.string.routine))
     }, navigationIcon = {
         IconButton(onClick = onBack) {
             Icon(Icons.Filled.ArrowBack, contentDescription = "Back")

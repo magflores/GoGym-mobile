@@ -9,6 +9,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Share
+import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
@@ -19,10 +20,14 @@ import com.example.myapplication.ui.screens.allroutines.RoutinesViewModel
 
 @Composable
 fun RoutineTopBar(
-    onBack: () -> Unit, routineId: Int,
-    routinesViewModel: RoutinesViewModel, title: String
+    onBack: () -> Unit,
+    routineId: Int,
+    routinesViewModel: RoutinesViewModel,
+    onRatingClick: () -> Unit,
+    title: String
 ) {
     val routine = routinesViewModel.uiState.currentRoutine
+//    var showScoreButton by remember { mutableStateOf(false)}
     TopAppBar(title = {
         Text(title)
     }, navigationIcon = {
@@ -30,6 +35,10 @@ fun RoutineTopBar(
             Icon(Icons.Filled.ArrowBack, contentDescription = "Back")
         }
     }, actions = {
+        IconButton(onClick = { onRatingClick }) {
+            Icon(Icons.Filled.Star,
+                contentDescription = stringResource(id = R.string.score))
+        }
         IconButton(onClick = {
             routinesViewModel.markFavourite(routineId)
         }) {

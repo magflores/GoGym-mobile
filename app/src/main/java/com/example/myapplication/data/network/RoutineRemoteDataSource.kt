@@ -1,10 +1,7 @@
 package com.example.myapplication.data.network
 
 import com.example.myapplication.data.network.api.ApiRoutinesService
-import com.example.myapplication.data.network.model.NetworkContentExercise
-import com.example.myapplication.data.network.model.NetworkPagedContent
-import com.example.myapplication.data.network.model.NetworkRoutineCycle
-import com.example.myapplication.data.network.model.NetworkRoutines
+import com.example.myapplication.data.network.model.*
 
 class RoutineRemoteDataSource(
     private val apiRoutinesService: ApiRoutinesService
@@ -76,6 +73,12 @@ class RoutineRemoteDataSource(
     suspend fun unmarkFavourite(routineId: Int) {
         handleApiResponse {
             apiRoutinesService.deleteFavouriteRoutine(routineId)
+        }
+    }
+
+    suspend fun setScore(routineId: Int, reviewInformation: NetworkReviewInformation) {
+        handleApiResponse {
+            apiRoutinesService.addRoutineReview(routineId, reviewInformation)
         }
     }
 

@@ -30,4 +30,5 @@
     <string name="apply">Apply</string>
     <string name="summaryView">Brief</string>
     <string name="detailedView">Detailed</string>
+    <string name="score">Score</string>
 </resources>

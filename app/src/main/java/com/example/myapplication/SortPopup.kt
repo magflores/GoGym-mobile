@@ -17,11 +17,15 @@ import com.example.myapplication.ui.screens.allroutines.RoutinesViewModel
 import com.example.myapplication.ui.screens.allroutines.Sort
 
 @Composable
-fun SortPopup(onPopupDismissed: () -> Unit, routinesViewModel: RoutinesViewModel) {
+fun SortPopup(
+    onPopupDismissed: () -> Unit,
+    routinesViewModel: RoutinesViewModel) {
+
     val orderOptions = Order.values()
     val (orderSelected, onOrderSelected) = remember { mutableStateOf(routinesViewModel.uiState.orderBy) }
     val sortOptions = Sort.values()
     val (sortSelected, onSortSelected) = remember { mutableStateOf(routinesViewModel.uiState.sort) }
+
     AlertDialog(onDismissRequest = onPopupDismissed, confirmButton = {
         Button(onClick = {
             routinesViewModel.orderBy(orderSelected)
@@ -35,11 +39,13 @@ fun SortPopup(onPopupDismissed: () -> Unit, routinesViewModel: RoutinesViewModel
             Column {
                 orderOptions.forEach { order ->
                     Row(
-                        Modifier.selectable(selected = (order == orderSelected),
+                        Modifier.selectable(
+                            selected = (order == orderSelected),
                             onClick = { onOrderSelected(order) })
                     ) {
-                        RadioButton(selected = (order == orderSelected), onClick = {
-                            onOrderSelected(order)
+                        RadioButton(selected = (order == orderSelected),
+                            onClick = {
+                                onOrderSelected(order)
                         })
                         Text(text = order.order)
                     }

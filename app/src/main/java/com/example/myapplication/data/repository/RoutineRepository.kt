@@ -2,6 +2,7 @@ package com.example.myapplication.data.repository
 
 import com.example.myapplication.data.model.Routine
 import com.example.myapplication.data.network.RoutineRemoteDataSource
+import com.example.myapplication.data.network.model.NetworkReviewInformation
 import com.example.myapplication.data.network.model.NetworkRoutines
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
@@ -108,6 +109,11 @@ class RoutineRepository(
 
     suspend fun deleteToFavourite(newRoutineId: Int){
         remoteDataSource.unmarkFavourite(newRoutineId)
+    }
+
+    suspend fun setScore(routineId: Int, score: Int, review: String) {
+        remoteDataSource.setScore(routineId,
+            NetworkReviewInformation(score = score, review = review))
     }
 
     suspend fun getUserRoutines(userId: Int, orderBy: String, sort: String): List<Routine> {

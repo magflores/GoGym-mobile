@@ -143,13 +143,18 @@ fun LogIn(viewModel: ExampleViewModel, onLogIn: () -> Unit) {
                     StyledTextField(stringResource(id = R.string.user_label_to_complete), username, setUsername)
                     StyledTextFieldPassword(stringResource(id = R.string.password_label_to_complete), password, setPassword)
 
-                    ButtonPlusTextBelow(
-                        stringResource(id = R.string.enter_button),
-                        stringResource(id  = R.string.forgot_password), viewModel, username, password, onLogIn)
-                }
+                ButtonPlusTextBelow(
+                    buttonText =  stringResource(id = R.string.enter_button),
+                    textBelow = "",
+//                    stringResource(id  = R.string.forgot_password),
+                    viewModel = viewModel,
+                    username = username,
+                    password = password,
+                    onLogIn = onLogIn)
             }
         }
     }
+}
 
     if (viewModel.uiState.hasError) {
         val actionLabel = stringResource(id = R.string.dismiss)

@@ -5,5 +5,5 @@ import com.google.gson.annotations.SerializedName
 data class NetworkReviewInformation(
 
     @SerializedName("score"    ) var score    : Int,
-    @SerializedName("password" ) var password : String
+    @SerializedName("review"   ) var review   : String? = null
 )
