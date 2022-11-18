@@ -90,4 +90,10 @@ class PlayViewModel(
     fun reset() {
         uiState = PlayUiState()
     }
+
+    fun changeDetailView() {
+        uiState = uiState.copy(
+            detailed = !uiState.detailed
+        )
+    }
 }

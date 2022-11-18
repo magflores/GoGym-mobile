@@ -10,6 +10,7 @@ data class PlayUiState(
     val cycles: List<RoutineCycle> = listOf(),
     val isFetching: Boolean = false,
     val message: String? = null,
+    val detailed: Boolean = false,
 )
 
 val PlayUiState.canNextExercise: Boolean get() = ! (playingCycle == cycles.size-1 && currentRepeat == cycles[playingCycle].repetitions-1 && playingExercise == cycles[playingCycle].exercises.size-1)

@@ -28,4 +28,6 @@
     <string name="sorttext">Sort</string>
     <string name="order">Order</string>
     <string name="apply">Apply</string>
+    <string name="summaryView">Brief</string>
+    <string name="detailedView">Detailed</string>
 </resources>

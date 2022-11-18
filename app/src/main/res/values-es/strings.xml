@@ -29,4 +29,6 @@
     <string name="sorttext">Direccion</string>
     <string name="order">Ordenar</string>
     <string name="apply">Aplicar</string>
+    <string name="summaryView">Resumida</string>
+    <string name="detailedView">Detallada</string>
 </resources>
