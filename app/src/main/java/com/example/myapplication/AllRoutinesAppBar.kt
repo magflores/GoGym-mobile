@@ -19,7 +19,8 @@ fun AllRoutinesAppBar(
     title: String,
     viewModel: RoutinesViewModel,
     mainViewModel: ExampleViewModel,
-    onSortClick: () -> Unit
+    onSortClick: () -> Unit,
+    showSortButton: Boolean = true
 ){
     var showMenu by remember {
         mutableStateOf(false)
@@ -50,10 +51,15 @@ fun AllRoutinesAppBar(
                 Icon(imageVector = Icons.Default.MoreVert, contentDescription = stringResource(id = R.string.more))
             }
             DropdownMenu(expanded = showMenu, onDismissRequest = { showMenu = false }) {
-                DropdownMenuItem(onClick = onSortClick) {
-                    Row(modifier = Modifier.fillMaxWidth()) {
-                        Icon(imageVector = Icons.Default.Sort, contentDescription = stringResource(id = R.string.sorttext))
-                        Text(stringResource(R.string.sorttext))
+                if (showSortButton) {
+                    DropdownMenuItem(onClick = onSortClick) {
+                        Row(modifier = Modifier.fillMaxWidth()) {
+                            Icon(
+                                imageVector = Icons.Default.Sort,
+                                contentDescription = stringResource(id = R.string.sorttext)
+                            )
+                            Text(stringResource(R.string.sorttext))
+                        }
                     }
                 }
                 DropdownMenuItem(onClick = { mainViewModel.logout() }) {

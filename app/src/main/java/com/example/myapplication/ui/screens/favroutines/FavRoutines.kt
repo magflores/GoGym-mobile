@@ -62,7 +62,8 @@ fun FavRoutines(
                     title = stringResource(R.string.fav_routines),
                     viewModel = routinesViewModel,
                     mainViewModel = mainViewModel,
-                    onSortClick = onSortClick
+                    onSortClick = onSortClick,
+                    showSortButton = false
                 )
             },
             scaffoldState = scaffoldState
