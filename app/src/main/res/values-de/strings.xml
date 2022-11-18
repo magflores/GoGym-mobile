@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">GoGym!</string>
+    <string name="logo">GOGYM!_LOGO</string>
+    <string name="e_mail_label_to_complete">E-MAIL</string>
+    <string name="password_label_to_complete">PASSWORT</string>
+    <string name="log_in">Einloggen</string>
+    <string name="rutines">Routinen</string>
+    <string name="exercises">Übungen</string>
+    <string name="enter_button">Eintreten</string>
+    <string name="forgot_password">Haben Sie Ihr Passwort vergessen? Klick hier</string>
+    <string name="fav_routines">Lieblingsroutinen</string>
+    <string name="all_routines">Alle Routinen</string>
+    <string name="my_routines">Meine Routinen</string>
+    <string name="routine">Routine</string>
+    <string name="play">Spielen</string>
+    <string name="created_by">durch %1$s</string>
+    <string name="play_routine">Routine spielen</string>
+    <string name="hide_password">Passwort verbergen</string>
+    <string name="show_password">Passwort anzeigen</string>
+    <string name="dismiss">Zurückweisen</string>
+    <string name="logout">Ausloggen</string>
+    <string name="share">Teilen</string>
+    <string name="more">Mehr</string>
+    <string name="favourite">Favorit</string>
+    <string name="user_label_to_complete">NUTZERNAME</string>
+    <string name="loading">Wird geladen</string>
+    <string name="selected_routine">Ausgewählte Routine</string>
+    <string name="sorttext">Sortieren</string>
+    <string name="order">Befehl</string>
+    <string name="apply">Sich bewerben</string>
+    <string name="summaryView">Knapp</string>
+    <string name="detailedView">Ausführlich</string>
+</resources>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">GoGym!</string>
+    <string name="logo">LOGO_GOGYM!</string>
+    <string name="e_mail_label_to_complete">E-MAIL</string>
+    <string name="password_label_to_complete">PAROLA D\' ORDINE</string>
+    <string name="log_in">Accesso</string>
+    <string name="rutines">Routine</string>
+    <string name="exercises">Addestramento</string>
+    <string name="enter_button">Entrare dentro</string>
+    <string name="forgot_password">Hai dimenticato la tua password? Clicca qui</string>
+    <string name="fav_routines">Routine preferite</string>
+    <string name="all_routines">Routine</string>
+    <string name="my_routines">Le mie Routine</string>
+    <string name="routine">Routine</string>
+    <string name="play">Correre</string>
+    <string name="created_by">di %1$s</string>
+    <string name="play_routine">Esegui routine</string>
+    <string name="hide_password">Nascondi password</string>
+    <string name="show_password">Mostra password</string>
+    <string name="dismiss">Scartare</string>
+    <string name="logout">Lasciare</string>
+    <string name="share">Condividere</string>
+    <string name="more">Più</string>
+    <string name="user_label_to_complete">NOME UTENTE</string>
+    <string name="favourite">Preferito</string>
+    <string name="loading">Ricarica</string>
+    <string name="selected_routine">Routine selezionata</string>
+    <string name="sorttext">Direzione</string>
+    <string name="order">Organizzare</string>
+    <string name="apply">Applicare</string>
+    <string name="summaryView">Riassunto</string>
+    <string name="detailedView">Dettagliato</string>
+</resources>
