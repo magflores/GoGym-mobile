@@ -35,6 +35,7 @@ fun SortPopup(
     AlertDialog(onDismissRequest = onPopupDismissed, confirmButton = {
         Button(onClick = {
             routinesViewModel.orderBy(orderSelected)
+            onRefresh()
             onPopupDismissed()
         }) {
             Text(text = stringResource(id = R.string.apply))
