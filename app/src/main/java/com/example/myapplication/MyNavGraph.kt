@@ -21,7 +21,7 @@ import com.example.myapplication.util.getViewModelFactory
 fun MyNavGraph(navController: NavHostController, exampleViewModel: ExampleViewModel) {
     val favRoutinesViewModel: FavRoutinesViewModel = viewModel(factory = getViewModelFactory())
     val routinesViewModel: RoutinesViewModel = viewModel(factory = getViewModelFactory())
-    val routineUri = BuildConfig.WEBPAGE_BASE_URL
+    val routineUriAddon = "/viewroutine"
     NavHost(
         navController = navController, startDestination = Screen.FavRoutinesScreen.route
     ) {
@@ -37,7 +37,54 @@ fun MyNavGraph(navController: NavHostController, exampleViewModel: ExampleViewMo
         }
         val goToRoutine: (Int) -> Unit =
             { navController.navigate(Screen.RoutineScreen.route + "/" + it.toString()) }
-        composable(Screen.FavRoutinesScreen.route) {
+        composable(
+            Screen.RoutineScreen.route + "/{routineId}",
+            arguments = listOf(navArgument("routineId") { type = NavType.IntType }),
+            deepLinks = listOf(
+                navDeepLink {
+                    uriPattern = "${BuildConfig.WEBPAGE_BASE_URL}$routineUriAddon/{routineId}"
+                },
+                navDeepLink {
+                    uriPattern = "${BuildConfig.WEBPAGE_BASE_URL2}$routineUriAddon/{routineId}"
+                },
+                navDeepLink {
+                    uriPattern = "${BuildConfig.WEBPAGE_BASE_URL3}$routineUriAddon/{routineId}"
+                },
+                navDeepLink {
+                    uriPattern = "${BuildConfig.WEBPAGE_BASE_URL4}$routineUriAddon/{routineId}"
+                },
+                navDeepLink {
+                    uriPattern = "${BuildConfig.WEBPAGE_BASE_URL5}$routineUriAddon/{routineId}"
+                },
+                navDeepLink {
+                    uriPattern = "${BuildConfig.WEBPAGE_BASE_URL6}$routineUriAddon/{routineId}"
+                },
+                )
+        ) { backStackEntry ->
+            val routineId = backStackEntry.arguments?.getInt("routineId") ?: 0
+            DetailedRoutine(
+                navController = navController,
+                mainViewModel = exampleViewModel,
+                routineId = routineId,
+                onBack = { navController.popBackStack() },
+                onPlay = {
+                    navController.navigate("${Screen.PlayRoutineScreen.route}/$routineId")
+                },
+                routinesViewModel = routinesViewModel,
+                favRoutinesViewModel = favRoutinesViewModel
+            )
+        }
+        composable(
+            Screen.FavRoutinesScreen.route,
+            deepLinks = listOf(
+                navDeepLink { uriPattern = BuildConfig.WEBPAGE_BASE_URL },
+                navDeepLink { uriPattern = BuildConfig.WEBPAGE_BASE_URL2 },
+                navDeepLink { uriPattern = BuildConfig.WEBPAGE_BASE_URL3 },
+                navDeepLink { uriPattern = BuildConfig.WEBPAGE_BASE_URL4 },
+                navDeepLink { uriPattern = BuildConfig.WEBPAGE_BASE_URL5 },
+                navDeepLink { uriPattern = BuildConfig.WEBPAGE_BASE_URL6 }
+            )
+        ) {
             FavRoutines(
                 navController = navController,
                 onNotLoggedIn = onNotLoggedIn,
@@ -76,24 +123,6 @@ fun MyNavGraph(navController: NavHostController, exampleViewModel: ExampleViewMo
                         navController.backQueue.clear()
                     }
                 }
-            )
-        }
-        composable(
-            Screen.RoutineScreen.route + "/{routineId}",
-            arguments = listOf(navArgument("routineId") { type = NavType.IntType }),
-            deepLinks = listOf(navDeepLink { uriPattern = "$routineUri/{routineId}" })
-        ) { backStackEntry ->
-            val routineId = backStackEntry.arguments?.getInt("routineId") ?: 0
-            DetailedRoutine(
-                navController = navController,
-                mainViewModel = exampleViewModel,
-                routineId = routineId,
-                onBack = { navController.popBackStack() },
-                onPlay = {
-                    navController.navigate("${Screen.PlayRoutineScreen.route}/$routineId")
-                },
-                routinesViewModel = routinesViewModel,
-                favRoutinesViewModel = favRoutinesViewModel
             )
         }
         composable(

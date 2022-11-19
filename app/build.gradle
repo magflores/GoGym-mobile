@@ -27,9 +27,19 @@ android {
             // del emulador. La forma de salir del emulador para acceder al localhost
             // de host del mismo es usando la IP 10.0.2.2.
             buildConfigField "String", "API_BASE_URL",
-                    "\"http://10.0.2.2:8080/api/\""
+                    "\"http://192.168.1.29:8080/api/\""
             buildConfigField "String", "WEBPAGE_BASE_URL",
                     "\"https://gogym.com\""
+            buildConfigField "String", "WEBPAGE_BASE_URL2",
+                    "\"https://www.gogym.com\""
+            buildConfigField "String", "WEBPAGE_BASE_URL3",
+                    "\"http://www.gogym.com\""
+            buildConfigField "String", "WEBPAGE_BASE_URL4",
+                    "\"www.gogym.com\""
+            buildConfigField "String", "WEBPAGE_BASE_URL5",
+                    "\"http://gogym.com\""
+            buildConfigField "String", "WEBPAGE_BASE_URL6",
+                    "\"gogym.com\""
             buildConfigField "String", "API_UNAUTHORIZED_MESSAGE", "\"Unauthorized\""
         }
         debug {
@@ -37,9 +47,19 @@ android {
             // del emulador. La forma de salir del emulador para acceder al localhost
             // de host del mismo es usando la IP 10.0.2.2.
             buildConfigField "String", "API_BASE_URL",
-                    "\"http://10.0.2.2:8080/api/\""
+                    "\"http://192.168.1.29:8080/api/\""
             buildConfigField "String", "WEBPAGE_BASE_URL",
                     "\"https://gogym.com\""
+            buildConfigField "String", "WEBPAGE_BASE_URL2",
+                    "\"https://www.gogym.com\""
+            buildConfigField "String", "WEBPAGE_BASE_URL3",
+                    "\"http://www.gogym.com\""
+            buildConfigField "String", "WEBPAGE_BASE_URL4",
+                    "\"www.gogym.com\""
+            buildConfigField "String", "WEBPAGE_BASE_URL5",
+                    "\"http://gogym.com\""
+            buildConfigField "String", "WEBPAGE_BASE_URL6",
+                    "\"gogym.com\""
             buildConfigField "String", "API_UNAUTHORIZED_MESSAGE", "\"Unauthorized\""
         }
     }
