@@ -5,7 +5,7 @@ Explore and create workout routines with GoGym!
 
 ### Pre-requisites
 * You need to have Android Studio installed
-* Clone the repository
+* Clone the repository and unzip it
 * You need to have the API running in your local machine (brought by the professorship)
 
 ### Run the app in your local machine
@@ -19,6 +19,3 @@ Explore and create workout routines with GoGym!
 4. Select on the toolbar your device and run the app
 
 ### Enjoy GoGym!
-[comment]: <> (// add an image of the app)
-![My Image](../res/drawable/logo2docuatri.png)
-
