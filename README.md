@@ -1,7 +1,7 @@
 # GoGym! (mobile version)
 Explore and create workout routines with GoGym!
 
-## Proyect setup
+## Project setup
 
 ### Pre-requisites
 * You need to have Android Studio installed
