@@ -18,4 +18,7 @@ Explore and create workout routines with GoGym!
 3. Connect your device to your computer
 4. Select on the toolbar your device and run the app
 
-## Enjoy GoGym!
+### Enjoy GoGym!
+[comment]: <> (// add an image of the app)
+![My Image](../res/drawable/logo2docuatri.png)
+
