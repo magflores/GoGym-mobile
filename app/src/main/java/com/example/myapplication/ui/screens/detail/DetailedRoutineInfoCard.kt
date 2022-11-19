@@ -16,6 +16,8 @@ import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.example.myapplication.R
 import com.example.myapplication.ui.screens.allroutines.RoutinesViewModel
+import com.example.myapplication.ui.theme.Green200
+import com.example.myapplication.ui.theme.Shapes
 import org.ocpsoft.prettytime.PrettyTime
 
 @Composable
@@ -23,7 +25,9 @@ fun RoutineInfoCard(modifier: Modifier = Modifier, routinesViewModel: RoutinesVi
     val routine = routinesViewModel.uiState.currentRoutine
     routine?.let {
         Surface(
-            modifier = modifier.fillMaxWidth()
+            modifier = modifier.fillMaxWidth(),
+            color = Green200,
+            shape = Shapes.medium
         ) {
             val prettyTime = PrettyTime()
             Column(
@@ -38,10 +42,33 @@ fun RoutineInfoCard(modifier: Modifier = Modifier, routinesViewModel: RoutinesVi
                     Text(text = routine.detail, fontWeight = FontWeight.Light, fontSize = 20.sp)
                 }
                 Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.Center
+                ) {
+                    Row() {
+                        Text(text = stringResource(R.string.score) + ": ")
+                        Text(text = routine.score.toString())
+                    }
+                }
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.Center
+                ) {
+                    Text(text = stringResource(R.string.difficulty) + ": ")
+                    Text(text = routine.difficulty)
+                }
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.Center
+                ) {
+                    Text(text = stringResource(R.string.category) + ": ")
+                    Text(text = if (routine.category != "") routine.category else "-")
+                }
+                Row(
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.Center
                 ) {
-                    if (routine.user.avatarUrl != ""){
+                    if (routine.user.avatarUrl != "") {
                         AsyncImage(
                             model = routine.user.avatarUrl,
                             contentDescription = stringResource(R.string.authorPicture),
@@ -58,26 +85,6 @@ fun RoutineInfoCard(modifier: Modifier = Modifier, routinesViewModel: RoutinesVi
                     Column {
                         Text(text = routine.user.username)
                         Text(text = prettyTime.format(routine.user.lastActivity))
-                    }
-                }
-                Row(
-                    modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly
-                ) {
-                    Row(){
-                        Text(text = stringResource(R.string.score)+":")
-                        Text(text = routine.score.toString())
-                    }
-                }
-                Row(
-                    modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly
-                ) {
-                    Row(){
-                        Text(text = stringResource(R.string.difficulty)+":")
-                        Text(text = routine.difficulty)
-                    }
-                    Row() {
-                        Text(text = stringResource(R.string.category)+":")
-                        Text(text = routine.category)
                     }
                 }
             }

@@ -65,14 +65,12 @@ fun MyNavGraph(navController: NavHostController, exampleViewModel: ExampleViewMo
             DetailedRoutine(
                 navController = navController,
                 mainViewModel = exampleViewModel,
-                routineId = routineId,
-                onBack = { navController.popBackStack() },
-                onPlay = {
-                    navController.navigate("${Screen.PlayRoutineScreen.route}/$routineId")
-                },
                 routinesViewModel = routinesViewModel,
-                favRoutinesViewModel = favRoutinesViewModel
-            )
+                routineId = routineId,
+                onBack = { navController.popBackStack() }
+            ) {
+                navController.navigate("${Screen.PlayRoutineScreen.route}/$routineId")
+            }
         }
         composable(
             Screen.FavRoutinesScreen.route,

@@ -1,13 +1,11 @@
 package com.example.myapplication.ui.screens.detail
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.BoxWithConstraints
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -18,7 +16,6 @@ import com.example.myapplication.ScorePopup
 import com.example.myapplication.ui.ExampleViewModel
 import com.example.myapplication.ui.screens.allroutines.RoutinesViewModel
 import com.example.myapplication.ui.screens.allroutines.hasError
-import com.example.myapplication.ui.screens.favroutines.FavRoutinesViewModel
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 
@@ -27,7 +24,6 @@ fun DetailedRoutine(
     navController: NavController,
     mainViewModel: ExampleViewModel,
     routinesViewModel: RoutinesViewModel,
-    favRoutinesViewModel: FavRoutinesViewModel,
     routineId: Int,
     onBack: () -> Unit,
     onPlay: () -> Unit
@@ -84,7 +80,13 @@ fun DetailedRoutine(
                         Row {
                             Box(modifier = Modifier.weight(1f)) {
                                 routinesUiState.currentRoutine?.let {
-                                    RoutineInfoCard(routinesViewModel = routinesViewModel)
+                                    Column(
+                                        modifier = Modifier.fillMaxSize().padding(start = 16.dp),
+                                        horizontalAlignment = Alignment.CenterHorizontally,
+                                        verticalArrangement = Arrangement.Center,
+                                    ) {
+                                        RoutineInfoCard(routinesViewModel = routinesViewModel)
+                                    }
                                 }
                             }
                             Box(modifier = Modifier.weight(2f)) {
@@ -127,17 +129,4 @@ fun DetailedRoutine(
         )
     }
 
-}
-
-class RoutineCycle(
-    val id: Int, val title: String, val repeats: Int, val exercises: List<String>
-)
-
-fun getRoutineCycles() = (1..10).map {
-    RoutineCycle(
-        id = it,
-        title = "Cycle $it",
-        repeats = it,
-        exercises = listOf("Exercise 1", "Exercise 2", "Exercise 3")
-    )
 }
